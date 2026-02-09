@@ -8,4 +8,4 @@ Course participants learn the basics of coding through hands-on experiments with
 
 The course includes two short creative coursework and a final project where course participants develop their own interactive or generative artwork.
 
-No prior programming experience is required.
+No prior programming experience is required! :)
