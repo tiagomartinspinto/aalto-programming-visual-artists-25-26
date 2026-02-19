@@ -1,38 +1,39 @@
-// Declare variables for the position and size of both shapes, as well as their colors
-float circleX = 0;
-float circleY = 0;
-int circleSize = 50;
-color circleColor;
+// Session 2 template: follow mouse + inverted shape + dynamic background
 
-float squareX = width;
-float squareY = height;
+float circleX, circleY;
+float squareX, squareY;
+
+int circleSize = 50;
 int squareSize = 50;
-color squareColor;
 
 void setup() {
-  // Set up the size of the canvas (window)
   size(800, 600);
+  rectMode(CENTER);
 }
 
 void draw() {
-  // Set the background color based on the mouse position
-  background(mouseX % 255, mouseY % 255, (mouseX + mouseY) % 255);
+  // Dynamic background based on mouse position (clear mapping)
+  float bgR = map(mouseX, 0, width, 0, 255);
+  float bgG = map(mouseY, 0, height, 0, 255);
+  float bgB = map(mouseX + mouseY, 0, width + height, 0, 255);
+  background(bgR, bgG, bgB);
 
-  // Update the position of both shapes to follow the mouse pointer
+  // Follow mouse
   circleX = mouseX;
   circleY = mouseY;
-  squareX = width - mouseX;
+
+  // Inverted movement (removed copyed around center)
+  squareX = width  - mouseX;
   squareY = height - mouseY;
 
-  // Set the color of each shape based on its position
-  circleColor = color(circleX % 255, circleY % 255, (circleX + circleY) % 255);
-  squareColor = color((squareX * squareY) % 255, (squareX - squareY) % 255, (squareX + squareY) % 255);
-
-  // Draw the shapes with their respective colors and positions
-  fill(circleColor);
+  // Colors based on position
+  float cR = map(circleX, 0, width, 0, 255);
+  float cG = map(circleY, 0, height, 0, 255);
+  fill(cR, cG, 200);
   ellipse(circleX, circleY, circleSize, circleSize);
 
-  fill(squareColor);
-  rectMode(CENTER);
+  float sR = map(squareX, 0, width, 0, 255);
+  float sG = map(squareY, 0, height, 0, 255);
+  fill(sR, 200, sG);
   rect(squareX, squareY, squareSize, squareSize);
 }
