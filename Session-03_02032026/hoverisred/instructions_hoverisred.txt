@@ -1,4 +1,4 @@
-HANDS-ON EXERCISE — INTERACTIVE GRID (Processing)
+HANDS-ON EXERCISE — INTERACTIVE GRID
 
 Goal
 Create a grid using nested for-loops. Each cell reacts when the mouse hovers over it.

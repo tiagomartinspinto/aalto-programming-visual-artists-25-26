@@ -1,0 +1,94 @@
+EXTRA 1 – ANIMATED WAVE SYSTEM
+
+GOAL
+Create a sinusoidal wave animation using mathematical functions.
+
+In this exercise, mathematics becomes motion.
+You will explore how simple formulas generate rhythm and visual pattern.
+
+STEP 1 – RUN THE BASE CODE
+
+Create a new Processing sketch.
+
+Paste the provided wave code.
+
+Run the sketch and observe the movement carefully.
+
+Ask yourself:
+
+What controls the speed of the motion?
+
+What controls the height of the wave?
+
+What controls the distance between peaks?
+
+STEP 2 – EXPLORE THE PARAMETERS
+
+Experiment by modifying:
+
+waveSpeed
+
+waveAmplitude
+
+waveFrequency
+
+Try both subtle and extreme values.
+
+Observe:
+
+When does the motion feel calm?
+
+When does it feel intense or chaotic?
+
+How does rhythm change as you adjust frequency?
+
+STEP 3 – EXPERIMENT AND TRANSFORM
+
+Change at least THREE of the following:
+
+Decrease the x spacing (for example: x += 5 instead of 20)
+
+Change the size of the shapes
+
+Replace ellipse() with rect()
+
+Add color variation
+
+Add transparency
+
+Make amplitude depend on mouseY
+
+Make frequency depend on mouseX
+
+Remove background() to create motion trails
+
+Use beginShape() and vertex() instead of ellipses
+
+Push the system beyond the original example.
+
+STEP 4 – ADVANCED EXPLORATION
+
+Combine multiple waves.
+
+For example:
+
+Add a second sine wave
+
+Offset it slightly
+
+Change its speed or frequency
+
+Or:
+
+Create a grid of animated waves using nested loops.
+
+REFLECTION
+
+How does changing frequency affect visual rhythm?
+
+How does amplitude affect visual intensity?
+
+At what point does the motion feel expressive rather than mechanical?
+
+Mathematics is not abstract here.
+It becomes visual form.
