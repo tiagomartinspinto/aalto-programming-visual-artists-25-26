@@ -1,0 +1,15 @@
+float x, y;
+
+void setup() {
+  size(400, 400);
+  background(0);
+  stroke(255);
+  x = width / 2;
+  y = height / 2;
+}
+
+void draw() {
+  point(x, y);
+  x += random(-3, 3);
+  y += random(-3, 3);
+}
