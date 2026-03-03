@@ -3,7 +3,7 @@ float tileSize;
 
 void setup() {
   size(600, 600);
-  tileSize = width / float(gridSize);
+  tileSize = width / float(gridSize); //float(gridSize) is a way of converting gridSize from int to float. Check more below.
   rectMode(CENTER);
 }
 
@@ -25,3 +25,10 @@ void draw() {
     }
   }
 }
+
+//if we don't convert one of them we will loose the decimal part of the numbers which is important.
+//at least one of the int(s) needs to be covnerted so the float gets the decimal precision 
+//int / int   → int
+//int / float → float
+//float / int → float
+//float / float → float
