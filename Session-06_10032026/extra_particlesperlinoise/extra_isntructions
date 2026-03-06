@@ -1,0 +1,39 @@
+INTERACTING WITH THE PARTICLE SYSTEM
+
+Try modifying the sketch by completing some of these tasks.
+
+Change the particle size
+Modify the size variable so particles become bigger or smaller.
+
+Change the particle speed
+Adjust the movement by changing the values multiplied with cos(angle) and sin(angle).
+
+Change the number of particles
+Increase or decrease the number created in setup().
+
+Change the particle color
+Modify the fill() color inside the display() method.
+
+Change the trail effect
+Adjust the transparency in:
+
+fill(0, 20);
+
+Smaller numbers create longer trails.
+
+Change the movement pattern
+Modify the noise scale:
+
+noise(x * 0.005, y * 0.005, noiseOffset)
+
+Try values like 0.002, 0.01, or 0.02.
+
+Add mouse interaction
+Create new particles at the mouse position when clicking.
+
+Example idea:
+
+particles.add(new Particle(mouseX, mouseY));
+
+Experiment
+Try combining multiple changes and observe how the visual behaviour evolves.
