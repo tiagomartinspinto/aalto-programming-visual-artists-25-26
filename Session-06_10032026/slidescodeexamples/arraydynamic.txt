@@ -3,9 +3,9 @@ ArrayList<Float> sizes = new ArrayList<Float>();
 void setup() {
   size(400, 400);
 
-  sizes.add(20);
-  sizes.add(40);
-  sizes.add(60);
+  sizes.add(20.0);
+  sizes.add(40.0);
+  sizes.add(60.0);
 }
 
 void draw() {
