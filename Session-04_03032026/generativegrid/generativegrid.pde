@@ -26,8 +26,8 @@ void draw() {
   }
 }
 
-//if we don't convert one of them we will loose the decimal part of the numbers which is important.
-//at least one of the int(s) needs to be covnerted so the float gets the decimal precision 
+//if we don't convert one of them we will lose the decimal part of the numbers which is important.
+//at least one of the int(s) needs to be converted so the float gets the decimal precision
 //int / int   → int
 //int / float → float
 //float / int → float
