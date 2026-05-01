@@ -8,11 +8,11 @@ No prior programming experience is required. The emphasis is on sketching, play,
 
 ## Start Here
 
-1. Start with the browser index at [index.html](index.html).
+1. Start with the public course site: [Programming for Visual Artists](https://tiagomartinspinto.github.io/aalto-programming-visual-artists-25-26/).
 2. Open a web sketch and observe what it does.
-3. Compare the p5.js web sketch with the original Processing `.pde` file when you are ready.
-4. Install [Processing](https://processing.org/download) only when you want to edit or run the original Processing sketches locally.
-5. Change one thing, run again, and observe what changed.
+3. Use the [Sketch Lab](web/lab.html) to edit p5.js code directly in the browser.
+4. Compare the p5.js web sketch with the original Processing `.pde` file when you are ready.
+5. Install [Processing](https://processing.org/download) only when you want to edit or run the original Processing sketches locally.
 
 The repository is set up to be web-first where possible. PDFs and Processing files are still available, but sketches that can run in the browser are linked before downloadable source files. The main website also includes an in-page slides reader so course participants can view PDF slides without leaving the course page.
 
@@ -31,6 +31,15 @@ Tiago Martins Pinto
 | 04 - 3 Mar 2026 | Nested loops, waves, random walks, recursion, noise | [PDF](Session-04_03032026/programmingvisualartists_session4.pdf) | [Generative grid](Session-04_03032026/generativegrid/generativegrid.pde), [simple waves](Session-04_03032026/extra_simplewaves/extra_simplewaves.pde), [slide examples](Session-04_03032026/slidecodeexamples/) |
 | 05 - 9 Mar 2026 | Functions, parameters, reuse, recursion | [PDF](Session-05_09032026/programmingvisualartists_session5.pdf) | [Shapes function](Session-05_09032026/shapesfunction/shapesfunction.pde), [spiral spins](Session-05_09032026/extra_spiralspins/extra_spiralspins.pde), [slide examples](Session-05_09032026/slidescodeexamples/) |
 | 06 - 10 Mar 2026 | Arrays, objects, particles, following behavior | [PDF](Session-06_10032026/programmingvisualartists_session6.pdf) | [Particles follow](Session-06_10032026/particlesfollow/particlesfollow.pde), [particles perlin noise](Session-06_10032026/extra_particlesperlinoise/extra_particlesperlinoise.pde), [slide examples](Session-06_10032026/slidescodeexamples/) |
+
+Each session also has a focused browser page:
+
+- [Session 01](sessions/session-01/)
+- [Session 02](sessions/session-02/)
+- [Session 03](sessions/session-03/)
+- [Session 04](sessions/session-04/)
+- [Session 05](sessions/session-05/)
+- [Session 06](sessions/session-06/)
 
 ## Web Sketches
 
@@ -64,9 +73,29 @@ These are not replacements for the Processing sketches. They are small translati
 
 The p5.js pages load p5.js from a CDN, so they need internet access the first time they are opened unless the library is cached by the browser. The Processing source files do not download automatically from the site; links are ordinary file links for course participants who choose to inspect or save them.
 
+## Sketch Lab
+
+[Sketch Lab](web/lab.html) is an in-browser editor for the p5.js companion sketches. Course participants can choose a sketch, edit the JavaScript, and run it immediately without installing anything. Changes stay local in the browser and are not uploaded or saved automatically.
+
+Use it for quick experiments:
+
+- Change color values, sizes, or speeds.
+- Add another shape.
+- Change a loop count.
+- Break something intentionally, then read the error.
+- Reset the sketch back to the original.
+
 ## Slides Reader
 
 The course index includes an embedded PDF reader for all six slide decks. Course participants can switch sessions inside the page instead of opening each PDF as a separate browser page. A small fallback PDF link remains available in the reader for browsers that do not support embedded PDF viewing.
+
+## Projects
+
+The website includes a small project area:
+
+- Creative Coursework 1: interaction with mouse position, color, and at least one custom function.
+- Creative Coursework 2: a generative composition using loops, randomness or noise.
+- Final Project: an interactive or generative artwork with a personal visual direction.
 
 ## Repository Structure
 
@@ -76,6 +105,8 @@ Each session folder follows the same general idea:
 - Exercise folders contain Processing `.pde` files and, when available, instruction text files.
 - `slidescodeexamples` or `slidecodeexamples` contains smaller code snippets from slides.
 - `web/` contains browser-friendly p5.js companion sketches.
+- `web/lab.html` contains the in-browser code editor.
+- `sessions/` contains focused landing pages for each session.
 - `preview-assets/` contains guidance and a place for screenshots or GIFs.
 
 Some original filenames include small typos such as `isntructions` or `animted`. They are currently preserved so existing links do not break. See [FILENAME_NOTES.md](FILENAME_NOTES.md) for a readable map.
@@ -86,15 +117,9 @@ Use the checklist in [preview-assets/README.md](preview-assets/README.md) to cap
 
 ## GitHub Pages
 
-This repository includes a static course index at [index.html](index.html). To publish it:
+This repository is published with GitHub Pages:
 
-1. Go to the repository on GitHub.
-2. Open **Settings > Pages**.
-3. Choose **Deploy from a branch**.
-4. Select the `main` branch and the repository root.
-5. Save.
-
-After GitHub Pages builds, the course index will be available as a website.
+[https://tiagomartinspinto.github.io/aalto-programming-visual-artists-25-26/](https://tiagomartinspinto.github.io/aalto-programming-visual-artists-25-26/)
 
 ## Teaching Notes
 
