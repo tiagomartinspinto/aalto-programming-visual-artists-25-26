@@ -5,8 +5,8 @@
 body {
   margin: 0;
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: #fbfaf7;
-  color: #171717;
+  background: #090b0f;
+  color: #f5f0e8;
 }
 
 main {
@@ -20,25 +20,25 @@ main {
   display: grid;
   place-items: center;
   padding: 20px;
-  background: #e8eceb;
+  background: #0d1117;
 }
 
 canvas {
   width: min(100%, 780px) !important;
   height: auto !important;
   max-height: calc(100vh - 40px);
-  border: 1px solid #171717;
-  background: #fff;
+  border: 1px solid #2a3140;
+  background: #000;
 }
 
 aside {
   padding: 24px;
-  border-left: 1px solid #d9dce2;
-  background: #fff;
+  border-left: 1px solid #2a3140;
+  background: #10141b;
 }
 
 aside a {
-  color: #087e8b;
+  color: #54d6c7;
   font-weight: 700;
 }
 
@@ -51,7 +51,14 @@ h1 {
 
 p {
   margin: 0;
-  color: #60646c;
+  color: #aab1bd;
+}
+
+.runtime-note {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid #2a3140;
+  font-size: 13px;
 }
 
 @media (max-width: 760px) {
@@ -64,7 +71,7 @@ p {
   }
 
   aside {
-    border-top: 1px solid #d9dce2;
+    border-top: 1px solid #2a3140;
     border-left: 0;
   }
 }
