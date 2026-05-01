@@ -14,7 +14,7 @@ No prior programming experience is required. The emphasis is on sketching, play,
 4. Install [Processing](https://processing.org/download) only when you want to edit or run the original Processing sketches locally.
 5. Change one thing, run again, and observe what changed.
 
-The repository is set up to be web-first where possible. PDFs and Processing files are still available, but sketches that can run in the browser are linked before downloadable source files.
+The repository is set up to be web-first where possible. PDFs and Processing files are still available, but sketches that can run in the browser are linked before downloadable source files. The main website also includes an in-page slides reader so course participants can view PDF slides without leaving the course page.
 
 ## Instructor
 
@@ -63,6 +63,10 @@ These are not replacements for the Processing sketches. They are small translati
 | [Particles with noise](web/particles-noise/) | Particle systems and noise fields | Change particle count, speed, fade, or noise scale |
 
 The p5.js pages load p5.js from a CDN, so they need internet access the first time they are opened unless the library is cached by the browser. The Processing source files do not download automatically from the site; links are ordinary file links for course participants who choose to inspect or save them.
+
+## Slides Reader
+
+The course index includes an embedded PDF reader for all six slide decks. Course participants can switch sessions inside the page instead of opening each PDF as a separate browser page. A small fallback PDF link remains available in the reader for browsers that do not support embedded PDF viewing.
 
 ## Repository Structure
 

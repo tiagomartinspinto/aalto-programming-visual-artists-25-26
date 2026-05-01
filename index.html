@@ -256,7 +256,7 @@
       .session-card,
       .web-card,
       .note,
-      .contact-card {
+      .slides-reader {
         border: 1px solid var(--line);
         border-radius: 8px;
         background: var(--panel);
@@ -313,6 +313,81 @@
         color: var(--accent-2);
       }
 
+      .slides-reader {
+        display: grid;
+        grid-template-columns: minmax(220px, 300px) minmax(0, 1fr);
+        min-height: min(82vh, 820px);
+        overflow: hidden;
+      }
+
+      .slide-controls {
+        display: grid;
+        align-content: start;
+        gap: 10px;
+        padding: 16px;
+        border-right: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.025);
+      }
+
+      .slide-controls p {
+        margin: 0 0 8px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .slide-picker {
+        width: 100%;
+        padding: 11px 12px;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        background: var(--panel-2);
+        color: var(--ink);
+        font: inherit;
+        font-weight: 720;
+        text-align: left;
+        cursor: pointer;
+      }
+
+      .slide-picker:hover,
+      .slide-picker[aria-pressed="true"] {
+        border-color: rgba(84, 214, 199, 0.72);
+        color: var(--accent-2);
+      }
+
+      .slide-viewer {
+        display: grid;
+        grid-template-rows: auto minmax(520px, 1fr);
+        min-width: 0;
+      }
+
+      .slide-viewer-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 12px 14px;
+        border-bottom: 1px solid var(--line);
+        background: var(--panel-2);
+      }
+
+      .slide-viewer-bar strong {
+        color: var(--ink);
+      }
+
+      .slide-viewer-bar a {
+        color: var(--accent-2);
+        font-size: 14px;
+        font-weight: 720;
+      }
+
+      .pdf-frame {
+        width: 100%;
+        min-height: 520px;
+        height: 100%;
+        border: 0;
+        background: #111;
+      }
+
       .web-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
@@ -366,16 +441,7 @@
 
       .details span { color: var(--muted); }
 
-      .contact-grid {
-        display: grid;
-        grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.8fr);
-        gap: 16px;
-      }
-
-      .note,
-      .contact-card { padding: 18px; }
-
-      .contact-card a { color: var(--accent-2); }
+      .note { padding: 18px; }
 
       .footer {
         margin-top: 64px;
@@ -388,13 +454,23 @@
       @media (max-width: 760px) {
         .topbar,
         .section-heading,
-        .contact-grid {
+        .slides-reader {
           align-items: flex-start;
           grid-template-columns: 1fr;
           flex-direction: column;
         }
 
         .hero { min-height: 74vh; }
+
+        .slide-controls {
+          width: 100%;
+          border-right: 0;
+          border-bottom: 1px solid var(--line);
+        }
+
+        .slide-viewer {
+          width: 100%;
+        }
       }
 
       @media (prefers-reduced-motion: reduce) {
@@ -414,10 +490,8 @@
       <div class="brand">Programming for Visual Artists</div>
       <nav aria-label="Main navigation">
         <a href="#web-sketches">Web sketches</a>
+        <a href="#slides">Slides</a>
         <a href="#sessions">Sessions</a>
-        <a href="#contact">Contact</a>
-        <a href="README.md">README</a>
-        <a href="FILENAME_NOTES.md">Notes</a>
       </nav>
     </header>
 
@@ -432,7 +506,7 @@
         </div>
         <div class="actions">
           <a class="button" href="#web-sketches">Open web sketches</a>
-          <a class="button secondary" href="#sessions">Browse all sessions</a>
+          <a class="button secondary" href="#slides">Read slides here</a>
         </div>
       </div>
     </div>
@@ -562,6 +636,31 @@
         </div>
       </section>
 
+      <section id="slides">
+        <div class="section-heading">
+          <h2>Slides Reader</h2>
+          <p>Read the PDF slides without leaving the course page. Choose a session and the viewer updates in place.</p>
+        </div>
+        <div class="slides-reader" aria-label="In-page PDF slides reader">
+          <div class="slide-controls">
+            <p>Session slides</p>
+            <button class="slide-picker" type="button" aria-pressed="true" data-title="Session 01 - Drawing, coordinates, and first functions" data-pdf="Session-01_23022026/programmingvisualartists_session1_2026.pdf">Session 01</button>
+            <button class="slide-picker" type="button" aria-pressed="false" data-title="Session 02 - Mouse input and changing color" data-pdf="Session-02_24022026/programmingvisualartists_session2.pdf">Session 02</button>
+            <button class="slide-picker" type="button" aria-pressed="false" data-title="Session 03 - Conditionals, loops, and movement" data-pdf="Session-03_02032026/programmingvisualartists_session3.pdf">Session 03</button>
+            <button class="slide-picker" type="button" aria-pressed="false" data-title="Session 04 - Waves, grids, noise, and recursion" data-pdf="Session-04_03032026/programmingvisualartists_session4.pdf">Session 04</button>
+            <button class="slide-picker" type="button" aria-pressed="false" data-title="Session 05 - Functions, parameters, and reuse" data-pdf="Session-05_09032026/programmingvisualartists_session5.pdf">Session 05</button>
+            <button class="slide-picker" type="button" aria-pressed="false" data-title="Session 06 - Arrays, objects, and particles" data-pdf="Session-06_10032026/programmingvisualartists_session6.pdf">Session 06</button>
+          </div>
+          <div class="slide-viewer">
+            <div class="slide-viewer-bar">
+              <strong id="slide-title">Session 01 - Drawing, coordinates, and first functions</strong>
+              <a id="slide-direct-link" href="Session-01_23022026/programmingvisualartists_session1_2026.pdf">Open PDF fallback</a>
+            </div>
+            <iframe id="slide-frame" class="pdf-frame" title="Session 01 slides" src="Session-01_23022026/programmingvisualartists_session1_2026.pdf"></iframe>
+          </div>
+        </div>
+      </section>
+
       <section id="sessions">
         <div class="section-heading">
           <h2>Sessions</h2>
@@ -572,64 +671,52 @@
             <div class="session-kicker"><span>Session 01</span><span>23 Feb 2026</span></div>
             <h3>Drawing, coordinates, and first functions</h3>
             <p>Shapes, color, canvas coordinates, and reusable drawing code.</p>
-            <div class="links"><a class="primary" href="web/face-exercise/">Web sketch</a><a href="Session-01_23022026/programmingvisualartists_session1_2026.pdf">Slides PDF</a><a href="Session-01_23022026/face_exercise/">Exercise folder</a></div>
+            <div class="links"><a class="primary" href="web/face-exercise/">Web sketch</a><a href="#slides" data-title="Session 01 - Drawing, coordinates, and first functions" data-pdf="Session-01_23022026/programmingvisualartists_session1_2026.pdf">Read slides</a><a href="Session-01_23022026/face_exercise/">Exercise folder</a></div>
           </article>
           <article class="session-card">
             <div class="session-kicker"><span>Session 02</span><span>24 Feb 2026</span></div>
             <h3>Mouse input and changing color</h3>
             <p>Mouse position, clicks, mapping values, and dynamic color.</p>
-            <div class="links"><a class="primary" href="web/mouse-shapes/">Web sketch</a><a href="Session-02_24022026/programmingvisualartists_session2.pdf">Slides PDF</a><a href="Session-02_24022026/mouseshapes/">Exercise folder</a></div>
+            <div class="links"><a class="primary" href="web/mouse-shapes/">Web sketch</a><a href="#slides" data-title="Session 02 - Mouse input and changing color" data-pdf="Session-02_24022026/programmingvisualartists_session2.pdf">Read slides</a><a href="Session-02_24022026/mouseshapes/">Exercise folder</a></div>
           </article>
           <article class="session-card">
             <div class="session-kicker"><span>Session 03</span><span>2 Mar 2026</span></div>
             <h3>Conditionals, loops, and movement</h3>
             <p>Decision-making, repeated actions, frame-based motion, and state.</p>
-            <div class="links"><a class="primary" href="web/hover-grid/">Hover web</a><a class="primary" href="web/bouncing-ball/">Ball web</a><a href="Session-03_02032026/programmingvisualartists_session3.pdf">Slides PDF</a><a href="Session-03_02032026/slidescodeexamples/">Code snippets</a></div>
+            <div class="links"><a class="primary" href="web/hover-grid/">Hover web</a><a class="primary" href="web/bouncing-ball/">Ball web</a><a href="#slides" data-title="Session 03 - Conditionals, loops, and movement" data-pdf="Session-03_02032026/programmingvisualartists_session3.pdf">Read slides</a><a href="Session-03_02032026/slidescodeexamples/">Code snippets</a></div>
           </article>
           <article class="session-card">
             <div class="session-kicker"><span>Session 04</span><span>3 Mar 2026</span></div>
             <h3>Waves, grids, noise, and recursion</h3>
             <p>Nested loops, sine waves, random walks, Perlin noise, and recursion.</p>
-            <div class="links"><a class="primary" href="web/simple-waves/">Waves web</a><a class="primary" href="web/generative-grid/">Grid web</a><a href="Session-04_03032026/programmingvisualartists_session4.pdf">Slides PDF</a><a href="Session-04_03032026/slidecodeexamples/">Code snippets</a></div>
+            <div class="links"><a class="primary" href="web/simple-waves/">Waves web</a><a class="primary" href="web/generative-grid/">Grid web</a><a href="#slides" data-title="Session 04 - Waves, grids, noise, and recursion" data-pdf="Session-04_03032026/programmingvisualartists_session4.pdf">Read slides</a><a href="Session-04_03032026/slidecodeexamples/">Code snippets</a></div>
           </article>
           <article class="session-card">
             <div class="session-kicker"><span>Session 05</span><span>9 Mar 2026</span></div>
             <h3>Functions, parameters, and reuse</h3>
             <p>Named behavior, parameterized drawing, randomness, and recursion.</p>
-            <div class="links"><a class="primary" href="web/shapes-function/">Shapes web</a><a class="primary" href="web/spiral-spins/">Spiral web</a><a href="Session-05_09032026/programmingvisualartists_session5.pdf">Slides PDF</a><a href="Session-05_09032026/slidescodeexamples/">Code snippets</a></div>
+            <div class="links"><a class="primary" href="web/shapes-function/">Shapes web</a><a class="primary" href="web/spiral-spins/">Spiral web</a><a href="#slides" data-title="Session 05 - Functions, parameters, and reuse" data-pdf="Session-05_09032026/programmingvisualartists_session5.pdf">Read slides</a><a href="Session-05_09032026/slidescodeexamples/">Code snippets</a></div>
           </article>
           <article class="session-card">
             <div class="session-kicker"><span>Session 06</span><span>10 Mar 2026</span></div>
             <h3>Arrays, objects, and particles</h3>
             <p>Object-oriented thinking, arrays, particle systems, and smooth motion fields.</p>
-            <div class="links"><a class="primary" href="web/particles-follow/">Follow web</a><a class="primary" href="web/particles-noise/">Noise web</a><a href="Session-06_10032026/programmingvisualartists_session6.pdf">Slides PDF</a><a href="Session-06_10032026/slidescodeexamples/">Code snippets</a></div>
+            <div class="links"><a class="primary" href="web/particles-follow/">Follow web</a><a class="primary" href="web/particles-noise/">Noise web</a><a href="#slides" data-title="Session 06 - Arrays, objects, and particles" data-pdf="Session-06_10032026/programmingvisualartists_session6.pdf">Read slides</a><a href="Session-06_10032026/slidescodeexamples/">Code snippets</a></div>
           </article>
         </div>
       </section>
 
-      <section id="contact">
-        <div class="section-heading">
-          <h2>Contact</h2>
-          <p>Course material by Tiago Martins Pinto for Aalto University.</p>
-        </div>
-        <div class="contact-grid">
-          <div class="note">
-            <p>Preview images and GIFs can be added in <a href="preview-assets/">preview-assets</a>. Original lesson files are preserved, including typo'd filenames, so existing classroom links keep working. See <a href="FILENAME_NOTES.md">filename notes</a> for the cleanup map.</p>
-          </div>
-          <div class="contact-card">
-            <p><strong>Tiago Martins Pinto</strong></p>
-            <p><a href="mailto:tiago.martinspinto@aalto.fi">tiago.martinspinto@aalto.fi</a></p>
-          </div>
-        </div>
-      </section>
-
       <footer class="footer">
-        Programming for Visual Artists, Aalto University. Web-first course index with original Processing materials preserved.
+        Programming for Visual Artists, Aalto University. Course material by Tiago Martins Pinto. Web-first course index with original Processing materials preserved. <a href="preview-assets/">Preview assets</a> | <a href="FILENAME_NOTES.md">Filename notes</a>
       </footer>
     </main>
     <script>
       const root = document.documentElement;
       const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+      const slideTitle = document.querySelector("#slide-title");
+      const slideFrame = document.querySelector("#slide-frame");
+      const slideDirectLink = document.querySelector("#slide-direct-link");
+      const slidePickers = [...document.querySelectorAll(".slide-picker")];
 
       function updateParallax() {
         if (!reducedMotion.matches) {
@@ -637,8 +724,26 @@
         }
       }
 
+      function showSlides(title, pdfPath) {
+        slideTitle.textContent = title;
+        slideFrame.src = pdfPath;
+        slideFrame.title = `${title} slides`;
+        slideDirectLink.href = pdfPath;
+        slidePickers.forEach((picker) => {
+          picker.setAttribute("aria-pressed", String(picker.dataset.pdf === pdfPath));
+        });
+      }
+
       updateParallax();
       window.addEventListener("scroll", updateParallax, { passive: true });
+
+      document.addEventListener("click", (event) => {
+        const trigger = event.target.closest("[data-pdf]");
+        if (!trigger) return;
+        event.preventDefault();
+        showSlides(trigger.dataset.title, trigger.dataset.pdf);
+        document.querySelector("#slides").scrollIntoView({ behavior: "smooth", block: "start" });
+      });
     </script>
   </body>
 </html>
