@@ -8,13 +8,18 @@ No prior programming experience is required. The emphasis is on sketching, play,
 
 ## Start Here
 
-1. Install [Processing](https://processing.org/download).
-2. Download or clone this repository.
-3. Open any `.pde` file in Processing.
-4. Press the Run button.
+1. Start with the browser index at [index.html](index.html).
+2. Open a web sketch and observe what it does.
+3. Compare the p5.js web sketch with the original Processing `.pde` file when you are ready.
+4. Install [Processing](https://processing.org/download) only when you want to edit or run the original Processing sketches locally.
 5. Change one thing, run again, and observe what changed.
 
-For browser-based examples, open [index.html](index.html) or visit the GitHub Pages site for this repository once Pages is enabled.
+The repository is set up to be web-first where possible. PDFs and Processing files are still available, but sketches that can run in the browser are linked before downloadable source files.
+
+## Instructor
+
+Tiago Martins Pinto  
+[tiago.martinspinto@aalto.fi](mailto:tiago.martinspinto@aalto.fi)
 
 ## Course Map
 
@@ -29,13 +34,35 @@ For browser-based examples, open [index.html](index.html) or visit the GitHub Pa
 
 ## Web Sketches
 
-Some Processing examples have p5.js companion versions that run in the browser:
+Several Processing examples have p5.js companion versions that run in the browser:
 
 - [Face exercise](web/face-exercise/)
 - [Mouse shapes](web/mouse-shapes/)
 - [Generative grid](web/generative-grid/)
+- [Hover grid](web/hover-grid/)
+- [Bouncing ball color](web/bouncing-ball/)
+- [Simple waves](web/simple-waves/)
+- [Shapes function](web/shapes-function/)
+- [Spiral spins](web/spiral-spins/)
+- [Particles follow](web/particles-follow/)
+- [Particles with noise](web/particles-noise/)
 
 These are not replacements for the Processing sketches. They are small translation examples for students who want to compare Processing and p5.js syntax.
+
+| Web sketch | Original idea | Good changes to try |
+| --- | --- | --- |
+| [Face exercise](web/face-exercise/) | Drawing with shapes and a custom function | Change proportions, colors, or draw several faces |
+| [Mouse shapes](web/mouse-shapes/) | Mouse input and mapped color | Map mouse position to rotation, scale, or opacity |
+| [Hover grid](web/hover-grid/) | Conditionals inside nested loops | Change grid size or make nearby cells react |
+| [Bouncing ball color](web/bouncing-ball/) | State, velocity, and edge checks | Add more balls or change color rules |
+| [Simple waves](web/simple-waves/) | Sine motion over time | Change amplitude, frequency, spacing, or draw lines |
+| [Generative grid](web/generative-grid/) | Perlin noise and nested loops | Change noise scale, tile count, or shape |
+| [Shapes function](web/shapes-function/) | Reusing a function with random parameters | Add shape types or constrain the palette |
+| [Spiral spins](web/spiral-spins/) | Polar coordinates and interaction | Move the pointer, press `T`, or change curve/turns |
+| [Particles follow](web/particles-follow/) | Arrays of objects | Change lifespan, velocity, size, or color by age |
+| [Particles with noise](web/particles-noise/) | Particle systems and noise fields | Change particle count, speed, fade, or noise scale |
+
+The p5.js pages load p5.js from a CDN, so they need internet access the first time they are opened unless the library is cached by the browser. The Processing source files do not download automatically from the site; links are ordinary file links for students who choose to inspect or save them.
 
 ## Repository Structure
 
