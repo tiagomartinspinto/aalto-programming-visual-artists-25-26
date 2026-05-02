@@ -173,28 +173,28 @@
   <body>
     <header>
       <strong>Sketch Lab</strong>
-      <nav><a href="../index.html">Course index</a></nav>
+      <nav><a href="../index.html">Back to course</a></nav>
     </header>
     <main>
       <section class="stage" aria-label="Live sketch preview">
         <div class="toolbar">
-          <label for="sketch-select">Sketch</label>
+          <label for="sketch-select">Choose sketch</label>
           <select id="sketch-select"></select>
-          <button class="primary" id="run-button" type="button">Run code</button>
-          <button id="reset-button" type="button">Reset</button>
+          <button class="primary" id="run-button" type="button">Run your code</button>
+          <button id="reset-button" type="button">Reset to original</button>
         </div>
         <div id="preview" class="preview-frame" role="img" aria-label="Editable sketch preview"></div>
       </section>
       <section class="editor" aria-label="Sketch source editor">
         <div>
-          <h1 id="sketch-title">Loading sketch</h1>
+          <h1 id="sketch-title">Choose a sketch</h1>
           <p class="meta" id="sketch-meta"></p>
         </div>
         <div class="editor-toolbar">
-          <a id="open-page" href="#">Standalone view</a>
-          <a id="open-source" href="#">Original Processing source</a>
+          <a id="open-page" href="#">View sketch only</a>
+          <a id="open-source" href="#">Compare Processing code</a>
         </div>
-        <textarea id="code" spellcheck="false" aria-label="Editable p5.js source code"></textarea>
+        <textarea id="code" spellcheck="false" aria-label="Editable p5.js code"></textarea>
         <div class="status" id="status" aria-live="polite"></div>
       </section>
     </main>
@@ -234,7 +234,7 @@
 
         preview.innerHTML = '<div id="sketch" class="sketch-mount"></div>';
         const mount = preview.querySelector("#sketch");
-        writeStatus("Rendering preview with the local p5 runtime...");
+        writeStatus("Running your sketch with the local p5.js runtime...");
 
         try {
           activeP5 = new p5((p) => {
@@ -250,7 +250,7 @@
             ].join("\n"));
             install(p);
           }, mount);
-          writeStatus("Running in the browser. Changes stay local to this page.");
+          writeStatus("Your sketch is running. Your edits stay in this browser.");
         } catch (error) {
           writeStatus(`Error: ${error.message}`, true);
         }
@@ -263,7 +263,7 @@
         meta.textContent = `${currentSketch.session}. ${currentSketch.notes}`;
         openPage.href = currentSketch.page;
         openSource.href = currentSketch.source;
-        writeStatus("Loading source...");
+        writeStatus("Loading the sketch code...");
         const response = await fetch(currentSketch.path);
         originalCode = await response.text();
         code.value = originalCode;
@@ -280,7 +280,7 @@
 
       window.addEventListener("message", (event) => {
         if (event.data && event.data.type === "sketch-running") {
-          writeStatus("Running in the browser. Changes stay local to this page.");
+          writeStatus("Your sketch is running. Your edits stay in this browser.");
         }
         if (event.data && event.data.type === "sketch-error") {
           writeStatus(`Error: ${event.data.message} at line ${event.data.line || "?"}`, true);

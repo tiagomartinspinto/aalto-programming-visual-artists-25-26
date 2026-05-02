@@ -6,7 +6,7 @@ window.COURSE_SKETCHES = [
     path: "face-exercise/sketch.js",
     page: "face-exercise/",
     source: "../Session-01_23022026/face_exercise/face_exercise.pde",
-    notes: "Drawing with shapes and a custom function. Try changing proportions, colors, or drawing several faces."
+    notes: "You can change proportions, colors, or draw several faces with the same function."
   },
   {
     id: "mouse-shapes",
@@ -15,7 +15,7 @@ window.COURSE_SKETCHES = [
     path: "mouse-shapes/sketch.js",
     page: "mouse-shapes/",
     source: "../Session-02_24022026/mouseshapes/mouseshapes.pde",
-    notes: "Mouse input and mapped color. Try mapping the pointer to rotation, scale, or opacity."
+    notes: "You can map the pointer to position, rotation, scale, color, or opacity."
   },
   {
     id: "hover-grid",
@@ -24,7 +24,7 @@ window.COURSE_SKETCHES = [
     path: "hover-grid/sketch.js",
     page: "hover-grid/",
     source: "../Session-03_02032026/hoverisred/hoverisred.pde",
-    notes: "Conditionals inside nested loops. Try changing grid size or making nearby cells react."
+    notes: "You can change the grid size or make nearby cells react with extra conditionals."
   },
   {
     id: "bouncing-ball",
@@ -33,7 +33,7 @@ window.COURSE_SKETCHES = [
     path: "bouncing-ball/sketch.js",
     page: "bouncing-ball/",
     source: "../Session-03_02032026/extra_bouncingballcolor/extra_bouncingballcolor.pde",
-    notes: "State, velocity, and edge checks. Try adding more balls or changing color rules."
+    notes: "You can adjust velocity, edge checks, color rules, or add more balls."
   },
   {
     id: "simple-waves",
@@ -42,7 +42,7 @@ window.COURSE_SKETCHES = [
     path: "simple-waves/sketch.js",
     page: "simple-waves/",
     source: "../Session-04_03032026/extra_simplewaves/extra_simplewaves.pde",
-    notes: "Sine motion over time. Try changing amplitude, frequency, spacing, or drawing connected lines."
+    notes: "You can change amplitude, frequency, spacing, or draw connected lines."
   },
   {
     id: "generative-grid",
@@ -51,7 +51,7 @@ window.COURSE_SKETCHES = [
     path: "generative-grid/sketch.js",
     page: "generative-grid/",
     source: "../Session-04_03032026/generativegrid/generativegrid.pde",
-    notes: "Perlin noise and nested loops. Try changing noise scale, tile count, or shape."
+    notes: "You can change noise scale, tile count, rotation, or tile shape."
   },
   {
     id: "shapes-function",
@@ -60,7 +60,7 @@ window.COURSE_SKETCHES = [
     path: "shapes-function/sketch.js",
     page: "shapes-function/",
     source: "../Session-05_09032026/shapesfunction/shapesfunction.pde",
-    notes: "Reusing a function with random parameters. Try adding shape types or constraining the palette."
+    notes: "You can add new shape types, change parameters, or constrain the palette."
   },
   {
     id: "spiral-spins",
@@ -69,7 +69,7 @@ window.COURSE_SKETCHES = [
     path: "spiral-spins/sketch.js",
     page: "spiral-spins/",
     source: "../Session-05_09032026/extra_spiralspins/extra_spiralspins.pde",
-    notes: "Polar coordinates and interaction. Move the pointer, press T, or change curve and turns."
+    notes: "You can move the pointer, press T for trails, or change the curve and turns."
   },
   {
     id: "particles-follow",
@@ -78,7 +78,7 @@ window.COURSE_SKETCHES = [
     path: "particles-follow/sketch.js",
     page: "particles-follow/",
     source: "../Session-06_10032026/particlesfollow/particlesfollow.pde",
-    notes: "Arrays of objects. Try changing lifespan, velocity, size, or color by age."
+    notes: "You can change lifespan, velocity, size, or color particles by age."
   },
   {
     id: "particles-noise",
@@ -87,6 +87,6 @@ window.COURSE_SKETCHES = [
     path: "particles-noise/sketch.js",
     page: "particles-noise/",
     source: "../Session-06_10032026/extra_particlesperlinoise/extra_particlesperlinoise.pde",
-    notes: "Particle systems and noise fields. Try changing count, speed, fade, or noise scale."
+    notes: "You can change particle count, speed, fade amount, or noise scale."
   }
 ];

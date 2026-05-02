@@ -57,6 +57,16 @@
 
       a { color: inherit; }
 
+      code {
+        padding: 0.08em 0.28em;
+        border: 1px solid rgba(245, 240, 232, 0.16);
+        border-radius: 4px;
+        background: rgba(255, 255, 255, 0.04);
+        color: var(--accent-3);
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+        font-size: 0.88em;
+      }
+
       .topbar {
         position: sticky;
         top: 0;
@@ -222,6 +232,7 @@
         position: relative;
         max-width: 1240px;
         margin: 60px auto 0;
+        scroll-margin-top: 150px;
       }
 
       section::before {
@@ -545,8 +556,8 @@
     <header class="topbar">
       <div class="brand">Programming for Visual Artists</div>
       <nav aria-label="Main navigation">
-        <a href="#course-path">Path</a>
-        <a href="#web-sketches">Web sketches</a>
+        <a href="#course-path">Start</a>
+        <a href="#web-sketches">Sketches</a>
         <a href="#lab">Lab</a>
         <a href="#slides">Slides</a>
         <a href="#assignments">Projects</a>
@@ -558,15 +569,15 @@
       <div class="hero-inner">
         <p class="eyebrow">Aalto University, 2025-2026</p>
         <h1>Programming for Visual Artists</h1>
-        <p class="lede">A dark-room course index for creative coding with Processing and p5.js: open sketches in the browser first, then download Processing files only when you need the original classroom material.</p>
+        <p class="lede">Use this site to preview sketches, edit p5.js code in the browser, read the slides in place, and move into Processing when you are ready for the original classroom files.</p>
         <div class="byline">
           <span>Teacher: <strong>Tiago Martins Pinto</strong></span>
           <span><a href="mailto:tiago.martinspinto@aalto.fi">tiago.martinspinto@aalto.fi</a></span>
         </div>
         <div class="actions">
-          <a class="button" href="#web-sketches">Explore sketches</a>
-          <a class="button secondary" href="web/lab.html">Try Sketch Lab</a>
-          <a class="button secondary" href="#slides">Read slides here</a>
+          <a class="button" href="#web-sketches">Start with web sketches</a>
+          <a class="button secondary" href="web/lab.html">Edit code in the Lab</a>
+          <a class="button secondary" href="#slides">Read slides on this page</a>
         </div>
       </div>
     </div>
@@ -574,29 +585,29 @@
     <main>
       <section id="course-path">
         <div class="section-heading">
-          <h2>Course Path</h2>
-          <p>A simple route through the material: watch, run, change, then turn a sketch into a coursework.</p>
+          <h2>How to Use This Site</h2>
+          <p>Start with a session, run a sketch in the browser, make one small change, then use that change as material for your own coursework.</p>
         </div>
         <div class="feature-grid">
           <article class="feature-card">
-            <h3>1. Read The Session</h3>
-            <p>Start from a session page for the day’s themes, slides, browser sketches, and original Processing files.</p>
-            <div class="links"><a class="primary" href="#sessions">Choose a session</a></div>
+            <h3>1. Start with a Session</h3>
+            <p>Choose the session you are working on to see the day’s themes, slides, sketches, and Processing files in one place.</p>
+            <div class="links"><a class="primary" href="#sessions">Choose your session</a></div>
           </article>
           <article class="feature-card">
-            <h3>2. Try In The Lab</h3>
+            <h3>2. Edit in the Lab</h3>
             <p>Open a sketch in the Lab, change one number or color, and run it again without downloading anything.</p>
-            <div class="links"><a class="primary" href="web/lab.html">Open Sketch Lab</a></div>
+            <div class="links"><a class="primary" href="web/lab.html">Open the Lab</a></div>
           </article>
           <article class="feature-card">
-            <h3>3. Compare With Processing</h3>
-            <p>Use the original `.pde` files when you want to move from browser experiments into Processing.</p>
-            <div class="links"><a href="#comparison">See syntax notes</a></div>
+            <h3>3. Compare with Processing</h3>
+            <p>Use the original <code>.pde</code> files when you want to move from a browser experiment into Processing.</p>
+            <div class="links"><a href="#comparison">Compare syntax</a></div>
           </article>
           <article class="feature-card">
-            <h3>4. Build A Coursework</h3>
-            <p>Use the weekly exercises as seeds for Creative Coursework 1, Creative Coursework 2, and the final project.</p>
-            <div class="links"><a href="#assignments">View projects</a></div>
+            <h3>4. Build a Coursework</h3>
+            <p>Use the weekly exercises as seeds for Creative Coursework 1, Creative Coursework 2, and your final project.</p>
+            <div class="links"><a href="#assignments">Use the project prompts</a></div>
           </article>
         </div>
       </section>
@@ -604,12 +615,12 @@
       <section id="web-sketches">
         <div class="section-heading">
           <h2>Web Sketches</h2>
-          <p>These p5.js companions run directly in the page. Use them before downloading files when you want to preview behavior, compare syntax, or quickly experiment.</p>
+          <p>These p5.js companions run directly in the page. Use them first when you want to see the behavior, test an idea, or compare syntax.</p>
         </div>
 
         <div class="notice">
-          <strong>Web-first note</strong>
-          <p>PDFs and `.pde` files remain available for the original lessons, but sketches that can be shown in-browser are embedded here. Open the web version first; download or clone the repository when you want to edit in Processing.</p>
+          <strong>Start in the browser</strong>
+          <p>PDFs and <code>.pde</code> files remain available, but anything that can run on the web is shown here first. Open a web sketch to see it immediately; use the Processing source links only when you want to compare or continue in Processing.</p>
         </div>
 
         <div class="web-grid">
@@ -617,10 +628,10 @@
             <div class="preview"><iframe loading="lazy" src="web/face-exercise/index.html" title="Face exercise preview"></iframe></div>
             <div class="web-card-content">
               <h3>Face Exercise</h3>
-              <p>A static drawing exercise translated from Processing to p5.js, built around a reusable `drawFace()` function.</p>
+              <p>Use this to see how simple shapes become a reusable <code>drawFace()</code> function.</p>
               <div class="tags"><span class="tag">Session 01</span><span class="tag">functions</span><span class="tag">drawing</span></div>
-              <div class="details"><span>Try:</span> change face size, eye spacing, mouth arc, or call `drawFace()` more than once.</div>
-              <div class="links"><a class="primary" href="web/lab.html?sketch=face-exercise">Try in Lab</a><a href="web/face-exercise/">Standalone view</a><a href="Session-01_23022026/face_exercise/face_exercise.pde">Processing source</a></div>
+              <div class="details"><span>You can:</span> change face size, eye spacing, mouth arc, or call <code>drawFace()</code> more than once.</div>
+              <div class="links"><a class="primary" href="web/lab.html?sketch=face-exercise">Edit in the Lab</a><a href="web/face-exercise/">View sketch only</a><a href="Session-01_23022026/face_exercise/face_exercise.pde">Compare Processing code</a></div>
             </div>
           </article>
 
@@ -628,10 +639,10 @@
             <div class="preview"><iframe loading="lazy" src="web/mouse-shapes/index.html" title="Mouse shapes preview"></iframe></div>
             <div class="web-card-content">
               <h3>Mouse Shapes</h3>
-              <p>Mouse position controls a circle, removed copyed square, and changing background color.</p>
+              <p>Move the pointer to control a circle, a removed copyed square, and the background color.</p>
               <div class="tags"><span class="tag">Session 02</span><span class="tag">mouseX</span><span class="tag">map()</span></div>
-              <div class="details"><span>Try:</span> swap the removed copyed movement, change the color mappings, or alter shape sizes.</div>
-              <div class="links"><a class="primary" href="web/lab.html?sketch=mouse-shapes">Try in Lab</a><a href="web/mouse-shapes/">Standalone view</a><a href="Session-02_24022026/mouseshapes/mouseshapes.pde">Processing source</a></div>
+              <div class="details"><span>You can:</span> swap the removed copyed movement, change the color mappings, or alter shape sizes.</div>
+              <div class="links"><a class="primary" href="web/lab.html?sketch=mouse-shapes">Edit in the Lab</a><a href="web/mouse-shapes/">View sketch only</a><a href="Session-02_24022026/mouseshapes/mouseshapes.pde">Compare Processing code</a></div>
             </div>
           </article>
 
@@ -639,10 +650,10 @@
             <div class="preview"><iframe loading="lazy" src="web/hover-grid/index.html" title="Hover grid preview"></iframe></div>
             <div class="web-card-content">
               <h3>Hover Grid</h3>
-              <p>An 8 by 8 grid that changes the active cell when the pointer enters it.</p>
+              <p>Move across an 8 by 8 grid to see how conditionals react to pointer position.</p>
               <div class="tags"><span class="tag">Session 03</span><span class="tag">conditionals</span><span class="tag">loops</span></div>
-              <div class="details"><span>Try:</span> change rows and columns, use gradients, or make neighboring cells react too.</div>
-              <div class="links"><a class="primary" href="web/lab.html?sketch=hover-grid">Try in Lab</a><a href="web/hover-grid/">Standalone view</a><a href="Session-03_02032026/hoverisred/hoverisred.pde">Processing source</a></div>
+              <div class="details"><span>You can:</span> change rows and columns, use gradients, or make neighboring cells react too.</div>
+              <div class="links"><a class="primary" href="web/lab.html?sketch=hover-grid">Edit in the Lab</a><a href="web/hover-grid/">View sketch only</a><a href="Session-03_02032026/hoverisred/hoverisred.pde">Compare Processing code</a></div>
             </div>
           </article>
 
@@ -650,10 +661,10 @@
             <div class="preview"><iframe loading="lazy" src="web/bouncing-ball/index.html" title="Bouncing ball preview"></iframe></div>
             <div class="web-card-content">
               <h3>Bouncing Ball Color</h3>
-              <p>A moving ball reverses direction at the canvas edges and changes color on each bounce.</p>
+              <p>Watch a ball reverse at the canvas edges and change color on each bounce.</p>
               <div class="tags"><span class="tag">Session 03</span><span class="tag">motion</span><span class="tag">state</span></div>
-              <div class="details"><span>Try:</span> adjust speed, radius, background fade, or add more bouncing objects.</div>
-              <div class="links"><a class="primary" href="web/lab.html?sketch=bouncing-ball">Try in Lab</a><a href="web/bouncing-ball/">Standalone view</a><a href="Session-03_02032026/extra_bouncingballcolor/extra_bouncingballcolor.pde">Processing source</a></div>
+              <div class="details"><span>You can:</span> adjust speed, radius, background fade, or add more bouncing objects.</div>
+              <div class="links"><a class="primary" href="web/lab.html?sketch=bouncing-ball">Edit in the Lab</a><a href="web/bouncing-ball/">View sketch only</a><a href="Session-03_02032026/extra_bouncingballcolor/extra_bouncingballcolor.pde">Compare Processing code</a></div>
             </div>
           </article>
 
@@ -661,10 +672,10 @@
             <div class="preview"><iframe loading="lazy" src="web/simple-waves/index.html" title="Simple waves preview"></iframe></div>
             <div class="web-card-content">
               <h3>Simple Waves</h3>
-              <p>A sine wave drawn as a sequence of circles, animated over time.</p>
+              <p>Use an animated sine wave to see how time changes repeated drawing.</p>
               <div class="tags"><span class="tag">Session 04</span><span class="tag">sin()</span><span class="tag">animation</span></div>
-              <div class="details"><span>Try:</span> change amplitude, frequency, spacing, or draw connected lines instead of points.</div>
-              <div class="links"><a class="primary" href="web/lab.html?sketch=simple-waves">Try in Lab</a><a href="web/simple-waves/">Standalone view</a><a href="Session-04_03032026/extra_simplewaves/extra_simplewaves.pde">Processing source</a></div>
+              <div class="details"><span>You can:</span> change amplitude, frequency, spacing, or draw connected lines instead of points.</div>
+              <div class="links"><a class="primary" href="web/lab.html?sketch=simple-waves">Edit in the Lab</a><a href="web/simple-waves/">View sketch only</a><a href="Session-04_03032026/extra_simplewaves/extra_simplewaves.pde">Compare Processing code</a></div>
             </div>
           </article>
 
@@ -672,10 +683,10 @@
             <div class="preview"><iframe loading="lazy" src="web/generative-grid/index.html" title="Generative grid preview"></iframe></div>
             <div class="web-card-content">
               <h3>Generative Grid</h3>
-              <p>A rotating grid driven by Perlin noise, useful for seeing nested loops and smooth randomness.</p>
+              <p>Use a rotating noise-driven grid to connect nested loops with smooth randomness.</p>
               <div class="tags"><span class="tag">Session 04</span><span class="tag">noise()</span><span class="tag">nested loops</span></div>
-              <div class="details"><span>Try:</span> change grid size, rotation amount, tile shape, or noise scale.</div>
-              <div class="links"><a class="primary" href="web/lab.html?sketch=generative-grid">Try in Lab</a><a href="web/generative-grid/">Standalone view</a><a href="Session-04_03032026/generativegrid/generativegrid.pde">Processing source</a></div>
+              <div class="details"><span>You can:</span> change grid size, rotation amount, tile shape, or noise scale.</div>
+              <div class="links"><a class="primary" href="web/lab.html?sketch=generative-grid">Edit in the Lab</a><a href="web/generative-grid/">View sketch only</a><a href="Session-04_03032026/generativegrid/generativegrid.pde">Compare Processing code</a></div>
             </div>
           </article>
 
@@ -683,10 +694,10 @@
             <div class="preview"><iframe loading="lazy" src="web/shapes-function/index.html" title="Shapes function preview"></iframe></div>
             <div class="web-card-content">
               <h3>Shapes Function</h3>
-              <p>A static generative composition made by repeatedly calling a custom abstract shape function.</p>
+              <p>Click to regenerate a composition made from one reusable abstract-shape function.</p>
               <div class="tags"><span class="tag">Session 05</span><span class="tag">parameters</span><span class="tag">randomness</span></div>
-              <div class="details"><span>Try:</span> click the sketch to regenerate, add a fourth shape type, or constrain the color palette.</div>
-              <div class="links"><a class="primary" href="web/lab.html?sketch=shapes-function">Try in Lab</a><a href="web/shapes-function/">Standalone view</a><a href="Session-05_09032026/shapesfunction/shapesfunction.pde">Processing source</a></div>
+              <div class="details"><span>You can:</span> click the sketch to regenerate, add a fourth shape type, or constrain the color palette.</div>
+              <div class="links"><a class="primary" href="web/lab.html?sketch=shapes-function">Edit in the Lab</a><a href="web/shapes-function/">View sketch only</a><a href="Session-05_09032026/shapesfunction/shapesfunction.pde">Compare Processing code</a></div>
             </div>
           </article>
 
@@ -694,10 +705,10 @@
             <div class="preview"><iframe loading="lazy" src="web/spiral-spins/index.html" title="Spiral spins preview"></iframe></div>
             <div class="web-card-content">
               <h3>Spiral Spins</h3>
-              <p>A polar-coordinate spiral where mouse position controls speed and radius.</p>
+              <p>Move the pointer to control a polar-coordinate spiral’s speed and radius.</p>
               <div class="tags"><span class="tag">Session 05</span><span class="tag">functions</span><span class="tag">polar coordinates</span></div>
-              <div class="details"><span>Try:</span> move the pointer, press `T` for trails, then change turns, curve, or color mode.</div>
-              <div class="links"><a class="primary" href="web/lab.html?sketch=spiral-spins">Try in Lab</a><a href="web/spiral-spins/">Standalone view</a><a href="Session-05_09032026/extra_spiralspins/extra_spiralspins.pde">Processing source</a></div>
+              <div class="details"><span>You can:</span> move the pointer, press <code>T</code> for trails, then change turns, curve, or color mode.</div>
+              <div class="links"><a class="primary" href="web/lab.html?sketch=spiral-spins">Edit in the Lab</a><a href="web/spiral-spins/">View sketch only</a><a href="Session-05_09032026/extra_spiralspins/extra_spiralspins.pde">Compare Processing code</a></div>
             </div>
           </article>
 
@@ -705,10 +716,10 @@
             <div class="preview"><iframe loading="lazy" src="web/particles-follow/index.html" title="Particles follow preview"></iframe></div>
             <div class="web-card-content">
               <h3>Particles Follow</h3>
-              <p>A small particle system that emits fading particles from the pointer position.</p>
+              <p>Move the pointer to emit fading particles and see how arrays of objects behave.</p>
               <div class="tags"><span class="tag">Session 06</span><span class="tag">arrays</span><span class="tag">objects</span></div>
-              <div class="details"><span>Try:</span> move the pointer, change lifespan, vary velocity, or color particles by age.</div>
-              <div class="links"><a class="primary" href="web/lab.html?sketch=particles-follow">Try in Lab</a><a href="web/particles-follow/">Standalone view</a><a href="Session-06_10032026/particlesfollow/particlesfollow.pde">Processing source</a></div>
+              <div class="details"><span>You can:</span> move the pointer, change lifespan, vary velocity, or color particles by age.</div>
+              <div class="links"><a class="primary" href="web/lab.html?sketch=particles-follow">Edit in the Lab</a><a href="web/particles-follow/">View sketch only</a><a href="Session-06_10032026/particlesfollow/particlesfollow.pde">Compare Processing code</a></div>
             </div>
           </article>
 
@@ -716,10 +727,10 @@
             <div class="preview"><iframe loading="lazy" src="web/particles-noise/index.html" title="Particles noise preview"></iframe></div>
             <div class="web-card-content">
               <h3>Particles with Noise</h3>
-              <p>Hundreds of particles follow a smooth Perlin-noise field and wrap around the canvas.</p>
+              <p>Watch particles follow a smooth Perlin-noise field and wrap around the canvas.</p>
               <div class="tags"><span class="tag">Session 06</span><span class="tag">noise()</span><span class="tag">systems</span></div>
-              <div class="details"><span>Try:</span> change particle count, movement speed, fade amount, or noise scale.</div>
-              <div class="links"><a class="primary" href="web/lab.html?sketch=particles-noise">Try in Lab</a><a href="web/particles-noise/">Standalone view</a><a href="Session-06_10032026/extra_particlesperlinoise/extra_particlesperlinoise.pde">Processing source</a></div>
+              <div class="details"><span>You can:</span> change particle count, movement speed, fade amount, or noise scale.</div>
+              <div class="links"><a class="primary" href="web/lab.html?sketch=particles-noise">Edit in the Lab</a><a href="web/particles-noise/">View sketch only</a><a href="Session-06_10032026/extra_particlesperlinoise/extra_particlesperlinoise.pde">Compare Processing code</a></div>
             </div>
           </article>
         </div>
@@ -728,22 +739,22 @@
       <section id="lab">
         <div class="section-heading">
           <h2>Sketch Lab</h2>
-          <p>Edit the p5.js companion sketches directly in the browser. Nothing is uploaded or saved automatically; it is a fast sandbox for trying changes before opening Processing.</p>
+          <p>Edit the p5.js companion sketches directly in the browser. Your changes stay in your browser, so you can experiment freely before opening Processing.</p>
         </div>
         <div class="feature-grid">
           <article class="feature-card">
-            <h3>Run Code In Place</h3>
-            <p>Choose a sketch, edit its JavaScript, and press Run. The preview updates in the same page.</p>
-            <div class="links"><a class="primary" href="web/lab.html">Open Sketch Lab</a></div>
+            <h3>Run Your Code in Place</h3>
+            <p>Choose a sketch, edit its JavaScript, and press Run your code. The preview updates in the same page.</p>
+            <div class="links"><a class="primary" href="web/lab.html">Open the Lab</a></div>
           </article>
           <article class="feature-card">
-            <h3>Learn By Changing Numbers</h3>
-            <p>The lab is designed for small experiments: color values, sizes, speeds, loop counts, and function parameters.</p>
-            <div class="links"><a href="web/lab.html?sketch=generative-grid">Try generative grid</a><a href="web/lab.html?sketch=particles-noise">Try particles</a></div>
+            <h3>Change One Thing at a Time</h3>
+            <p>Use the lab for small experiments: color values, sizes, speeds, loop counts, and function parameters.</p>
+            <div class="links"><a href="web/lab.html?sketch=generative-grid">Edit generative grid</a><a href="web/lab.html?sketch=particles-noise">Edit particles</a></div>
           </article>
           <article class="feature-card">
-            <h3>Keep Downloads Optional</h3>
-            <p>The original `.pde` files are still linked, but course participants can preview, read, and modify web versions before downloading anything.</p>
+            <h3>Download Only When Needed</h3>
+            <p>The original <code>.pde</code> files are still linked, but you can preview, read, and modify web versions before saving anything to your computer.</p>
           </article>
         </div>
       </section>
@@ -751,24 +762,24 @@
       <section id="comparison">
         <div class="section-heading">
           <h2>Processing vs p5.js</h2>
-          <p>The web sketches are translations, not replacements. This quick map helps course participants move between the classroom Processing files and the browser versions.</p>
+          <p>The web sketches are translations, not replacements. Use this quick map when you want to move between the browser versions and the classroom Processing files.</p>
         </div>
         <div class="feature-grid">
           <article class="feature-card">
             <h3>Canvas Setup</h3>
-            <p>Processing uses `size(600, 400)` inside `setup()`. p5.js uses `createCanvas(600, 400)` inside `function setup()`.</p>
+            <p>In Processing, you use <code>size(600, 400)</code> inside <code>setup()</code>. In p5.js, you use <code>createCanvas(600, 400)</code> inside <code>function setup()</code>.</p>
           </article>
           <article class="feature-card">
             <h3>Drawing Loop</h3>
-            <p>Processing writes `void draw()`. p5.js writes `function draw()`. Both redraw continuously unless stopped.</p>
+            <p>In Processing, you write <code>void draw()</code>. In p5.js, you write <code>function draw()</code>. Both redraw continuously unless you stop them.</p>
           </article>
           <article class="feature-card">
             <h3>Transforms</h3>
-            <p>Processing uses `pushMatrix()` and `popMatrix()`. p5.js shortens those to `push()` and `pop()`.</p>
+            <p>In Processing, you use <code>pushMatrix()</code> and <code>popMatrix()</code>. In p5.js, you use the shorter <code>push()</code> and <code>pop()</code>.</p>
           </article>
           <article class="feature-card">
             <h3>Variables</h3>
-            <p>Processing often declares types such as `float x`. p5.js usually uses `let x`, `const x`, or class fields in JavaScript.</p>
+            <p>In Processing, you often declare types such as <code>float x</code>. In p5.js, you usually use <code>let x</code>, <code>const x</code>, or class fields in JavaScript.</p>
           </article>
         </div>
       </section>
@@ -776,11 +787,11 @@
       <section id="slides">
         <div class="section-heading">
           <h2>Slides Reader</h2>
-          <p>Read the PDF slides without leaving the course page. Choose a session and the viewer updates in place.</p>
+          <p>Read the PDF slides without leaving the course page. Choose a session and the reader updates in place.</p>
         </div>
         <div class="slides-reader" aria-label="In-page PDF slides reader">
           <div class="slide-controls">
-            <p>Session slides</p>
+            <p>Choose a slide deck</p>
             <button class="slide-picker" type="button" aria-pressed="true" data-title="Session 01 - Drawing, coordinates, and first functions" data-pdf="Session-01_23022026/programmingvisualartists_session1_2026.pdf">Session 01</button>
             <button class="slide-picker" type="button" aria-pressed="false" data-title="Session 02 - Mouse input and changing color" data-pdf="Session-02_24022026/programmingvisualartists_session2.pdf">Session 02</button>
             <button class="slide-picker" type="button" aria-pressed="false" data-title="Session 03 - Conditionals, loops, and movement" data-pdf="Session-03_02032026/programmingvisualartists_session3.pdf">Session 03</button>
@@ -792,9 +803,9 @@
             <div class="slide-viewer-bar">
               <strong id="slide-title">Session 01 - Drawing, coordinates, and first functions</strong>
               <div class="slide-actions">
-                <button class="reader-button" id="prev-slide-deck" type="button">Previous</button>
-                <button class="reader-button" id="next-slide-deck" type="button">Next</button>
-                <a id="slide-direct-link" href="Session-01_23022026/programmingvisualartists_session1_2026.pdf">Open PDF fallback</a>
+                <button class="reader-button" id="prev-slide-deck" type="button">Previous deck</button>
+                <button class="reader-button" id="next-slide-deck" type="button">Next deck</button>
+                <a id="slide-direct-link" href="Session-01_23022026/programmingvisualartists_session1_2026.pdf" target="_blank" rel="noopener">Open PDF in a new tab</a>
               </div>
             </div>
             <iframe id="slide-frame" class="pdf-frame" title="Session 01 slides" src="Session-01_23022026/programmingvisualartists_session1_2026.pdf"></iframe>
@@ -805,7 +816,7 @@
       <section id="assignments">
         <div class="section-heading">
           <h2>Projects</h2>
-          <p>A light project area for course participants to connect weekly sketches to larger creative work.</p>
+          <p>Use these prompts to turn weekly sketches into larger creative work.</p>
         </div>
         <div class="feature-grid">
           <article class="feature-card">
@@ -815,7 +826,7 @@
           </article>
           <article class="feature-card">
             <h3>Creative Coursework 2</h3>
-            <p>Make a generative composition using loops, randomness or noise, and one clearly adjustable visual system.</p>
+            <p>Make a generative composition using loops, randomness or noise, and one visual system you can clearly adjust.</p>
             <div class="links"><a href="web/lab.html?sketch=generative-grid">Start from generative grid</a></div>
           </article>
           <article class="feature-card">
@@ -829,50 +840,50 @@
       <section id="sessions">
         <div class="section-heading">
           <h2>Sessions</h2>
-          <p>Use the web sketches above for fast previews. Use the session links below for slides, instructions, and original Processing materials.</p>
+          <p>Use a session page when you want the day’s slides, web sketches, instructions, and Processing material together.</p>
         </div>
         <div class="sessions">
           <article class="session-card">
             <div class="session-kicker"><span>Session 01</span><span>23 Feb 2026</span></div>
             <h3>Drawing, coordinates, and first functions</h3>
             <p>Shapes, color, canvas coordinates, and reusable drawing code.</p>
-            <div class="links"><a class="primary" href="sessions/session-01/">Session page</a><a href="web/face-exercise/">Web sketch</a><a href="#slides" data-title="Session 01 - Drawing, coordinates, and first functions" data-pdf="Session-01_23022026/programmingvisualartists_session1_2026.pdf">Read slides</a></div>
+            <div class="links"><a class="primary" href="sessions/session-01/">Open session page</a><a href="web/face-exercise/">Open web sketch</a><a href="#slides" data-title="Session 01 - Drawing, coordinates, and first functions" data-pdf="Session-01_23022026/programmingvisualartists_session1_2026.pdf">Read slides here</a></div>
           </article>
           <article class="session-card">
             <div class="session-kicker"><span>Session 02</span><span>24 Feb 2026</span></div>
             <h3>Mouse input and changing color</h3>
             <p>Mouse position, clicks, mapping values, and dynamic color.</p>
-            <div class="links"><a class="primary" href="sessions/session-02/">Session page</a><a href="web/mouse-shapes/">Web sketch</a><a href="#slides" data-title="Session 02 - Mouse input and changing color" data-pdf="Session-02_24022026/programmingvisualartists_session2.pdf">Read slides</a></div>
+            <div class="links"><a class="primary" href="sessions/session-02/">Open session page</a><a href="web/mouse-shapes/">Open web sketch</a><a href="#slides" data-title="Session 02 - Mouse input and changing color" data-pdf="Session-02_24022026/programmingvisualartists_session2.pdf">Read slides here</a></div>
           </article>
           <article class="session-card">
             <div class="session-kicker"><span>Session 03</span><span>2 Mar 2026</span></div>
             <h3>Conditionals, loops, and movement</h3>
             <p>Decision-making, repeated actions, frame-based motion, and state.</p>
-            <div class="links"><a class="primary" href="sessions/session-03/">Session page</a><a href="web/hover-grid/">Hover web</a><a href="web/bouncing-ball/">Ball web</a><a href="#slides" data-title="Session 03 - Conditionals, loops, and movement" data-pdf="Session-03_02032026/programmingvisualartists_session3.pdf">Read slides</a></div>
+            <div class="links"><a class="primary" href="sessions/session-03/">Open session page</a><a href="web/hover-grid/">Open hover sketch</a><a href="web/bouncing-ball/">Open ball sketch</a><a href="#slides" data-title="Session 03 - Conditionals, loops, and movement" data-pdf="Session-03_02032026/programmingvisualartists_session3.pdf">Read slides here</a></div>
           </article>
           <article class="session-card">
             <div class="session-kicker"><span>Session 04</span><span>3 Mar 2026</span></div>
             <h3>Waves, grids, noise, and recursion</h3>
             <p>Nested loops, sine waves, random walks, Perlin noise, and recursion.</p>
-            <div class="links"><a class="primary" href="sessions/session-04/">Session page</a><a href="web/simple-waves/">Waves web</a><a href="web/generative-grid/">Grid web</a><a href="#slides" data-title="Session 04 - Waves, grids, noise, and recursion" data-pdf="Session-04_03032026/programmingvisualartists_session4.pdf">Read slides</a></div>
+            <div class="links"><a class="primary" href="sessions/session-04/">Open session page</a><a href="web/simple-waves/">Open waves sketch</a><a href="web/generative-grid/">Open grid sketch</a><a href="#slides" data-title="Session 04 - Waves, grids, noise, and recursion" data-pdf="Session-04_03032026/programmingvisualartists_session4.pdf">Read slides here</a></div>
           </article>
           <article class="session-card">
             <div class="session-kicker"><span>Session 05</span><span>9 Mar 2026</span></div>
             <h3>Functions, parameters, and reuse</h3>
             <p>Named behavior, parameterized drawing, randomness, and recursion.</p>
-            <div class="links"><a class="primary" href="sessions/session-05/">Session page</a><a href="web/shapes-function/">Shapes web</a><a href="web/spiral-spins/">Spiral web</a><a href="#slides" data-title="Session 05 - Functions, parameters, and reuse" data-pdf="Session-05_09032026/programmingvisualartists_session5.pdf">Read slides</a></div>
+            <div class="links"><a class="primary" href="sessions/session-05/">Open session page</a><a href="web/shapes-function/">Open shapes sketch</a><a href="web/spiral-spins/">Open spiral sketch</a><a href="#slides" data-title="Session 05 - Functions, parameters, and reuse" data-pdf="Session-05_09032026/programmingvisualartists_session5.pdf">Read slides here</a></div>
           </article>
           <article class="session-card">
             <div class="session-kicker"><span>Session 06</span><span>10 Mar 2026</span></div>
             <h3>Arrays, objects, and particles</h3>
             <p>Object-oriented thinking, arrays, particle systems, and smooth motion fields.</p>
-            <div class="links"><a class="primary" href="sessions/session-06/">Session page</a><a href="web/particles-follow/">Follow web</a><a href="web/particles-noise/">Noise web</a><a href="#slides" data-title="Session 06 - Arrays, objects, and particles" data-pdf="Session-06_10032026/programmingvisualartists_session6.pdf">Read slides</a></div>
+            <div class="links"><a class="primary" href="sessions/session-06/">Open session page</a><a href="web/particles-follow/">Open follow sketch</a><a href="web/particles-noise/">Open noise sketch</a><a href="#slides" data-title="Session 06 - Arrays, objects, and particles" data-pdf="Session-06_10032026/programmingvisualartists_session6.pdf">Read slides here</a></div>
           </article>
         </div>
       </section>
 
       <footer class="footer">
-        Programming for Visual Artists, Aalto University. Course material by Tiago Martins Pinto. Web-first course index with original Processing materials preserved. <a href="preview-assets/">Preview assets</a> | <a href="FILENAME_NOTES.md">Filename notes</a>
+        Programming for Visual Artists, Aalto University. Course material by Tiago Martins Pinto. Start in the browser, then use Processing when you need the original files.
       </footer>
     </main>
     <script>
