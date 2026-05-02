@@ -17,6 +17,7 @@
         --accent-2: #54d6c7;
         --accent-3: #f3c969;
         --code: #0d1117;
+        --hero-scroll: 0;
       }
 
       * { box-sizing: border-box; }
@@ -39,20 +40,19 @@
 
       body::before {
         z-index: -2;
+        opacity: 0.78;
         background:
-          radial-gradient(circle at 16% 10%, rgba(84, 214, 199, 0.18), transparent 30%),
-          radial-gradient(circle at 86% 34%, rgba(255, 91, 79, 0.14), transparent 28%),
-          radial-gradient(circle at 42% 90%, rgba(243, 201, 105, 0.1), transparent 28%);
-        transform: translate3d(0, calc(var(--scroll, 0) * -0.08px), 0);
+          radial-gradient(circle at 16% 10%, rgba(84, 214, 199, 0.15), transparent 30%),
+          radial-gradient(circle at 86% 34%, rgba(255, 91, 79, 0.11), transparent 28%),
+          radial-gradient(circle at 42% 90%, rgba(243, 201, 105, 0.08), transparent 28%);
       }
 
       body::after {
         z-index: -1;
-        opacity: 0.22;
+        opacity: 0.12;
         background:
-          repeating-linear-gradient(90deg, rgba(245, 240, 232, 0.08) 0 1px, transparent 1px 72px),
-          repeating-linear-gradient(0deg, rgba(245, 240, 232, 0.06) 0 1px, transparent 1px 72px);
-        transform: translate3d(0, calc(var(--scroll, 0) * -0.18px), 0);
+          repeating-linear-gradient(90deg, rgba(245, 240, 232, 0.07) 0 1px, transparent 1px 72px),
+          repeating-linear-gradient(0deg, rgba(245, 240, 232, 0.05) 0 1px, transparent 1px 72px);
       }
 
       a { color: inherit; }
@@ -120,6 +120,7 @@
 
       .hero {
         position: relative;
+        isolation: isolate;
         overflow: clip;
         min-height: 70vh;
         display: grid;
@@ -146,7 +147,8 @@
         width: min(54vw, 680px);
         aspect-ratio: 1;
         border: 1px solid rgba(84, 214, 199, 0.24);
-        transform: translate3d(0, calc(var(--scroll, 0) * 0.12px), 0) rotate(18deg);
+        transform: translate3d(0, calc(var(--hero-scroll) * 0.045px), 0) rotate(18deg);
+        will-change: transform;
       }
 
       .hero::after {
@@ -156,14 +158,14 @@
         aspect-ratio: 1;
         border: 1px solid rgba(255, 91, 79, 0.2);
         border-radius: 50%;
-        transform: translate3d(0, calc(var(--scroll, 0) * -0.1px), 0);
+        transform: translate3d(0, calc(var(--hero-scroll) * -0.035px), 0);
+        will-change: transform;
       }
 
       .hero-inner {
         position: relative;
         z-index: 1;
         max-width: 980px;
-        transform: translate3d(0, calc(var(--scroll, 0) * -0.04px), 0);
       }
 
       .eyebrow {
@@ -243,7 +245,7 @@
         height: 160px;
         border-top: 1px solid rgba(84, 214, 199, 0.22);
         border-right: 1px solid rgba(84, 214, 199, 0.22);
-        transform: translate3d(0, calc(var(--scroll, 0) * -0.035px), 0);
+        opacity: 0.45;
         pointer-events: none;
       }
 
@@ -540,13 +542,10 @@
       }
 
       @media (prefers-reduced-motion: reduce) {
-        body::before,
-        body::after,
         .hero::before,
-        .hero::after,
-        .hero-inner,
-        section::before {
+        .hero::after {
           transform: none;
+          will-change: auto;
         }
       }
     </style>
@@ -896,11 +895,25 @@
       const prevSlideDeck = document.querySelector("#prev-slide-deck");
       const nextSlideDeck = document.querySelector("#next-slide-deck");
       let activeSlideIndex = 0;
+      let parallaxTicking = false;
 
       function updateParallax() {
-        if (!reducedMotion.matches) {
-          root.style.setProperty("--scroll", String(window.scrollY));
+        if (reducedMotion.matches) {
+          root.style.setProperty("--hero-scroll", "0");
+          return;
         }
+
+        const heroDepth = Math.min(window.scrollY, window.innerHeight * 0.9);
+        root.style.setProperty("--hero-scroll", String(heroDepth));
+      }
+
+      function requestParallaxUpdate() {
+        if (parallaxTicking) return;
+        parallaxTicking = true;
+        window.requestAnimationFrame(() => {
+          updateParallax();
+          parallaxTicking = false;
+        });
       }
 
       function showSlides(title, pdfPath) {
@@ -921,7 +934,12 @@
       }
 
       updateParallax();
-      window.addEventListener("scroll", updateParallax, { passive: true });
+      window.addEventListener("scroll", requestParallaxUpdate, { passive: true });
+      if (typeof reducedMotion.addEventListener === "function") {
+        reducedMotion.addEventListener("change", updateParallax);
+      } else if (typeof reducedMotion.addListener === "function") {
+        reducedMotion.addListener(updateParallax);
+      }
       prevSlideDeck.addEventListener("click", () => showSlideByOffset(-1));
       nextSlideDeck.addEventListener("click", () => showSlideByOffset(1));
 
