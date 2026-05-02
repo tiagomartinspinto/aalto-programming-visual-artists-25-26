@@ -97,6 +97,10 @@ The website includes a small project area:
 - Creative Coursework 2: a generative composition using loops, randomness or noise.
 - Final Project: an interactive or generative artwork with a personal visual direction.
 
+## Removed coursework Coursework listing
+
+Removed coursework 1 and Coursework 2 sketches from the removed-source-host curation are removed copyed in `case-coursework/`. The coursework listing runs the local copies in an in-page viewer, links to each local source file, and keeps the original removed-source-host pages available for attribution and backup.
+
 ## Repository Structure
 
 Each session folder follows the same general idea:
@@ -107,6 +111,7 @@ Each session folder follows the same general idea:
 - `web/` contains browser-friendly p5.js companion sketches.
 - `web/lab.html` contains the in-browser code editor.
 - `web/vendor/p5.min.js` is the local p5.js runtime used by the Lab and web sketches.
+- `case-coursework/` contains the local removed coursework coursework listing and removed copyed p5.js sketches.
 - `sessions/` contains focused landing pages for each session.
 - `preview-assets/` contains guidance and a place for screenshots or GIFs.
 
