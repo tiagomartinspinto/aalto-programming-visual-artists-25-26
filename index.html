@@ -545,6 +545,7 @@
     <header class="topbar">
       <div class="brand">Programming for Visual Artists</div>
       <nav aria-label="Main navigation">
+        <a href="#course-path">Path</a>
         <a href="#web-sketches">Web sketches</a>
         <a href="#lab">Lab</a>
         <a href="#slides">Slides</a>
@@ -563,7 +564,7 @@
           <span><a href="mailto:tiago.martinspinto@aalto.fi">tiago.martinspinto@aalto.fi</a></span>
         </div>
         <div class="actions">
-          <a class="button" href="#web-sketches">Open web sketches</a>
+          <a class="button" href="#web-sketches">Explore sketches</a>
           <a class="button secondary" href="web/lab.html">Try Sketch Lab</a>
           <a class="button secondary" href="#slides">Read slides here</a>
         </div>
@@ -571,6 +572,35 @@
     </div>
 
     <main>
+      <section id="course-path">
+        <div class="section-heading">
+          <h2>Course Path</h2>
+          <p>A simple route through the material: watch, run, change, then turn a sketch into a coursework.</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <h3>1. Read The Session</h3>
+            <p>Start from a session page for the day’s themes, slides, browser sketches, and original Processing files.</p>
+            <div class="links"><a class="primary" href="#sessions">Choose a session</a></div>
+          </article>
+          <article class="feature-card">
+            <h3>2. Try In The Lab</h3>
+            <p>Open a sketch in the Lab, change one number or color, and run it again without downloading anything.</p>
+            <div class="links"><a class="primary" href="web/lab.html">Open Sketch Lab</a></div>
+          </article>
+          <article class="feature-card">
+            <h3>3. Compare With Processing</h3>
+            <p>Use the original `.pde` files when you want to move from browser experiments into Processing.</p>
+            <div class="links"><a href="#comparison">See syntax notes</a></div>
+          </article>
+          <article class="feature-card">
+            <h3>4. Build A Coursework</h3>
+            <p>Use the weekly exercises as seeds for Creative Coursework 1, Creative Coursework 2, and the final project.</p>
+            <div class="links"><a href="#assignments">View projects</a></div>
+          </article>
+        </div>
+      </section>
+
       <section id="web-sketches">
         <div class="section-heading">
           <h2>Web Sketches</h2>
@@ -590,7 +620,7 @@
               <p>A static drawing exercise translated from Processing to p5.js, built around a reusable `drawFace()` function.</p>
               <div class="tags"><span class="tag">Session 01</span><span class="tag">functions</span><span class="tag">drawing</span></div>
               <div class="details"><span>Try:</span> change face size, eye spacing, mouth arc, or call `drawFace()` more than once.</div>
-              <div class="links"><a class="primary" href="web/face-exercise/">Open web sketch</a><a href="web/lab.html?sketch=face-exercise">Edit code</a><a href="Session-01_23022026/face_exercise/face_exercise.pde">Processing source</a></div>
+              <div class="links"><a class="primary" href="web/lab.html?sketch=face-exercise">Try in Lab</a><a href="web/face-exercise/">Standalone view</a><a href="Session-01_23022026/face_exercise/face_exercise.pde">Processing source</a></div>
             </div>
           </article>
 
@@ -601,7 +631,7 @@
               <p>Mouse position controls a circle, removed copyed square, and changing background color.</p>
               <div class="tags"><span class="tag">Session 02</span><span class="tag">mouseX</span><span class="tag">map()</span></div>
               <div class="details"><span>Try:</span> swap the removed copyed movement, change the color mappings, or alter shape sizes.</div>
-              <div class="links"><a class="primary" href="web/mouse-shapes/">Open web sketch</a><a href="web/lab.html?sketch=mouse-shapes">Edit code</a><a href="Session-02_24022026/mouseshapes/mouseshapes.pde">Processing source</a></div>
+              <div class="links"><a class="primary" href="web/lab.html?sketch=mouse-shapes">Try in Lab</a><a href="web/mouse-shapes/">Standalone view</a><a href="Session-02_24022026/mouseshapes/mouseshapes.pde">Processing source</a></div>
             </div>
           </article>
 
@@ -612,7 +642,7 @@
               <p>An 8 by 8 grid that changes the active cell when the pointer enters it.</p>
               <div class="tags"><span class="tag">Session 03</span><span class="tag">conditionals</span><span class="tag">loops</span></div>
               <div class="details"><span>Try:</span> change rows and columns, use gradients, or make neighboring cells react too.</div>
-              <div class="links"><a class="primary" href="web/hover-grid/">Open web sketch</a><a href="web/lab.html?sketch=hover-grid">Edit code</a><a href="Session-03_02032026/hoverisred/hoverisred.pde">Processing source</a></div>
+              <div class="links"><a class="primary" href="web/lab.html?sketch=hover-grid">Try in Lab</a><a href="web/hover-grid/">Standalone view</a><a href="Session-03_02032026/hoverisred/hoverisred.pde">Processing source</a></div>
             </div>
           </article>
 
@@ -623,7 +653,7 @@
               <p>A moving ball reverses direction at the canvas edges and changes color on each bounce.</p>
               <div class="tags"><span class="tag">Session 03</span><span class="tag">motion</span><span class="tag">state</span></div>
               <div class="details"><span>Try:</span> adjust speed, radius, background fade, or add more bouncing objects.</div>
-              <div class="links"><a class="primary" href="web/bouncing-ball/">Open web sketch</a><a href="web/lab.html?sketch=bouncing-ball">Edit code</a><a href="Session-03_02032026/extra_bouncingballcolor/extra_bouncingballcolor.pde">Processing source</a></div>
+              <div class="links"><a class="primary" href="web/lab.html?sketch=bouncing-ball">Try in Lab</a><a href="web/bouncing-ball/">Standalone view</a><a href="Session-03_02032026/extra_bouncingballcolor/extra_bouncingballcolor.pde">Processing source</a></div>
             </div>
           </article>
 
@@ -634,7 +664,7 @@
               <p>A sine wave drawn as a sequence of circles, animated over time.</p>
               <div class="tags"><span class="tag">Session 04</span><span class="tag">sin()</span><span class="tag">animation</span></div>
               <div class="details"><span>Try:</span> change amplitude, frequency, spacing, or draw connected lines instead of points.</div>
-              <div class="links"><a class="primary" href="web/simple-waves/">Open web sketch</a><a href="web/lab.html?sketch=simple-waves">Edit code</a><a href="Session-04_03032026/extra_simplewaves/extra_simplewaves.pde">Processing source</a></div>
+              <div class="links"><a class="primary" href="web/lab.html?sketch=simple-waves">Try in Lab</a><a href="web/simple-waves/">Standalone view</a><a href="Session-04_03032026/extra_simplewaves/extra_simplewaves.pde">Processing source</a></div>
             </div>
           </article>
 
@@ -645,7 +675,7 @@
               <p>A rotating grid driven by Perlin noise, useful for seeing nested loops and smooth randomness.</p>
               <div class="tags"><span class="tag">Session 04</span><span class="tag">noise()</span><span class="tag">nested loops</span></div>
               <div class="details"><span>Try:</span> change grid size, rotation amount, tile shape, or noise scale.</div>
-              <div class="links"><a class="primary" href="web/generative-grid/">Open web sketch</a><a href="web/lab.html?sketch=generative-grid">Edit code</a><a href="Session-04_03032026/generativegrid/generativegrid.pde">Processing source</a></div>
+              <div class="links"><a class="primary" href="web/lab.html?sketch=generative-grid">Try in Lab</a><a href="web/generative-grid/">Standalone view</a><a href="Session-04_03032026/generativegrid/generativegrid.pde">Processing source</a></div>
             </div>
           </article>
 
@@ -656,7 +686,7 @@
               <p>A static generative composition made by repeatedly calling a custom abstract shape function.</p>
               <div class="tags"><span class="tag">Session 05</span><span class="tag">parameters</span><span class="tag">randomness</span></div>
               <div class="details"><span>Try:</span> click the sketch to regenerate, add a fourth shape type, or constrain the color palette.</div>
-              <div class="links"><a class="primary" href="web/shapes-function/">Open web sketch</a><a href="web/lab.html?sketch=shapes-function">Edit code</a><a href="Session-05_09032026/shapesfunction/shapesfunction.pde">Processing source</a></div>
+              <div class="links"><a class="primary" href="web/lab.html?sketch=shapes-function">Try in Lab</a><a href="web/shapes-function/">Standalone view</a><a href="Session-05_09032026/shapesfunction/shapesfunction.pde">Processing source</a></div>
             </div>
           </article>
 
@@ -667,7 +697,7 @@
               <p>A polar-coordinate spiral where mouse position controls speed and radius.</p>
               <div class="tags"><span class="tag">Session 05</span><span class="tag">functions</span><span class="tag">polar coordinates</span></div>
               <div class="details"><span>Try:</span> move the pointer, press `T` for trails, then change turns, curve, or color mode.</div>
-              <div class="links"><a class="primary" href="web/spiral-spins/">Open web sketch</a><a href="web/lab.html?sketch=spiral-spins">Edit code</a><a href="Session-05_09032026/extra_spiralspins/extra_spiralspins.pde">Processing source</a></div>
+              <div class="links"><a class="primary" href="web/lab.html?sketch=spiral-spins">Try in Lab</a><a href="web/spiral-spins/">Standalone view</a><a href="Session-05_09032026/extra_spiralspins/extra_spiralspins.pde">Processing source</a></div>
             </div>
           </article>
 
@@ -678,7 +708,7 @@
               <p>A small particle system that emits fading particles from the pointer position.</p>
               <div class="tags"><span class="tag">Session 06</span><span class="tag">arrays</span><span class="tag">objects</span></div>
               <div class="details"><span>Try:</span> move the pointer, change lifespan, vary velocity, or color particles by age.</div>
-              <div class="links"><a class="primary" href="web/particles-follow/">Open web sketch</a><a href="web/lab.html?sketch=particles-follow">Edit code</a><a href="Session-06_10032026/particlesfollow/particlesfollow.pde">Processing source</a></div>
+              <div class="links"><a class="primary" href="web/lab.html?sketch=particles-follow">Try in Lab</a><a href="web/particles-follow/">Standalone view</a><a href="Session-06_10032026/particlesfollow/particlesfollow.pde">Processing source</a></div>
             </div>
           </article>
 
@@ -689,7 +719,7 @@
               <p>Hundreds of particles follow a smooth Perlin-noise field and wrap around the canvas.</p>
               <div class="tags"><span class="tag">Session 06</span><span class="tag">noise()</span><span class="tag">systems</span></div>
               <div class="details"><span>Try:</span> change particle count, movement speed, fade amount, or noise scale.</div>
-              <div class="links"><a class="primary" href="web/particles-noise/">Open web sketch</a><a href="web/lab.html?sketch=particles-noise">Edit code</a><a href="Session-06_10032026/extra_particlesperlinoise/extra_particlesperlinoise.pde">Processing source</a></div>
+              <div class="links"><a class="primary" href="web/lab.html?sketch=particles-noise">Try in Lab</a><a href="web/particles-noise/">Standalone view</a><a href="Session-06_10032026/extra_particlesperlinoise/extra_particlesperlinoise.pde">Processing source</a></div>
             </div>
           </article>
         </div>

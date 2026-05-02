@@ -9,7 +9,7 @@ No prior programming experience is required. The emphasis is on sketching, play,
 ## Start Here
 
 1. Start with the public course site: [Programming for Visual Artists](https://tiagomartinspinto.github.io/aalto-programming-visual-artists-25-26/).
-2. Open a web sketch and observe what it does.
+2. Choose a session from the course path.
 3. Use the [Sketch Lab](web/lab.html) to edit p5.js code directly in the browser.
 4. Compare the p5.js web sketch with the original Processing `.pde` file when you are ready.
 5. Install [Processing](https://processing.org/download) only when you want to edit or run the original Processing sketches locally.
@@ -71,11 +71,11 @@ These are not replacements for the Processing sketches. They are small translati
 | [Particles follow](web/particles-follow/) | Arrays of objects | Change lifespan, velocity, size, or color by age |
 | [Particles with noise](web/particles-noise/) | Particle systems and noise fields | Change particle count, speed, fade, or noise scale |
 
-The p5.js pages load p5.js from a CDN, so they need internet access the first time they are opened unless the library is cached by the browser. The Processing source files do not download automatically from the site; links are ordinary file links for course participants who choose to inspect or save them.
+The p5.js pages use the local runtime at `web/vendor/p5.min.js`, so sketches and the Lab do not depend on a CDN. The Processing source files do not download automatically from the site; links are ordinary file links for course participants who choose to inspect or save them.
 
 ## Sketch Lab
 
-[Sketch Lab](web/lab.html) is an in-browser editor for the p5.js companion sketches. Course participants can choose a sketch, edit the JavaScript, and run it immediately without installing anything. Changes stay local in the browser and are not uploaded or saved automatically.
+[Sketch Lab](web/lab.html) is an in-browser editor for the p5.js companion sketches. Course participants can choose a sketch, edit the JavaScript, and run it immediately with the same local p5 runtime used by the standalone sketch pages. Changes stay local in the browser and are not uploaded or saved automatically.
 
 Use it for quick experiments:
 
@@ -106,6 +106,7 @@ Each session folder follows the same general idea:
 - `slidescodeexamples` or `slidecodeexamples` contains smaller code snippets from slides.
 - `web/` contains browser-friendly p5.js companion sketches.
 - `web/lab.html` contains the in-browser code editor.
+- `web/vendor/p5.min.js` is the local p5.js runtime used by the Lab and web sketches.
 - `sessions/` contains focused landing pages for each session.
 - `preview-assets/` contains guidance and a place for screenshots or GIFs.
 

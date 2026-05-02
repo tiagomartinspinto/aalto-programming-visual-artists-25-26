@@ -96,13 +96,30 @@
         color: #06100f;
       }
 
-      iframe {
+      .preview-frame {
         width: 100%;
         height: 100%;
         min-height: 420px;
         border: 1px solid var(--line);
         border-radius: 8px;
         background: #000;
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+      }
+
+      .sketch-mount {
+        width: 100%;
+        height: 100%;
+        display: grid;
+        place-items: center;
+      }
+
+      .preview-frame canvas {
+        max-width: 100%;
+        max-height: 100%;
+        width: auto !important;
+        height: auto !important;
       }
 
       .editor {
@@ -166,7 +183,7 @@
           <button class="primary" id="run-button" type="button">Run code</button>
           <button id="reset-button" type="button">Reset</button>
         </div>
-        <iframe id="preview" title="Editable sketch preview"></iframe>
+        <div id="preview" class="preview-frame" role="img" aria-label="Editable sketch preview"></div>
       </section>
       <section class="editor" aria-label="Sketch source editor">
         <div>
@@ -174,13 +191,14 @@
           <p class="meta" id="sketch-meta"></p>
         </div>
         <div class="editor-toolbar">
-          <a id="open-page" href="#">Open web sketch</a>
+          <a id="open-page" href="#">Standalone view</a>
           <a id="open-source" href="#">Original Processing source</a>
         </div>
         <textarea id="code" spellcheck="false" aria-label="Editable p5.js source code"></textarea>
         <div class="status" id="status" aria-live="polite"></div>
       </section>
     </main>
+    <script src="vendor/p5.min.js"></script>
     <script src="sketches.js"></script>
     <script>
       const select = document.querySelector("#sketch-select");
@@ -194,6 +212,7 @@
       const params = new URLSearchParams(window.location.search);
       let currentSketch = null;
       let originalCode = "";
+      let activeP5 = null;
 
       for (const sketch of window.COURSE_SKETCHES) {
         const option = document.createElement("option");
@@ -208,123 +227,33 @@
       }
 
       function render(codeText) {
-        const escapedCode = codeText.replace(/<\/script/gi, "<\\/script");
-        const closeScript = "</scr" + "ipt>";
-        const html = `<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    html, body { margin: 0; height: 100%; background: #000; overflow: hidden; }
-    body { display: grid; place-items: center; }
-    canvas { max-width: 100vw; max-height: 100vh; width: auto !important; height: auto !important; }
-  </style>
-</head>
-<body>
-  <script>
-    window.onerror = (message, source, line, column) => {
-      parent.postMessage({ type: "sketch-error", message: String(message), line, column }, "*");
-    };
-    let canvas, ctx, width = 100, height = 100, frameCount = 0;
-    let mouseX = 0, mouseY = 0, key = "";
-    let fillStyle = "#fff", strokeStyle = "#fff", doFill = true, doStroke = true;
-    let rectModeValue = "CORNER", colorModeValue = "RGB", loopEnabled = true;
-    const PI = Math.PI, TWO_PI = Math.PI * 2, CENTER = "CENTER", CORNER = "CORNER", HSB = "HSB", RGB = "RGB";
-    const sin = Math.sin, cos = Math.cos, pow = Math.pow, min = Math.min, max = Math.max, floor = Math.floor;
-    function createCanvas(w, h) {
-      width = w; height = h;
-      canvas = document.createElement("canvas");
-      canvas.width = w; canvas.height = h;
-      canvas.parent = (target) => {
-        const parentElement = typeof target === "string" ? document.getElementById(target) : target;
-        if (parentElement && parentElement.append) parentElement.append(canvas);
-        return canvas;
-      };
-      ctx = canvas.getContext("2d");
-      document.body.innerHTML = "";
-      document.body.append(canvas);
-      canvas.addEventListener("mousemove", (event) => {
-        const rect = canvas.getBoundingClientRect();
-        mouseX = (event.clientX - rect.left) * (canvas.width / rect.width);
-        mouseY = (event.clientY - rect.top) * (canvas.height / rect.height);
-      });
-      canvas.addEventListener("mousedown", () => {
-        if (typeof mousePressed === "function") mousePressed();
-      });
-      return canvas;
-    }
-    function frameRate() {}
-    function noLoop() { loopEnabled = false; }
-    function redraw() { if (typeof draw === "function") draw(); }
-    function colorMode(mode) { colorModeValue = mode; }
-    function hsbToRgb(h, s, b, a = 255) {
-      s /= 100; b /= 100;
-      const k = (n) => (n + h / 60) % 6;
-      const f = (n) => b * (1 - s * Math.max(0, Math.min(k(n), 4 - k(n), 1)));
-      return "rgba(" + [255 * f(5), 255 * f(3), 255 * f(1), a].map((v, i) => i < 3 ? Math.round(v) : v / 255).join(",") + ")";
-    }
-    function color(r, g, b, a = 255) {
-      if (typeof r === "string") return r;
-      if (g === undefined) return "rgba(" + [r, r, r, 1].join(",") + ")";
-      if (b === undefined) return "rgba(" + [r, r, r, g / 255].join(",") + ")";
-      return colorModeValue === HSB ? hsbToRgb(r, g, b, a) : "rgba(" + [r, g, b, a / 255].join(",") + ")";
-    }
-    function background(r, g, b, a = 255) { const old = ctx.fillStyle; ctx.fillStyle = color(r, g, b, a); ctx.fillRect(0, 0, width, height); ctx.fillStyle = old; }
-    function fill(r, g, b, a = 255) { doFill = true; fillStyle = color(r, g, b, a); }
-    function stroke(r, g, b, a = 255) { doStroke = true; strokeStyle = color(r, g, b, a); }
-    function noFill() { doFill = false; }
-    function noStroke() { doStroke = false; }
-    function strokeWeight(value) { ctx.lineWidth = value; }
-    function rectMode(value) { rectModeValue = value; }
-    function paint() { if (doFill) { ctx.fillStyle = fillStyle; ctx.fill(); } if (doStroke) { ctx.strokeStyle = strokeStyle; ctx.stroke(); } }
-    function ellipse(x, y, w, h = w) { ctx.beginPath(); ctx.ellipse(x, y, w / 2, h / 2, 0, 0, TWO_PI); paint(); }
-    function rect(x, y, w, h) { if (rectModeValue === CENTER) { x -= w / 2; y -= h / 2; } ctx.beginPath(); ctx.rect(x, y, w, h); paint(); }
-    function triangle(x1, y1, x2, y2, x3, y3) { ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.lineTo(x3, y3); ctx.closePath(); paint(); }
-    function arc(x, y, w, h, start, stop) { ctx.beginPath(); ctx.ellipse(x, y, w / 2, h / 2, 0, start, stop); paint(); }
-    function push() { ctx.save(); }
-    function pop() { ctx.restore(); }
-    function translate(x, y) { ctx.translate(x, y); }
-    function rotate(a) { ctx.rotate(a); }
-    function beginShape() { ctx.beginPath(); window.__shapeStarted = false; }
-    function vertex(x, y) { if (!window.__shapeStarted) { ctx.moveTo(x, y); window.__shapeStarted = true; } else { ctx.lineTo(x, y); } }
-    function endShape() { if (doStroke) { ctx.strokeStyle = strokeStyle; ctx.stroke(); } }
-    function random(a, b) { if (a === undefined) return Math.random(); if (b === undefined) return Math.random() * a; return a + Math.random() * (b - a); }
-    function map(value, start1, stop1, start2, stop2) { return start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1)); }
-    function noise(x = 0, y = 0, z = 0) {
-      const value = Math.sin(x * 12.9898 + y * 78.233 + z * 37.719) * 43758.5453;
-      return value - Math.floor(value);
-    }
-    window.addEventListener("keydown", (event) => { key = event.key; if (typeof keyPressed === "function") keyPressed(); });
-  ${closeScript}
-  <script>${escapedCode}${closeScript}
-  <script>
-    if (typeof setup === "function") setup();
-    if (typeof draw === "function") draw();
-    function tick() {
-      frameCount++;
-      if (typeof draw === "function" && loopEnabled) draw();
-      requestAnimationFrame(tick);
-    }
-    tick();
-    parent.postMessage({ type: "sketch-running" }, "*");
-  ${closeScript}
-</body>
-</html>`;
-        const previewDocument = preview.contentDocument || preview.contentWindow.document;
-        previewDocument.open();
-        previewDocument.write(html);
-        previewDocument.close();
-        const previewProgram = [...previewDocument.querySelectorAll("script")]
-          .map((script) => script.textContent)
-          .join("\n\n");
+        if (activeP5) {
+          activeP5.remove();
+          activeP5 = null;
+        }
+
+        preview.innerHTML = '<div id="sketch" class="sketch-mount"></div>';
+        const mount = preview.querySelector("#sketch");
+        writeStatus("Rendering preview with the local p5 runtime...");
+
         try {
-          preview.contentWindow.eval(previewProgram);
+          activeP5 = new p5((p) => {
+            const install = new Function("p", [
+              "with (p) {",
+              codeText,
+              "if (typeof preload === 'function') p.preload = preload;",
+              "if (typeof setup === 'function') p.setup = setup;",
+              "if (typeof draw === 'function') p.draw = draw;",
+              "if (typeof mousePressed === 'function') p.mousePressed = mousePressed;",
+              "if (typeof keyPressed === 'function') p.keyPressed = keyPressed;",
+              "}"
+            ].join("\n"));
+            install(p);
+          }, mount);
+          writeStatus("Running in the browser. Changes stay local to this page.");
         } catch (error) {
           writeStatus(`Error: ${error.message}`, true);
-          return;
         }
-        writeStatus("Running in the browser. Changes stay local to this page.");
       }
 
       async function loadSketch(id) {
@@ -350,6 +279,9 @@
       });
 
       window.addEventListener("message", (event) => {
+        if (event.data && event.data.type === "sketch-running") {
+          writeStatus("Running in the browser. Changes stay local to this page.");
+        }
         if (event.data && event.data.type === "sketch-error") {
           writeStatus(`Error: ${event.data.message} at line ${event.data.line || "?"}`, true);
         }
