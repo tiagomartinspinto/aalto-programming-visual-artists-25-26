@@ -4,6 +4,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Programming for Visual Artists - Aalto University</title>
+    <meta name="description" content="A web-first course index for Programming for Visual Artists at Aalto University. Preview sketches, edit p5.js code in the browser, read slides, and compare Processing source files.">
+    <meta name="theme-color" content="#090b0f">
+    <link rel="canonical" href="https://tiagomartinspinto.github.io/aalto-programming-visual-artists-25-26/">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <meta property="og:title" content="Programming for Visual Artists - Aalto University">
+    <meta property="og:description" content="Preview sketches, edit p5.js code in the browser, read slides, and compare Processing source files.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tiagomartinspinto.github.io/aalto-programming-visual-artists-25-26/">
+    <meta property="og:image" content="https://tiagomartinspinto.github.io/aalto-programming-visual-artists-25-26/site-preview.svg">
+    <meta name="twitter:card" content="summary_large_image">
     <style>
       :root {
         color-scheme: dark;
@@ -97,6 +107,11 @@
 
       nav a { text-decoration: none; }
       nav a:hover { color: var(--ink); }
+      nav a[aria-current="true"] {
+        color: var(--accent-2);
+        text-decoration: underline;
+        text-underline-offset: 6px;
+      }
 
       a:focus-visible,
       button:focus-visible,
@@ -348,6 +363,35 @@
         color: var(--muted);
       }
 
+      .status-cues {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 12px;
+        margin-top: 32px;
+      }
+
+      .status-cues::before { display: none; }
+
+      .status-cue {
+        display: grid;
+        gap: 5px;
+        padding: 14px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(16, 20, 27, 0.78);
+      }
+
+      .status-cue span {
+        color: var(--accent-2);
+        font-size: 12px;
+        font-weight: 820;
+        text-transform: uppercase;
+      }
+
+      .status-cue strong {
+        font-size: 15px;
+      }
+
       .notice {
         display: grid;
         gap: 8px;
@@ -459,6 +503,11 @@
         font-size: 14px;
       }
 
+      .slide-select-label,
+      .slide-select {
+        display: none;
+      }
+
       .slide-picker {
         width: 100%;
         padding: 11px 12px;
@@ -542,9 +591,28 @@
       .web-card { overflow: hidden; }
 
       .preview {
+        position: relative;
         aspect-ratio: 16 / 10;
         border-bottom: 1px solid var(--line);
         background: var(--code);
+      }
+
+      .preview.is-paused::after {
+        content: "Preview paused until it is near the screen";
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        display: grid;
+        place-items: center;
+        padding: 18px;
+        color: var(--muted);
+        font-size: 13px;
+        text-align: center;
+        background: linear-gradient(135deg, rgba(13, 17, 23, 0.96), rgba(16, 20, 27, 0.96));
+      }
+
+      .preview.is-paused iframe {
+        opacity: 0;
       }
 
       iframe {
@@ -613,6 +681,30 @@
           border-bottom: 1px solid var(--line);
         }
 
+        .slide-list-label,
+        .slide-picker {
+          display: none;
+        }
+
+        .slide-select-label {
+          display: block;
+          color: var(--muted);
+          font-size: 14px;
+        }
+
+        .slide-select {
+          display: block;
+          width: 100%;
+          min-height: 42px;
+          padding: 8px 10px;
+          border: 1px solid rgba(84, 214, 199, 0.62);
+          border-radius: 6px;
+          background: var(--panel-2);
+          color: var(--ink);
+          font: inherit;
+          font-weight: 720;
+        }
+
         .slide-viewer {
           width: 100%;
         }
@@ -668,6 +760,25 @@
     </div>
 
     <main>
+      <section class="status-cues" aria-label="Course material status">
+        <div class="status-cue">
+          <span>Start here</span>
+          <strong>Use the session pages to follow each week.</strong>
+        </div>
+        <div class="status-cue">
+          <span>Runs in browser</span>
+          <strong>Open web sketches before downloading files.</strong>
+        </div>
+        <div class="status-cue">
+          <span>Edit safely</span>
+          <strong>Try changes in the Lab; your edits stay local.</strong>
+        </div>
+        <div class="status-cue">
+          <span>Compare later</span>
+          <strong>Processing source files stay available when you need them.</strong>
+        </div>
+      </section>
+
       <section id="course-path">
         <div class="section-heading">
           <h2>How to Use This Site</h2>
@@ -876,7 +987,16 @@
         </div>
         <div class="slides-reader" aria-label="In-page PDF slides reader">
           <div class="slide-controls">
-            <p>Choose a slide deck</p>
+            <p class="slide-list-label">Choose a slide deck</p>
+            <label class="slide-select-label" for="slide-select">Choose a slide deck</label>
+            <select class="slide-select" id="slide-select" aria-label="Choose a slide deck">
+              <option value="0">Session 01 - Drawing, coordinates, and first functions</option>
+              <option value="1">Session 02 - Mouse input and changing color</option>
+              <option value="2">Session 03 - Conditionals, loops, and movement</option>
+              <option value="3">Session 04 - Waves, grids, noise, and recursion</option>
+              <option value="4">Session 05 - Functions, parameters, and reuse</option>
+              <option value="5">Session 06 - Arrays, objects, and particles</option>
+            </select>
             <button class="slide-picker" type="button" aria-pressed="true" data-title="Session 01 - Drawing, coordinates, and first functions" data-pdf="Session-01_23022026/programmingvisualartists_session1_2026.pdf">Session 01</button>
             <button class="slide-picker" type="button" aria-pressed="false" data-title="Session 02 - Mouse input and changing color" data-pdf="Session-02_24022026/programmingvisualartists_session2.pdf">Session 02</button>
             <button class="slide-picker" type="button" aria-pressed="false" data-title="Session 03 - Conditionals, loops, and movement" data-pdf="Session-03_02032026/programmingvisualartists_session3.pdf">Session 03</button>
@@ -977,11 +1097,21 @@
       const slideTitle = document.querySelector("#slide-title");
       const slideFrame = document.querySelector("#slide-frame");
       const slideDirectLink = document.querySelector("#slide-direct-link");
+      const slideSelect = document.querySelector("#slide-select");
       const slidePickers = [...document.querySelectorAll(".slide-picker")];
       const prevSlideDeck = document.querySelector("#prev-slide-deck");
       const nextSlideDeck = document.querySelector("#next-slide-deck");
+      const navLinks = [...document.querySelectorAll('nav a[href^="#"]')];
+      const trackedSections = navLinks
+        .map((link) => document.querySelector(link.getAttribute("href")))
+        .filter(Boolean);
+      const previewFrames = [...document.querySelectorAll(".preview iframe")];
       let activeSlideIndex = 0;
       let parallaxTicking = false;
+      let navTicking = false;
+      let previewTicking = false;
+      let activeNavHoldId = "";
+      let activeNavHoldUntil = 0;
 
       function updateParallax() {
         if (reducedMotion.matches) {
@@ -1008,6 +1138,9 @@
         slideFrame.src = pdfPath;
         slideFrame.title = `${title} slides`;
         slideDirectLink.href = pdfPath;
+        if (slideSelect) {
+          slideSelect.value = String(activeSlideIndex);
+        }
         slidePickers.forEach((picker) => {
           picker.setAttribute("aria-pressed", String(picker.dataset.pdf === pdfPath));
         });
@@ -1020,28 +1153,204 @@
       }
 
       function scrollToSection(selector) {
-        document.querySelector(selector)?.scrollIntoView({
+        const target = document.querySelector(selector);
+        if (!target) return;
+
+        const topbarHeight = document.querySelector(".topbar")?.offsetHeight || 0;
+        const targetTop = target.getBoundingClientRect().top + window.scrollY - topbarHeight - 18;
+        window.scrollTo({
+          top: Math.max(0, targetTop),
           behavior: reducedMotion.matches ? "auto" : "smooth",
-          block: "start"
+        });
+      }
+
+      function setActiveNav(activeId) {
+        navLinks.forEach((link) => {
+          const isActive = link.getAttribute("href") === `#${activeId}`;
+          if (isActive) {
+            link.setAttribute("aria-current", "true");
+          } else {
+            link.removeAttribute("aria-current");
+          }
+        });
+      }
+
+      function holdActiveNav(activeId, duration = 900) {
+        activeNavHoldId = activeId;
+        activeNavHoldUntil = performance.now() + duration;
+        setActiveNav(activeId);
+      }
+
+      function refreshAfterSectionMove(activeId = "") {
+        if (activeId) {
+          holdActiveNav(activeId);
+        } else {
+          requestActiveNavUpdate();
+        }
+        requestSketchPreviewUpdate();
+        window.setTimeout(() => {
+          if (activeId && window.location.hash === `#${activeId}`) {
+            holdActiveNav(activeId, 300);
+          } else {
+            updateActiveNav();
+          }
+          updateSketchPreviews();
+        }, reducedMotion.matches ? 0 : 650);
+      }
+
+      function updateActiveNav() {
+        if (activeNavHoldId && performance.now() < activeNavHoldUntil) {
+          setActiveNav(activeNavHoldId);
+          return;
+        }
+
+        activeNavHoldId = "";
+        const activationLine = Math.min(window.innerHeight * 0.36, 280);
+        let activeId = trackedSections[0]?.id;
+
+        for (const section of trackedSections) {
+          if (section.getBoundingClientRect().top <= activationLine) {
+            activeId = section.id;
+          }
+        }
+
+        setActiveNav(activeId);
+      }
+
+      function requestActiveNavUpdate() {
+        if (navTicking) return;
+        navTicking = true;
+        window.requestAnimationFrame(() => {
+          updateActiveNav();
+          navTicking = false;
+        });
+      }
+
+      function updateSketchPreviews() {
+        const margin = 650;
+        previewFrames.forEach((frame, frameIndex) => {
+          const preview = frame.closest(".preview");
+          const originalSource = frame.dataset.src;
+          const rect = frame.getBoundingClientRect();
+          const isNearViewport = rect.bottom > -margin && rect.top < window.innerHeight + margin;
+          const shouldKeepLeadingSketches = window.location.hash === "#web-sketches" && frameIndex < 4;
+
+          if (isNearViewport || shouldKeepLeadingSketches) {
+            if (originalSource && frame.getAttribute("src") !== originalSource) {
+              frame.setAttribute("src", originalSource);
+            }
+            preview?.classList.remove("is-paused");
+            return;
+          }
+
+          if (originalSource && frame.getAttribute("src") !== "about:blank") {
+            frame.setAttribute("src", "about:blank");
+          }
+          preview?.classList.add("is-paused");
+        });
+      }
+
+      function requestSketchPreviewUpdate() {
+        if (previewTicking) return;
+        previewTicking = true;
+        window.requestAnimationFrame(() => {
+          updateSketchPreviews();
+          previewTicking = false;
+        });
+      }
+
+      function setupSketchPreviewPausing() {
+        previewFrames.forEach((frame) => {
+          frame.dataset.src = frame.getAttribute("src");
+        });
+        updateSketchPreviews();
+      }
+
+      function loadLeadingSketchPreviews() {
+        previewFrames.slice(0, 4).forEach((frame) => {
+          const originalSource = frame.dataset.src;
+          if (originalSource && frame.getAttribute("src") !== originalSource) {
+            frame.setAttribute("src", originalSource);
+          }
+          frame.closest(".preview")?.classList.remove("is-paused");
         });
       }
 
       updateParallax();
+      updateActiveNav();
+      setupSketchPreviewPausing();
       window.addEventListener("scroll", requestParallaxUpdate, { passive: true });
+      window.addEventListener("scroll", requestActiveNavUpdate, { passive: true });
+      window.addEventListener("scroll", requestSketchPreviewUpdate, { passive: true });
       if (typeof reducedMotion.addEventListener === "function") {
         reducedMotion.addEventListener("change", updateParallax);
       } else if (typeof reducedMotion.addListener === "function") {
         reducedMotion.addListener(updateParallax);
       }
+      window.addEventListener("resize", () => {
+        requestActiveNavUpdate();
+        requestSketchPreviewUpdate();
+      });
+      window.addEventListener("hashchange", requestActiveNavUpdate);
+      window.addEventListener("load", () => {
+        if (window.location.hash) {
+          scrollToSection(window.location.hash);
+          setActiveNav(window.location.hash.slice(1));
+          if (window.location.hash === "#web-sketches") {
+            loadLeadingSketchPreviews();
+          }
+        } else {
+          updateActiveNav();
+        }
+        updateSketchPreviews();
+        window.setTimeout(() => {
+          if (window.location.hash) {
+            setActiveNav(window.location.hash.slice(1));
+          } else {
+            updateActiveNav();
+          }
+          updateSketchPreviews();
+        }, 250);
+      });
       prevSlideDeck.addEventListener("click", () => showSlideByOffset(-1));
       nextSlideDeck.addEventListener("click", () => showSlideByOffset(1));
+      slideSelect?.addEventListener("change", () => {
+        const picker = slidePickers[Number(slideSelect.value)] || slidePickers[0];
+        showSlides(picker.dataset.title, picker.dataset.pdf);
+      });
 
       document.addEventListener("click", (event) => {
         const trigger = event.target.closest("[data-pdf]");
-        if (!trigger) return;
+        if (trigger) {
+          event.preventDefault();
+          showSlides(trigger.dataset.title, trigger.dataset.pdf);
+          history.pushState(null, "", "#slides");
+          setActiveNav("slides");
+          scrollToSection("#slides");
+          refreshAfterSectionMove("slides");
+          return;
+        }
+
+        const anchor = event.target.closest('a[href^="#"]');
+        if (!anchor) return;
+        const target = anchor.getAttribute("href");
+        if (!target || target === "#" || !document.querySelector(target)) return;
         event.preventDefault();
-        showSlides(trigger.dataset.title, trigger.dataset.pdf);
-        scrollToSection("#slides");
+        history.pushState(null, "", target);
+        setActiveNav(target.slice(1));
+        if (target === "#web-sketches") {
+          loadLeadingSketchPreviews();
+        }
+        scrollToSection(target);
+        refreshAfterSectionMove(target.slice(1));
+      });
+
+      window.addEventListener("popstate", () => {
+        if (window.location.hash) {
+          setActiveNav(window.location.hash.slice(1));
+          scrollToSection(window.location.hash);
+          refreshAfterSectionMove(window.location.hash.slice(1));
+        }
       });
     </script>
   </body>

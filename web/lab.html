@@ -67,6 +67,30 @@
         gap: 10px;
       }
 
+      .file-warning,
+      .load-message {
+        display: grid;
+        gap: 6px;
+        padding: 12px;
+        border: 1px solid rgba(255, 91, 79, 0.5);
+        border-radius: 8px;
+        background: rgba(255, 91, 79, 0.08);
+        color: #ffd3cf;
+      }
+
+      .file-warning[hidden] { display: none; }
+
+      .file-warning strong,
+      .load-message strong {
+        color: #f5f0e8;
+      }
+
+      .load-message {
+        max-width: 520px;
+        margin: 18px;
+        text-align: center;
+      }
+
       select,
       button,
       textarea {
@@ -175,6 +199,10 @@
       <strong>Sketch Lab</strong>
       <nav><a href="../index.html">Back to course</a></nav>
     </header>
+    <div class="file-warning" id="file-warning" role="status" hidden>
+      <strong>The Lab works best from GitHub Pages or a local server.</strong>
+      <span>You opened it as a local file, and your browser may block loading sketch code with <code>fetch()</code>.</span>
+    </div>
     <main>
       <section class="stage" aria-label="Live sketch preview">
         <div class="toolbar">
@@ -209,10 +237,16 @@
       const meta = document.querySelector("#sketch-meta");
       const openPage = document.querySelector("#open-page");
       const openSource = document.querySelector("#open-source");
+      const fileWarning = document.querySelector("#file-warning");
       const params = new URLSearchParams(window.location.search);
+      const isFileMode = window.location.protocol === "file:";
       let currentSketch = null;
       let originalCode = "";
       let activeP5 = null;
+
+      if (isFileMode) {
+        fileWarning.hidden = false;
+      }
 
       for (const sketch of window.COURSE_SKETCHES) {
         const option = document.createElement("option");
@@ -256,6 +290,30 @@
         }
       }
 
+      function showLoadProblem(error) {
+        const message = isFileMode
+          ? "This browser blocked the sketch code because the Lab was opened as a local file. Use the GitHub Pages site or start a local server, then open the Lab again."
+          : `The sketch code could not be loaded: ${error.message}`;
+
+        if (activeP5) {
+          activeP5.remove();
+          activeP5 = null;
+        }
+
+        preview.innerHTML = [
+          '<div class="load-message">',
+          "<strong>Sketch code did not load.</strong>",
+          `<span>${message}</span>`,
+          "</div>"
+        ].join("");
+        code.value = [
+          `// ${message}`,
+          `// Sketch file: ${currentSketch.path}`,
+          "// Your browser has not loaded editable code yet."
+        ].join("\n");
+        writeStatus(message, true);
+      }
+
       async function loadSketch(id) {
         currentSketch = window.COURSE_SKETCHES.find((sketch) => sketch.id === id) || window.COURSE_SKETCHES[0];
         select.value = currentSketch.id;
@@ -264,11 +322,19 @@
         openPage.href = currentSketch.page;
         openSource.href = currentSketch.source;
         writeStatus("Loading the sketch code...");
-        const response = await fetch(currentSketch.path);
-        originalCode = await response.text();
-        code.value = originalCode;
-        render(originalCode);
         history.replaceState(null, "", `?sketch=${currentSketch.id}`);
+        try {
+          const response = await fetch(currentSketch.path);
+          if (!response.ok) {
+            throw new Error(`${response.status} ${response.statusText}`);
+          }
+          originalCode = await response.text();
+          code.value = originalCode;
+          render(originalCode);
+        } catch (error) {
+          originalCode = "";
+          showLoadProblem(error);
+        }
       }
 
       select.addEventListener("change", () => loadSketch(select.value));
