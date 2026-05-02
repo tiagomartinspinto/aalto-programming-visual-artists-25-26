@@ -315,13 +315,14 @@
         previewDocument.open();
         previewDocument.write(html);
         previewDocument.close();
-        for (const script of previewDocument.querySelectorAll("script")) {
-          try {
-            preview.contentWindow.eval(script.textContent);
-          } catch (error) {
-            writeStatus(`Error: ${error.message}`, true);
-            return;
-          }
+        const previewProgram = [...previewDocument.querySelectorAll("script")]
+          .map((script) => script.textContent)
+          .join("\n\n");
+        try {
+          preview.contentWindow.eval(previewProgram);
+        } catch (error) {
+          writeStatus(`Error: ${error.message}`, true);
+          return;
         }
         writeStatus("Running in the browser. Changes stay local to this page.");
       }
