@@ -1,6 +1,6 @@
 # Programming for Visual Artists 2024-2025
 
-Aalto University course archive for Programming for Visual Artists.
+Aalto University course materials for Programming for Visual Artists.
 
 ## Contents
 
@@ -14,7 +14,7 @@ Aalto University course archive for Programming for Visual Artists.
 - [Session 06](Session-06/)
 - [Session 07](Session-07/)
 - [Session 08](Session-08/)
-- [Local removed coursework coursework listing](case-coursework/)
+- [Removed coursework coursework listing](case-coursework/)
 - [Original removed-source-host curation](https://removed-source-host.org/curation/removed)
 
 Teacher: Tiago Martins Pinto

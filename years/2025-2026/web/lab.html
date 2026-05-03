@@ -237,32 +237,32 @@
     <header>
       <strong>Sketch Lab</strong>
       <nav aria-label="Lab directory">
-        <a href="../../../index.html">archive</a>
+        <a href="../../../index.html">all-years</a>
         <a href="../index.html">2025-2026</a>
         <span aria-current="page">lab</span>
       </nav>
     </header>
     <div class="file-warning" id="file-warning" role="status" hidden>
-      <strong>The Lab works best from GitHub Pages or a local server.</strong>
-      <span>You opened it as a local file, and your browser may block loading sketch code with <code>fetch()</code>.</span>
+      <strong>For class, open the Lab from GitHub Pages or a local server.</strong>
+      <span>You opened it as a local file, and your browser may block the course sketch code from loading with <code>fetch()</code>.</span>
     </div>
     <main>
       <section class="stage" aria-label="Live sketch preview">
         <div class="toolbar">
-          <label for="sketch-select">Choose sketch</label>
+          <label for="sketch-select">Choose course sketch</label>
           <select id="sketch-select"></select>
-          <button class="primary" id="run-button" type="button">Run your code</button>
-          <button id="reset-button" type="button">Reset to original</button>
+          <button class="primary" id="run-button" type="button">Run your changes</button>
+          <button id="reset-button" type="button">Reset to course version</button>
         </div>
         <div id="preview" class="preview-frame" role="img" aria-label="Editable sketch preview"></div>
       </section>
       <section class="editor" aria-label="Sketch source editor">
         <div>
-          <h1 id="sketch-title">Choose a sketch</h1>
+          <h1 id="sketch-title">Choose a course sketch</h1>
           <p class="meta" id="sketch-meta"></p>
         </div>
         <div class="editor-toolbar">
-          <a id="open-page" href="#">View sketch only</a>
+          <a id="open-page" href="#">Open sketch only</a>
           <a id="open-source" href="#">Compare Processing code</a>
         </div>
         <textarea id="code" spellcheck="false" aria-label="Editable p5.js code"></textarea>
@@ -335,8 +335,8 @@
 
       function showLoadProblem(error) {
         const message = isFileMode
-          ? "This browser blocked the sketch code because the Lab was opened as a local file. Use the GitHub Pages site or start a local server, then open the Lab again."
-          : `The sketch code could not be loaded: ${error.message}`;
+          ? "This browser blocked the course sketch code because the Lab was opened as a local file. Use the GitHub Pages site or start a local server, then open the Lab again."
+          : `The course sketch code could not be loaded: ${error.message}`;
 
         if (activeP5) {
           activeP5.remove();
@@ -345,14 +345,14 @@
 
         preview.innerHTML = [
           '<div class="load-message">',
-          "<strong>Sketch code did not load.</strong>",
+          "<strong>Course sketch code did not load.</strong>",
           `<span>${message}</span>`,
           "</div>"
         ].join("");
         code.value = [
           `// ${message}`,
           `// Sketch file: ${currentSketch.path}`,
-          "// Your browser has not loaded editable code yet."
+          "// Your browser has not loaded editable course code yet."
         ].join("\n");
         writeStatus(message, true);
       }
