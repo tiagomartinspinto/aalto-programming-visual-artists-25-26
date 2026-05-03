@@ -92,7 +92,7 @@
       </section>
       <section class="viewer" aria-label="Selected study viewer">
         <div class="stage">
-          <iframe id="study-frame" title="Selected student study"></iframe>
+          <iframe id="study-frame" loading="lazy" title="Selected student study"></iframe>
           <div class="stage-placeholder" id="stage-placeholder">
             <div>
               <strong>Choose a study, then run it.</strong>
@@ -126,6 +126,10 @@
             <button type="button" data-filter="all" aria-pressed="true">All</button>
             <button type="button" data-filter="Study 1" class="secondary" aria-pressed="false">Study 1</button>
             <button type="button" data-filter="Study 2" class="secondary" aria-pressed="false">Study 2</button>
+            <button type="button" data-filter="interaction" class="secondary" aria-pressed="false">Interaction</button>
+            <button type="button" data-filter="generative" class="secondary" aria-pressed="false">Generative</button>
+            <button type="button" data-filter="mouse" class="secondary" aria-pressed="false">Mouse</button>
+            <button type="button" data-filter="keyboard" class="secondary" aria-pressed="false">Keyboard</button>
           </div>
         </div>
         <div class="gallery-tools" aria-label="Search student studies">
@@ -168,17 +172,35 @@
       let sourceLoadedFor = '';
       function escapeHTML(value) { return String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;'); }
       function embedPath(study) { return study.path + '?embed=1'; }
-      function studySearchText(study) { return [study.title, study.student, study.study, study.instructions, study.license].join(' ').toLowerCase(); }
+      function studyConcepts(study) {
+        const text = [study.title, study.study, study.instructions, study.student].join(' ').toLowerCase();
+        const concepts = new Set();
+        if (study.study === 'Study 1') concepts.add('interaction');
+        if (study.study === 'Study 2') concepts.add('generative');
+        if (/(mouse|click|drag|cursor|pointer)/.test(text)) concepts.add('mouse');
+        if (/(key|keyboard|press)/.test(text)) concepts.add('keyboard');
+        if (/(loop|grid|random|noise|particle|wave|recursion|generative)/.test(text)) concepts.add('generative');
+        if (/(function|parameter)/.test(text)) concepts.add('functions');
+        return [...concepts];
+      }
+      function conceptLabel(concept) {
+        return ({ interaction: 'Interaction', generative: 'Generative', mouse: 'Mouse', keyboard: 'Keyboard', functions: 'Functions' })[concept] || concept;
+      }
+      function conceptTags(study) {
+        return studyConcepts(study).map((concept) => '<span class="tag">' + escapeHTML(conceptLabel(concept)) + '</span>').join('');
+      }
+      function studySearchText(study) { return [study.title, study.student, study.study, study.instructions, study.license, studyConcepts(study).map(conceptLabel).join(' ')].join(' ').toLowerCase(); }
       function makeCard(study, index) {
         const card = document.createElement('article');
         card.className = 'gallery-card';
         card.dataset.study = study.study;
         card.dataset.slug = study.slug;
         card.dataset.student = study.student;
+        card.dataset.concepts = studyConcepts(study).join(' ');
         card.dataset.search = studySearchText(study);
         const info = study.instructions ? study.instructions : 'Run this study here and observe how the sketch behaves before reading the source.';
         card.innerHTML = '<div class="mini-preview" style="--x: ' + (22 + (index * 13) % 58) + '%; --y: ' + (18 + (index * 17) % 54) + '%"><iframe loading="lazy" data-src="' + escapeHTML(embedPath(study)) + '" title="' + escapeHTML(study.title) + ' miniature preview"></iframe><span>Course preview</span></div>' +
-          '<div class="tag-row"><span class="tag">' + escapeHTML(study.study) + '</span><span class="tag">' + escapeHTML(study.student) + '</span></div>' +
+          '<div class="tag-row"><span class="tag">' + escapeHTML(study.study) + '</span><span class="tag">' + escapeHTML(study.student) + '</span>' + conceptTags(study) + '</div>' +
           '<h3>' + escapeHTML(study.title) + '</h3>' +
           '<p>' + escapeHTML(info) + '</p>' +
           '<div class="actions"><button type="button" data-select="' + escapeHTML(study.slug) + '">View in gallery</button><a class="button secondary" href="' + escapeHTML(study.path) + '">Open study page</a></div>';
@@ -205,7 +227,7 @@
             miniFrame.src = miniFrame.dataset.src;
             observer.unobserve(miniFrame);
           });
-        }, { rootMargin: '220px' });
+        }, { rootMargin: '80px' });
         frames.forEach((miniFrame) => observer.observe(miniFrame));
       }
       function renderCards() {
@@ -240,7 +262,7 @@
         frame.title = study.title + ' live sketch';
         title.textContent = study.title;
         description.textContent = study.instructions ? study.instructions : 'Run ' + study.student + '\'s ' + study.study + ' study here, then open the source to inspect the code choices.';
-        tags.innerHTML = '<span class="tag">' + escapeHTML(study.study) + '</span><span class="tag">' + escapeHTML(study.student) + '</span><span class="tag">' + escapeHTML(study.license) + '</span>';
+        tags.innerHTML = '<span class="tag">' + escapeHTML(study.study) + '</span><span class="tag">' + escapeHTML(study.student) + '</span>' + conceptTags(study) + '<span class="tag">' + escapeHTML(study.license) + '</span>';
         openStudy.href = study.path;
         openSource.href = study.sourcePath;
         openOriginal.href = study.originalUrl;
@@ -260,7 +282,8 @@
         const student = studentFilter.value;
         let visibleCount = 0;
         document.querySelectorAll('.gallery-card').forEach((card) => {
-          const matchesStudy = activeStudyFilter === 'all' || card.dataset.study === activeStudyFilter;
+          const concepts = (card.dataset.concepts || '').split(' ');
+          const matchesStudy = activeStudyFilter === 'all' || card.dataset.study === activeStudyFilter || concepts.includes(activeStudyFilter);
           const matchesStudent = student === 'all' || card.dataset.student === student;
           const matchesQuery = !query || card.dataset.search.includes(query);
           const isVisible = matchesStudy && matchesStudent && matchesQuery;

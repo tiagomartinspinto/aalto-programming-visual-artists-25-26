@@ -416,6 +416,126 @@
         font-size: 15px;
       }
 
+      .course-tools {
+        display: grid;
+        grid-template-columns: minmax(280px, 0.85fr) minmax(320px, 1.15fr);
+        gap: 14px;
+      }
+
+      .course-tools::before { display: none; }
+
+      .current-session-card,
+      .course-search {
+        display: grid;
+        align-content: start;
+        gap: 14px;
+        padding: 18px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(16, 20, 27, 0.82);
+      }
+
+      .current-session-card h2,
+      .course-search h2 {
+        font-size: clamp(26px, 3vw, 40px);
+      }
+
+      .current-session-card p,
+      .course-search p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .course-tool-label,
+      .search-result-type {
+        color: var(--accent-2);
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+        font-size: 12px;
+        font-weight: 760;
+        text-transform: uppercase;
+      }
+
+      .search-controls {
+        display: grid;
+        gap: 10px;
+      }
+
+      .search-controls input {
+        width: 100%;
+        min-height: 44px;
+        padding: 10px 12px;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        background: var(--panel-2);
+        color: var(--ink);
+        font: inherit;
+      }
+
+      .search-filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .search-filter {
+        min-height: 34px;
+        padding: 7px 10px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.03);
+        color: var(--muted);
+        font: inherit;
+        font-size: 13px;
+        font-weight: 720;
+        cursor: pointer;
+      }
+
+      .search-filter[aria-pressed="true"] {
+        border-color: rgba(84, 214, 199, 0.72);
+        color: #06100f;
+        background: var(--accent-2);
+      }
+
+      .search-results {
+        display: grid;
+        gap: 8px;
+        max-height: 420px;
+        margin: 0;
+        padding: 0;
+        overflow: auto;
+        list-style: none;
+      }
+
+      .search-results li[hidden],
+      .search-empty[hidden] {
+        display: none;
+      }
+
+      .search-result-link {
+        display: grid;
+        gap: 3px;
+        padding: 10px 11px;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        background: rgba(255, 255, 255, 0.025);
+        text-decoration: none;
+      }
+
+      .search-result-link strong {
+        color: var(--ink);
+      }
+
+      .search-result-link span:last-child {
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .search-count,
+      .search-empty {
+        color: var(--muted);
+        font-size: 13px;
+      }
+
       .notice {
         display: grid;
         gap: 8px;
@@ -639,6 +759,10 @@
         opacity: 0;
       }
 
+      .is-hidden {
+        display: none !important;
+      }
+
       iframe {
         width: 100%;
         height: 100%;
@@ -690,6 +814,7 @@
 
       @media (max-width: 760px) {
         .topbar,
+        .course-tools,
         .section-heading,
         .slides-reader {
           align-items: flex-start;
@@ -806,6 +931,37 @@
         </div>
       </section>
 
+      <section id="current-session" class="course-tools" aria-labelledby="current-session-title">
+        <article class="current-session-card">
+          <span class="course-tool-label">Current Session</span>
+          <h2 id="current-session-title">Session 06: Arrays, objects, and particles</h2>
+          <p>Start here when we are working with many moving elements, object arrays, particle behavior, and motion fields.</p>
+          <div class="links">
+            <a class="primary" href="sessions/session-06/">Open current session</a>
+            <a href="web/particles-follow/">Run particles follow</a>
+            <a href="web/lab.html?sketch=particles-noise">Edit particles in the Lab</a>
+          </div>
+        </article>
+        <article class="course-search" aria-labelledby="course-search-title">
+          <span class="course-tool-label">Find Course Material</span>
+          <h2 id="course-search-title">Course Search</h2>
+          <p>Search by topic when you need a sketch, session, slide deck, project prompt, or student-study reference.</p>
+          <div class="search-controls">
+            <input id="course-search-input" type="search" placeholder="Search loops, mouse, particles, recursion..." aria-label="Search course materials">
+            <div class="search-filters" aria-label="Filter course search">
+              <button class="search-filter" type="button" data-search-type="all" aria-pressed="true">All</button>
+              <button class="search-filter" type="button" data-search-type="session" aria-pressed="false">Sessions</button>
+              <button class="search-filter" type="button" data-search-type="sketch" aria-pressed="false">Sketches</button>
+              <button class="search-filter" type="button" data-search-type="slide" aria-pressed="false">Slides</button>
+              <button class="search-filter" type="button" data-search-type="study" aria-pressed="false">Studies</button>
+            </div>
+          </div>
+          <p class="search-count" id="course-search-count" aria-live="polite"></p>
+          <ul class="search-results" id="course-search-results"></ul>
+          <p class="search-empty" id="course-search-empty" hidden>No course materials match that search.</p>
+        </article>
+      </section>
+
       <section id="course-path">
         <div class="section-heading">
           <h2>How to Use This Course Page</h2>
@@ -853,7 +1009,7 @@
 
         <div class="web-grid">
           <article class="web-card">
-            <div class="preview"><iframe loading="lazy" src="web/face-exercise/index.html" title="Face exercise preview"></iframe></div>
+            <div class="preview"><iframe loading="lazy" src="about:blank" data-src="web/face-exercise/index.html" title="Face exercise preview"></iframe></div>
             <div class="web-card-content">
               <h3>Face Exercise</h3>
               <p>Use this to see how simple shapes become a reusable <code>drawFace()</code> function.</p>
@@ -864,7 +1020,7 @@
           </article>
 
           <article class="web-card">
-            <div class="preview"><iframe loading="lazy" src="web/mouse-shapes/index.html" title="Mouse shapes preview"></iframe></div>
+            <div class="preview"><iframe loading="lazy" src="about:blank" data-src="web/mouse-shapes/index.html" title="Mouse shapes preview"></iframe></div>
             <div class="web-card-content">
               <h3>Mouse Shapes</h3>
               <p>Move the pointer to control a circle, a mirrored square, and the background color.</p>
@@ -875,7 +1031,7 @@
           </article>
 
           <article class="web-card">
-            <div class="preview"><iframe loading="lazy" src="web/hover-grid/index.html" title="Hover grid preview"></iframe></div>
+            <div class="preview"><iframe loading="lazy" src="about:blank" data-src="web/hover-grid/index.html" title="Hover grid preview"></iframe></div>
             <div class="web-card-content">
               <h3>Hover Grid</h3>
               <p>Move across an 8 by 8 grid to see how conditionals react to pointer position.</p>
@@ -886,7 +1042,7 @@
           </article>
 
           <article class="web-card">
-            <div class="preview"><iframe loading="lazy" src="web/bouncing-ball/index.html" title="Bouncing ball preview"></iframe></div>
+            <div class="preview"><iframe loading="lazy" src="about:blank" data-src="web/bouncing-ball/index.html" title="Bouncing ball preview"></iframe></div>
             <div class="web-card-content">
               <h3>Bouncing Ball Color</h3>
               <p>Watch a ball reverse at the canvas edges and change color on each bounce.</p>
@@ -897,7 +1053,7 @@
           </article>
 
           <article class="web-card">
-            <div class="preview"><iframe loading="lazy" src="web/simple-waves/index.html" title="Simple waves preview"></iframe></div>
+            <div class="preview"><iframe loading="lazy" src="about:blank" data-src="web/simple-waves/index.html" title="Simple waves preview"></iframe></div>
             <div class="web-card-content">
               <h3>Simple Waves</h3>
               <p>Use an animated sine wave to see how time changes repeated drawing.</p>
@@ -908,7 +1064,7 @@
           </article>
 
           <article class="web-card">
-            <div class="preview"><iframe loading="lazy" src="web/generative-grid/index.html" title="Generative grid preview"></iframe></div>
+            <div class="preview"><iframe loading="lazy" src="about:blank" data-src="web/generative-grid/index.html" title="Generative grid preview"></iframe></div>
             <div class="web-card-content">
               <h3>Generative Grid</h3>
               <p>Use a rotating noise-driven grid to connect nested loops with smooth randomness.</p>
@@ -919,7 +1075,7 @@
           </article>
 
           <article class="web-card">
-            <div class="preview"><iframe loading="lazy" src="web/shapes-function/index.html" title="Shapes function preview"></iframe></div>
+            <div class="preview"><iframe loading="lazy" src="about:blank" data-src="web/shapes-function/index.html" title="Shapes function preview"></iframe></div>
             <div class="web-card-content">
               <h3>Shapes Function</h3>
               <p>Click to regenerate a composition made from one reusable abstract-shape function.</p>
@@ -930,7 +1086,7 @@
           </article>
 
           <article class="web-card">
-            <div class="preview"><iframe loading="lazy" src="web/spiral-spins/index.html" title="Spiral spins preview"></iframe></div>
+            <div class="preview"><iframe loading="lazy" src="about:blank" data-src="web/spiral-spins/index.html" title="Spiral spins preview"></iframe></div>
             <div class="web-card-content">
               <h3>Spiral Spins</h3>
               <p>Move the pointer to control a polar-coordinate spiral’s speed and radius.</p>
@@ -941,7 +1097,7 @@
           </article>
 
           <article class="web-card">
-            <div class="preview"><iframe loading="lazy" src="web/particles-follow/index.html" title="Particles follow preview"></iframe></div>
+            <div class="preview"><iframe loading="lazy" src="about:blank" data-src="web/particles-follow/index.html" title="Particles follow preview"></iframe></div>
             <div class="web-card-content">
               <h3>Particles Follow</h3>
               <p>Move the pointer to emit fading particles and see how arrays of objects behave.</p>
@@ -952,7 +1108,7 @@
           </article>
 
           <article class="web-card">
-            <div class="preview"><iframe loading="lazy" src="web/particles-noise/index.html" title="Particles noise preview"></iframe></div>
+            <div class="preview"><iframe loading="lazy" src="about:blank" data-src="web/particles-noise/index.html" title="Particles noise preview"></iframe></div>
             <div class="web-card-content">
               <h3>Particles with Noise</h3>
               <p>Watch particles follow a smooth Perlin-noise field and wrap around the canvas.</p>
@@ -1162,12 +1318,45 @@
         .map((link) => document.querySelector(link.getAttribute("href")))
         .filter(Boolean);
       const previewFrames = [...document.querySelectorAll(".preview iframe")];
+      const courseSearchInput = document.querySelector("#course-search-input");
+      const courseSearchResults = document.querySelector("#course-search-results");
+      const courseSearchCount = document.querySelector("#course-search-count");
+      const courseSearchEmpty = document.querySelector("#course-search-empty");
+      const courseSearchFilters = [...document.querySelectorAll("[data-search-type]")];
+      const courseSearchItems = [
+        { type: "session", title: "Session 01 - Drawing, coordinates, and first functions", href: "sessions/session-01/", description: "Shapes, color, canvas coordinates, and reusable drawing code.", keywords: "drawing coordinates color functions face setup draw" },
+        { type: "session", title: "Session 02 - Mouse input and changing color", href: "sessions/session-02/", description: "Mouse position, clicks, mapping values, and dynamic color.", keywords: "mouse click mapping color variables interaction" },
+        { type: "session", title: "Session 03 - Conditionals, loops, and movement", href: "sessions/session-03/", description: "Decision-making, repeated actions, frame-based motion, and state.", keywords: "conditionals loops movement state hover bouncing ball" },
+        { type: "session", title: "Session 04 - Waves, grids, noise, and recursion", href: "sessions/session-04/", description: "Nested loops, sine waves, random walks, Perlin noise, and recursion.", keywords: "waves grids noise recursion generative loops sine random" },
+        { type: "session", title: "Session 05 - Functions, parameters, and reuse", href: "sessions/session-05/", description: "Named behavior, parameterized drawing, randomness, and recursion.", keywords: "functions parameters reuse randomness recursion spiral shapes" },
+        { type: "session", title: "Session 06 - Arrays, objects, and particles", href: "sessions/session-06/", description: "Object-oriented thinking, arrays, particle systems, and smooth motion fields.", keywords: "arrays objects particles noise motion fields systems" },
+        { type: "sketch", title: "Face Exercise", href: "web/lab.html?sketch=face-exercise", description: "Reusable drawing function for simple faces.", keywords: "session 01 drawing functions face" },
+        { type: "sketch", title: "Mouse Shapes", href: "web/lab.html?sketch=mouse-shapes", description: "Mouse position, mapping, mirrored movement, and color.", keywords: "session 02 mouse map interaction color" },
+        { type: "sketch", title: "Hover Grid", href: "web/lab.html?sketch=hover-grid", description: "Conditionals and loops reacting to pointer position.", keywords: "session 03 conditionals loops hover grid" },
+        { type: "sketch", title: "Bouncing Ball Color", href: "web/lab.html?sketch=bouncing-ball", description: "Motion, edge collision, and changing state.", keywords: "session 03 movement collision state ball" },
+        { type: "sketch", title: "Simple Waves", href: "web/lab.html?sketch=simple-waves", description: "Animated sine wave and repeated drawing.", keywords: "session 04 waves sine animation" },
+        { type: "sketch", title: "Generative Grid", href: "web/lab.html?sketch=generative-grid", description: "Nested loops, rotation, noise, and grid systems.", keywords: "session 04 generative grid loops noise" },
+        { type: "sketch", title: "Shapes Function", href: "web/lab.html?sketch=shapes-function", description: "Reusable abstract-shape function with parameters.", keywords: "session 05 function parameters random shape" },
+        { type: "sketch", title: "Spiral Spins", href: "web/lab.html?sketch=spiral-spins", description: "Polar coordinates, interaction, and trails.", keywords: "session 05 spiral polar functions interaction" },
+        { type: "sketch", title: "Particles Follow", href: "web/lab.html?sketch=particles-follow", description: "Particle emission, arrays, and fading behavior.", keywords: "session 06 particles arrays objects mouse" },
+        { type: "sketch", title: "Particles with Noise", href: "web/lab.html?sketch=particles-noise", description: "Particles moving through a Perlin-noise field.", keywords: "session 06 particles noise field systems" },
+        { type: "slide", title: "Slides - Session 01", href: "#slides", pdf: "Session-01/programmingvisualartists_session1.pdf", description: "Drawing, coordinates, and first functions.", keywords: "slides drawing coordinates functions face" },
+        { type: "slide", title: "Slides - Session 02", href: "#slides", pdf: "Session-02/programmingvisualartists_session2.pdf", description: "Mouse input and changing color.", keywords: "slides mouse variables color interaction" },
+        { type: "slide", title: "Slides - Session 03", href: "#slides", pdf: "Session-03/programmingvisualartists_session3.pdf", description: "Conditionals, loops, and movement.", keywords: "slides conditionals loops movement" },
+        { type: "slide", title: "Slides - Session 04", href: "#slides", pdf: "Session-04/programmingvisualartists_session4.pdf", description: "Waves, grids, noise, and recursion.", keywords: "slides waves grids noise recursion" },
+        { type: "slide", title: "Slides - Session 05", href: "#slides", pdf: "Session-05/programmingvisualartists_session5.pdf", description: "Functions, parameters, and reuse.", keywords: "slides functions parameters recursion" },
+        { type: "slide", title: "Slides - Session 06", href: "#slides", pdf: "Session-06/programmingvisualartists_session6.pdf", description: "Arrays, objects, and particles.", keywords: "slides arrays objects particles" },
+        { type: "study", title: "Creative Study 1", href: "#assignments", description: "Interactive sketch using mouse position, color, and a custom function.", keywords: "study 1 interaction mouse color function project" },
+        { type: "study", title: "Creative Study 2", href: "#assignments", description: "Generative composition using loops, randomness or noise.", keywords: "study 2 generative loops random noise project" },
+        { type: "study", title: "Student Studies Gallery", href: "case-studies/", description: "Study 1 and Study 2 examples from students.", keywords: "student studies gallery peer reference openprocessing" }
+      ];
       let activeSlideIndex = 0;
       let parallaxTicking = false;
       let navTicking = false;
       let previewTicking = false;
       let activeNavHoldId = "";
       let activeNavHoldUntil = 0;
+      let activeSearchType = "all";
 
       function updateParallax() {
         if (reducedMotion.matches) {
@@ -1254,6 +1443,39 @@
         }, reducedMotion.matches ? 0 : 650);
       }
 
+      function escapeHTML(value) {
+        return String(value)
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;");
+      }
+
+      function renderCourseSearch() {
+        if (!courseSearchResults) return;
+        const query = courseSearchInput.value.trim().toLowerCase();
+        const matches = courseSearchItems.filter((item) => {
+          const typeMatch = activeSearchType === "all" || item.type === activeSearchType;
+          const searchText = [item.title, item.description, item.keywords, item.type].join(" ").toLowerCase();
+          return typeMatch && (!query || searchText.includes(query));
+        });
+
+        courseSearchResults.innerHTML = matches.map((item) => {
+          const pdfAttrs = item.pdf ? ` data-pdf="${escapeHTML(item.pdf)}" data-title="${escapeHTML(item.title.replace("Slides - ", ""))}"` : "";
+          return `<li><a class="search-result-link" href="${escapeHTML(item.href)}"${pdfAttrs}><span class="search-result-type">${escapeHTML(item.type)}</span><strong>${escapeHTML(item.title)}</strong><span>${escapeHTML(item.description)}</span></a></li>`;
+        }).join("");
+        courseSearchCount.textContent = `${matches.length} course ${matches.length === 1 ? "item" : "items"} shown`;
+        courseSearchEmpty.hidden = matches.length !== 0;
+      }
+
+      function setCourseSearchFilter(type) {
+        activeSearchType = type;
+        courseSearchFilters.forEach((button) => {
+          button.setAttribute("aria-pressed", String(button.dataset.searchType === type));
+        });
+        renderCourseSearch();
+      }
+
       function updateActiveNav() {
         if (activeNavHoldId && performance.now() < activeNavHoldUntil) {
           setActiveNav(activeNavHoldId);
@@ -1316,8 +1538,12 @@
       }
 
       function setupSketchPreviewPausing() {
-        previewFrames.forEach((frame) => {
-          frame.dataset.src = frame.getAttribute("src");
+        previewFrames.forEach((frame, index) => {
+          const originalSource = frame.dataset.src || frame.getAttribute("src");
+          frame.dataset.src = originalSource;
+          if (index > 1) {
+            frame.setAttribute("src", "about:blank");
+          }
         });
         updateSketchPreviews();
       }
@@ -1374,6 +1600,11 @@
         const picker = slidePickers[Number(slideSelect.value)] || slidePickers[0];
         showSlides(picker.dataset.title, picker.dataset.pdf);
       });
+      courseSearchInput?.addEventListener("input", renderCourseSearch);
+      courseSearchFilters.forEach((button) => {
+        button.addEventListener("click", () => setCourseSearchFilter(button.dataset.searchType));
+      });
+      renderCourseSearch();
 
       document.addEventListener("click", (event) => {
         const trigger = event.target.closest("[data-pdf]");

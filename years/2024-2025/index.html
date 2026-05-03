@@ -252,6 +252,126 @@
 
       .status-cue strong { font-size: 17px; }
 
+      .course-tools {
+        display: grid;
+        grid-template-columns: minmax(280px, 0.85fr) minmax(320px, 1.15fr);
+        gap: 14px;
+      }
+
+      .current-session-card,
+      .course-search {
+        display: grid;
+        align-content: start;
+        gap: 14px;
+        padding: 18px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(16, 20, 27, 0.86);
+      }
+
+      .current-session-card h2,
+      .course-search h2 {
+        margin: 0;
+        font-size: clamp(26px, 3vw, 40px);
+        line-height: 1.05;
+      }
+
+      .current-session-card p,
+      .course-search p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .course-tool-label,
+      .search-result-type {
+        color: var(--accent);
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+        font-size: 12px;
+        font-weight: 760;
+        text-transform: uppercase;
+      }
+
+      .search-controls {
+        display: grid;
+        gap: 10px;
+      }
+
+      .search-controls input {
+        width: 100%;
+        min-height: 44px;
+        padding: 10px 12px;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        background: var(--panel-2);
+        color: var(--ink);
+        font: inherit;
+      }
+
+      .search-filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .search-filter {
+        min-height: 34px;
+        padding: 7px 10px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.03);
+        color: var(--muted);
+        font: inherit;
+        font-size: 13px;
+        font-weight: 720;
+        cursor: pointer;
+      }
+
+      .search-filter[aria-pressed="true"] {
+        border-color: rgba(255, 122, 168, 0.72);
+        color: #16070d;
+        background: var(--accent);
+      }
+
+      .search-results {
+        display: grid;
+        gap: 8px;
+        max-height: 420px;
+        margin: 0;
+        padding: 0;
+        overflow: auto;
+        list-style: none;
+      }
+
+      .search-results li[hidden],
+      .search-empty[hidden] {
+        display: none;
+      }
+
+      .search-result-link {
+        display: grid;
+        gap: 3px;
+        padding: 10px 11px;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        background: rgba(255, 255, 255, 0.025);
+        text-decoration: none;
+      }
+
+      .search-result-link strong {
+        color: var(--ink);
+      }
+
+      .search-result-link span:last-child {
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .search-count,
+      .search-empty {
+        color: var(--muted);
+        font-size: 13px;
+      }
+
       .section-heading {
         display: grid;
         gap: 10px;
@@ -327,6 +447,28 @@
         min-height: 230px;
         border: 0;
         display: block;
+      }
+
+      .preview.is-paused::after {
+        content: "Preview paused until it is near the screen";
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        display: grid;
+        place-items: center;
+        padding: 18px;
+        color: var(--muted);
+        font-size: 13px;
+        text-align: center;
+        background: linear-gradient(135deg, rgba(5, 7, 10, 0.96), rgba(16, 20, 27, 0.96));
+      }
+
+      .preview.is-paused iframe {
+        opacity: 0;
+      }
+
+      .is-hidden {
+        display: none !important;
       }
 
       .web-card-content {
@@ -439,6 +581,7 @@
       }
 
       @media (max-width: 880px) {
+        .course-tools,
         .slides-reader {
           grid-template-columns: 1fr;
         }
@@ -514,6 +657,37 @@
         </div>
       </section>
 
+      <section id="current-session" class="course-tools" aria-labelledby="current-session-title">
+        <article class="current-session-card">
+          <span class="course-tool-label">Reference Session</span>
+          <h2 id="current-session-title">Session 08: Sound and camera</h2>
+          <p>Use this shortcut when you want the media-focused end of the previous course: sound, webcam, image-to-sound experiments, and source-first examples.</p>
+          <div class="links">
+            <a class="primary" href="sessions/session-08/">Open reference session</a>
+            <a href="#slides" data-title="Session 08 - Sound and camera" data-pdf="Session-08/programmingvisualartists_session8.pdf">Read Session 08 slides</a>
+            <a href="Session-08/extra_webcammosaic/extra_webcammosaic.pde">Open webcam mosaic source</a>
+          </div>
+        </article>
+        <article class="course-search" aria-labelledby="course-search-title">
+          <span class="course-tool-label">Find Course Material</span>
+          <h2 id="course-search-title">Course Search</h2>
+          <p>Search this previous year by topic when you need a session, sketch, slide deck, project example, or student-study reference.</p>
+          <div class="search-controls">
+            <input id="course-search-input" type="search" placeholder="Search loops, mouse, particles, video..." aria-label="Search course materials">
+            <div class="search-filters" aria-label="Filter course search">
+              <button class="search-filter" type="button" data-search-type="all" aria-pressed="true">All</button>
+              <button class="search-filter" type="button" data-search-type="session" aria-pressed="false">Sessions</button>
+              <button class="search-filter" type="button" data-search-type="sketch" aria-pressed="false">Sketches</button>
+              <button class="search-filter" type="button" data-search-type="slide" aria-pressed="false">Slides</button>
+              <button class="search-filter" type="button" data-search-type="study" aria-pressed="false">Studies</button>
+            </div>
+          </div>
+          <p class="search-count" id="course-search-count" aria-live="polite"></p>
+          <ul class="search-results" id="course-search-results"></ul>
+          <p class="search-empty" id="course-search-empty" hidden>No course materials match that search.</p>
+        </article>
+      </section>
+
       <section id="course-path">
         <div class="section-heading">
           <h2>How to Use This Year</h2>
@@ -553,7 +727,7 @@
         </div>
         <div class="web-grid">
           <article class="web-card">
-            <div class="preview"><iframe loading="lazy" src="web/smile-face/" title="Smile face preview"></iframe></div>
+            <div class="preview"><iframe loading="lazy" src="about:blank" data-src="web/smile-face/" title="Smile face preview"></iframe></div>
             <div class="web-card-content">
               <h3>Smile Face</h3>
               <p>See how one drawing function can produce several related faces.</p>
@@ -563,7 +737,7 @@
             </div>
           </article>
           <article class="web-card">
-            <div class="preview"><iframe loading="lazy" src="web/follow-mouse/" title="Follow the mouse preview"></iframe></div>
+            <div class="preview"><iframe loading="lazy" src="about:blank" data-src="web/follow-mouse/" title="Follow the mouse preview"></iframe></div>
             <div class="web-card-content">
               <h3>Follow the Mouse</h3>
               <p>Move the pointer and compare direct input with eased motion.</p>
@@ -573,7 +747,7 @@
             </div>
           </article>
           <article class="web-card">
-            <div class="preview"><iframe loading="lazy" src="web/mouse-shapes/" title="Mouse shapes preview"></iframe></div>
+            <div class="preview"><iframe loading="lazy" src="about:blank" data-src="web/mouse-shapes/" title="Mouse shapes preview"></iframe></div>
             <div class="web-card-content">
               <h3>Mouse Shapes</h3>
               <p>Use the pointer to control a shape while another mirrors it.</p>
@@ -583,7 +757,7 @@
             </div>
           </article>
           <article class="web-card">
-            <div class="preview"><iframe loading="lazy" src="web/color-house/" title="Color house preview"></iframe></div>
+            <div class="preview"><iframe loading="lazy" src="about:blank" data-src="web/color-house/" title="Color house preview"></iframe></div>
             <div class="web-card-content">
               <h3>Color House</h3>
               <p>Click to recolor a simple scene and see mouse events change state.</p>
@@ -593,7 +767,7 @@
             </div>
           </article>
           <article class="web-card">
-            <div class="preview"><iframe loading="lazy" src="web/bouncing-ball/" title="Bouncing ball preview"></iframe></div>
+            <div class="preview"><iframe loading="lazy" src="about:blank" data-src="web/bouncing-ball/" title="Bouncing ball preview"></iframe></div>
             <div class="web-card-content">
               <h3>Bouncing Ball Color</h3>
               <p>Watch a ball reverse at the canvas edges and change color on contact.</p>
@@ -603,7 +777,7 @@
             </div>
           </article>
           <article class="web-card">
-            <div class="preview"><iframe loading="lazy" src="web/generative-grid/" title="Generative grid preview"></iframe></div>
+            <div class="preview"><iframe loading="lazy" src="about:blank" data-src="web/generative-grid/" title="Generative grid preview"></iframe></div>
             <div class="web-card-content">
               <h3>Generative Grid Hover</h3>
               <p>Move across nested squares driven by distance, noise, and loops.</p>
@@ -613,7 +787,7 @@
             </div>
           </article>
           <article class="web-card">
-            <div class="preview"><iframe loading="lazy" src="web/recursive-tree/" title="Recursive tree preview"></iframe></div>
+            <div class="preview"><iframe loading="lazy" src="about:blank" data-src="web/recursive-tree/" title="Recursive tree preview"></iframe></div>
             <div class="web-card-content">
               <h3>Recursive Tree</h3>
               <p>Watch a function call itself to grow two mirrored branching systems.</p>
@@ -623,7 +797,7 @@
             </div>
           </article>
           <article class="web-card">
-            <div class="preview"><iframe loading="lazy" src="web/sparkles/" title="Sparkles preview"></iframe></div>
+            <div class="preview"><iframe loading="lazy" src="about:blank" data-src="web/sparkles/" title="Sparkles preview"></iframe></div>
             <div class="web-card-content">
               <h3>Sparkles</h3>
               <p>See arrays of particle systems emit, update, fade, and remove particles.</p>
@@ -633,7 +807,7 @@
             </div>
           </article>
           <article class="web-card">
-            <div class="preview"><iframe loading="lazy" src="web/video-filters/" title="Video filters preview"></iframe></div>
+            <div class="preview"><iframe loading="lazy" src="about:blank" data-src="web/video-filters/" title="Video filters preview"></iframe></div>
             <div class="web-card-content">
               <h3>Video Filters</h3>
               <p>Use a local video file to test image-processing filters without opening a new site.</p>
@@ -856,10 +1030,48 @@
       const trackedSections = navLinks
         .map((link) => document.querySelector(link.getAttribute("href")))
         .filter(Boolean);
+      const previewFrames = [...document.querySelectorAll(".preview iframe")];
+      const courseSearchInput = document.querySelector("#course-search-input");
+      const courseSearchResults = document.querySelector("#course-search-results");
+      const courseSearchCount = document.querySelector("#course-search-count");
+      const courseSearchEmpty = document.querySelector("#course-search-empty");
+      const courseSearchFilters = [...document.querySelectorAll("[data-search-type]")];
+      const courseSearchItems = [
+        { type: "session", title: "Session 01 - Drawing basics", href: "sessions/session-01/", description: "Coordinates, shapes, color, setup/draw, and first drawing functions.", keywords: "drawing basics coordinates shapes color functions setup draw" },
+        { type: "session", title: "Session 02 - Mouse and variables", href: "sessions/session-02/", description: "Mouse input, operators, variables, mapping, and responsive color.", keywords: "mouse variables operators mapping color interaction" },
+        { type: "session", title: "Session 03 - Conditionals and movement", href: "sessions/session-03/", description: "If statements, motion, edge checks, and bouncing-ball logic.", keywords: "conditionals movement motion bounce edges if statements" },
+        { type: "session", title: "Session 04 - Loops, grids, and waves", href: "sessions/session-04/", description: "Nested loops, grid systems, sine waves, and repeated drawing.", keywords: "loops grids waves sine nested repetition" },
+        { type: "session", title: "Session 05 - Functions and recursion", href: "sessions/session-05/", description: "Reusable code, parameters, recursive drawing, and visual variation.", keywords: "functions recursion parameters reusable variation" },
+        { type: "session", title: "Session 06 - Objects and particles", href: "sessions/session-06/", description: "Objects, arrays, particle systems, and motion behaviors.", keywords: "objects arrays particles systems motion" },
+        { type: "session", title: "Session 07 - Image and video", href: "sessions/session-07/", description: "Image filters, video filters, pixels, glitch, and media experiments.", keywords: "image video filters pixels glitch media" },
+        { type: "session", title: "Session 08 - Sound and camera", href: "sessions/session-08/", description: "Audio input, webcam input, image-to-sound, and camera-based sketches.", keywords: "sound camera audio webcam microphone media" },
+        { type: "sketch", title: "Smile Face", href: "web/lab.html?sketch=smile-face", description: "Simple face drawing and first coordinates.", keywords: "session 01 face drawing coordinates" },
+        { type: "sketch", title: "Follow the Mouse", href: "web/lab.html?sketch=follow-mouse", description: "Mouse position controlling a drawing.", keywords: "session 02 mouse follow interaction" },
+        { type: "sketch", title: "Mouse Shapes", href: "web/lab.html?sketch=mouse-shapes", description: "Mouse input, shape changes, and color response.", keywords: "session 02 mouse shapes color interaction" },
+        { type: "sketch", title: "Color House", href: "web/lab.html?sketch=color-house", description: "Map values into color and structure.", keywords: "session 02 color house map variables" },
+        { type: "sketch", title: "Bouncing Ball Color", href: "web/lab.html?sketch=bouncing-ball", description: "Motion, conditionals, and edge collision.", keywords: "session 03 bouncing ball movement conditionals" },
+        { type: "sketch", title: "Generative Grid Hover", href: "web/lab.html?sketch=generative-grid", description: "Looped grid that responds to pointer position.", keywords: "session 04 generative grid loops hover" },
+        { type: "sketch", title: "Recursive Tree", href: "web/lab.html?sketch=recursive-tree", description: "Recursive branching as a drawing system.", keywords: "session 05 recursion tree functions" },
+        { type: "sketch", title: "Sparkles", href: "web/lab.html?sketch=sparkles", description: "Particle-like repeated marks and animation.", keywords: "session 06 particles animation objects" },
+        { type: "sketch", title: "Video Filters", href: "web/lab.html?sketch=video-filters", description: "Browser preview for pixel and video filter logic.", keywords: "session 07 video image filters pixels" },
+        { type: "slide", title: "Slides - Session 01", href: "#slides", pdf: "Session-01/programmingvisualartists_session1.pdf", description: "Drawing basics and first code structures.", keywords: "slides drawing basics coordinates" },
+        { type: "slide", title: "Slides - Session 02", href: "#slides", pdf: "Session-02/programmingvisualartists_session2.pdf", description: "Mouse, variables, operators, and color.", keywords: "slides mouse variables color" },
+        { type: "slide", title: "Slides - Session 03", href: "#slides", pdf: "Session-03/programmingvisualartists_session3.pdf", description: "Conditionals and motion.", keywords: "slides conditionals movement" },
+        { type: "slide", title: "Slides - Session 04", href: "#slides", pdf: "Session-04/programmingvisualartists_session4.pdf", description: "Loops, grids, and waves.", keywords: "slides loops grids waves" },
+        { type: "slide", title: "Slides - Session 05", href: "#slides", pdf: "Session-05/programmingvisualartists_session5.pdf", description: "Functions and recursion.", keywords: "slides functions recursion" },
+        { type: "slide", title: "Slides - Session 06", href: "#slides", pdf: "Session-06/programmingvisualartists_session6.pdf", description: "Objects, arrays, and particles.", keywords: "slides objects arrays particles" },
+        { type: "slide", title: "Slides - Session 07", href: "#slides", pdf: "Session-07/programmingvisualartists_session7.pdf", description: "Image and video.", keywords: "slides image video filters" },
+        { type: "slide", title: "Slides - Session 08", href: "#slides", pdf: "Session-08/programmingvisualartists_session8.pdf", description: "Sound and camera.", keywords: "slides sound camera webcam audio" },
+        { type: "study", title: "Assignment 1 Example", href: "Assignments/study1_interaction_example.pde", description: "Course example for an interactive study.", keywords: "study assignment 1 interaction mouse example" },
+        { type: "study", title: "Assignment 2 Example", href: "Assignments/study2_generative_grid_example.pde", description: "Course example for a generative grid study.", keywords: "study assignment 2 generative loops grid example" },
+        { type: "study", title: "Student Studies Gallery", href: "case-studies/", description: "Previous-year student studies mirrored into the course site.", keywords: "student studies gallery openprocessing reference" }
+      ];
       let activeSlideIndex = 0;
       let navTicking = false;
+      let previewTicking = false;
       let activeNavHoldId = "";
       let activeNavHoldUntil = 0;
+      let activeSearchType = "all";
 
       function setSlide(index) {
         const safeIndex = (index + slidePickers.length) % slidePickers.length;
@@ -908,38 +1120,150 @@
         requestAnimationFrame(updateActiveNav);
       }
 
+      function escapeHTML(value) {
+        return String(value)
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;");
+      }
+
+      function renderCourseSearch() {
+        if (!courseSearchResults) return;
+        const query = courseSearchInput.value.trim().toLowerCase();
+        const matches = courseSearchItems.filter((item) => {
+          const typeMatch = activeSearchType === "all" || item.type === activeSearchType;
+          const searchText = [item.title, item.description, item.keywords, item.type].join(" ").toLowerCase();
+          return typeMatch && (!query || searchText.includes(query));
+        });
+
+        courseSearchResults.innerHTML = matches.map((item) => {
+          const pdfAttrs = item.pdf ? ` data-pdf="${escapeHTML(item.pdf)}" data-title="${escapeHTML(item.title.replace("Slides - ", ""))}"` : "";
+          return `<li><a class="search-result-link" href="${escapeHTML(item.href)}"${pdfAttrs}><span class="search-result-type">${escapeHTML(item.type)}</span><strong>${escapeHTML(item.title)}</strong><span>${escapeHTML(item.description)}</span></a></li>`;
+        }).join("");
+        courseSearchCount.textContent = `${matches.length} course ${matches.length === 1 ? "item" : "items"} shown`;
+        courseSearchEmpty.hidden = matches.length !== 0;
+      }
+
+      function setCourseSearchFilter(type) {
+        activeSearchType = type;
+        courseSearchFilters.forEach((button) => {
+          button.setAttribute("aria-pressed", String(button.dataset.searchType === type));
+        });
+        renderCourseSearch();
+      }
+
+      function scrollToHash(href) {
+        const target = document.querySelector(href);
+        if (!target) return;
+        const topbarHeight = document.querySelector(".topbar")?.offsetHeight || 0;
+        const targetTop = target.getBoundingClientRect().top + window.scrollY - topbarHeight - 18;
+        activeNavHoldId = target.id;
+        activeNavHoldUntil = Date.now() + 900;
+        setNavCurrent(target.id);
+        window.scrollTo({ top: targetTop, behavior: "smooth" });
+        history.replaceState(null, "", href);
+      }
+
+      function updateSketchPreviews() {
+        previewTicking = false;
+        const margin = 560;
+        previewFrames.forEach((frame, frameIndex) => {
+          const preview = frame.closest(".preview");
+          const originalSource = frame.dataset.src;
+          const rect = frame.getBoundingClientRect();
+          const isNearViewport = rect.bottom > -margin && rect.top < window.innerHeight + margin;
+          const shouldKeepLeadingSketches = window.location.hash === "#web-sketches" && frameIndex < 4;
+
+          if (isNearViewport || shouldKeepLeadingSketches) {
+            if (originalSource && frame.getAttribute("src") !== originalSource) {
+              frame.setAttribute("src", originalSource);
+            }
+            preview?.classList.remove("is-paused");
+            return;
+          }
+
+          if (originalSource && frame.getAttribute("src") !== "about:blank") {
+            frame.setAttribute("src", "about:blank");
+          }
+          preview?.classList.add("is-paused");
+        });
+      }
+
+      function requestSketchPreviewUpdate() {
+        if (previewTicking) return;
+        previewTicking = true;
+        requestAnimationFrame(updateSketchPreviews);
+      }
+
+      function setupSketchPreviewPausing() {
+        previewFrames.forEach((frame, index) => {
+          const originalSource = frame.dataset.src || frame.getAttribute("src");
+          frame.dataset.src = originalSource;
+          if (index > 1) {
+            frame.setAttribute("src", "about:blank");
+          }
+        });
+        updateSketchPreviews();
+      }
+
+      function loadLeadingSketchPreviews() {
+        previewFrames.slice(0, 4).forEach((frame) => {
+          const originalSource = frame.dataset.src;
+          if (originalSource && frame.getAttribute("src") !== originalSource) {
+            frame.setAttribute("src", originalSource);
+          }
+          frame.closest(".preview")?.classList.remove("is-paused");
+        });
+      }
+
       slidePickers.forEach((button, index) => button.addEventListener("click", () => setSlide(index)));
       slideSelect.addEventListener("change", () => setSlide(Number(slideSelect.value)));
       prevSlideDeck.addEventListener("click", () => setSlide(activeSlideIndex - 1));
       nextSlideDeck.addEventListener("click", () => setSlide(activeSlideIndex + 1));
+      courseSearchInput?.addEventListener("input", renderCourseSearch);
+      courseSearchFilters.forEach((button) => {
+        button.addEventListener("click", () => setCourseSearchFilter(button.dataset.searchType));
+      });
+      renderCourseSearch();
+      setupSketchPreviewPausing();
 
-      document.querySelectorAll('[data-pdf][href="#slides"]').forEach((link) => {
-        link.addEventListener("click", () => {
-          const index = slidePickers.findIndex((picker) => picker.dataset.pdf === link.dataset.pdf);
-          if (index >= 0) setSlide(index);
-        });
+      document.addEventListener("click", (event) => {
+        const trigger = event.target.closest("[data-pdf]");
+        if (!trigger) return;
+        event.preventDefault();
+        const index = slidePickers.findIndex((picker) => picker.dataset.pdf === trigger.dataset.pdf);
+        if (index >= 0) setSlide(index);
+        scrollToHash("#slides");
       });
 
       document.querySelectorAll('a[href^="#"]').forEach((link) => {
         link.addEventListener("click", (event) => {
+          if (link.dataset.pdf) return;
           const href = link.getAttribute("href");
           if (!href || href === "#") return;
           const target = document.querySelector(href);
           if (!target) return;
           event.preventDefault();
-          const topbarHeight = document.querySelector(".topbar")?.offsetHeight || 0;
-          const targetTop = target.getBoundingClientRect().top + window.scrollY - topbarHeight - 18;
-          activeNavHoldId = target.id;
-          activeNavHoldUntil = Date.now() + 900;
-          setNavCurrent(target.id);
-          window.scrollTo({ top: targetTop, behavior: "smooth" });
-          history.replaceState(null, "", href);
+          if (href === "#web-sketches") {
+            loadLeadingSketchPreviews();
+          }
+          scrollToHash(href);
         });
       });
 
       window.addEventListener("scroll", queueNavUpdate, { passive: true });
-      window.addEventListener("resize", queueNavUpdate);
+      window.addEventListener("scroll", requestSketchPreviewUpdate, { passive: true });
+      window.addEventListener("resize", () => {
+        queueNavUpdate();
+        requestSketchPreviewUpdate();
+      });
+      window.addEventListener("hashchange", () => {
+        queueNavUpdate();
+        requestSketchPreviewUpdate();
+      });
       updateActiveNav();
+      updateSketchPreviews();
     </script>
   </body>
 </html>
