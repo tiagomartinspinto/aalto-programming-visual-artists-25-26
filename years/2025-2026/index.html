@@ -131,6 +131,7 @@
       }
 
       nav a:hover { color: var(--ink); }
+      nav a[aria-current="page"],
       nav a[aria-current="true"] {
         color: var(--ink);
         background: rgba(84, 214, 199, 0.12);
@@ -756,7 +757,8 @@
     <header class="topbar">
       <div class="brand">Programming for Visual Artists</div>
       <nav aria-label="Course directory">
-        <a href="#course-path">start</a>
+        <a href="../../index.html">archive</a>
+        <a href="./" aria-current="page">2025-2026</a>
         <a href="#web-sketches">sketches</a>
         <a href="#removed-coursework">removed-coursework</a>
         <a href="#lab">lab</a>

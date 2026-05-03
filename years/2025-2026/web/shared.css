@@ -42,9 +42,44 @@ aside a {
   font-weight: 700;
 }
 
-.back-link {
-  display: inline-block;
+.directory-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0;
+  color: #aab1bd;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 13px;
+}
+
+.directory-nav::before {
+  content: "/pva/2025-2026";
+  margin-right: 0.25rem;
+  color: #54d6c7;
+  font-weight: 760;
+}
+
+.directory-nav a,
+.directory-nav span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 0 0.3rem;
+  border-radius: 4px;
   text-decoration: none;
+}
+
+.directory-nav a::before,
+.directory-nav span::before {
+  content: "/";
+  margin-right: 0.3rem;
+  color: #2a3140;
+}
+
+.directory-nav a:hover,
+.directory-nav span[aria-current="page"] {
+  color: #f5f0e8;
+  background: rgba(84, 214, 199, 0.12);
 }
 
 h1 {
