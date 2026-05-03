@@ -1,0 +1,156 @@
+Assignment 2 - Martina
+Mirrored from https://openprocessing.org/sketch/2582375
+License: see the original OpenProcessing page
+Local runner note: the browser version removes an accidental starter snippet or adapts fullscreen calls so the sketch can run inside this archive.
+--- Local runnable source.pde ---
+int cols, rows;
+int spacing = 60;
+color[][] colors;
+int shapeMode = 1; 
+
+void setup() {
+  size(900, 640);
+  cols = width / spacing;
+  rows = height / spacing;
+  colors = new color[cols][rows];
+  generateColors();
+}
+
+
+void draw() {
+  background(20);
+  for (int j = 0; j < rows; j++) {
+    for (int i = 0; i < cols; i++) {
+      float x = i * spacing + spacing / 2;
+      float y = j * spacing + spacing / 2;
+      float d = dist(mouseX, mouseY, x, y);
+      
+      float deformX = map(d, 0, width / 2, 1.5, 1);
+      float deformY = map(d, 0, width / 2, 0.5, 1);
+      
+      if (d < spacing) {
+        deformX = map(d, 0, spacing, 2, 1);
+        deformY = map(d, 0, spacing, 0.3, 1);
+      }
+      
+      float baseSize = map(d, 0, width, 40, 10);
+      float sizeX = baseSize * deformX;
+      float sizeY = baseSize * deformY;
+
+      fill(colors[i][j], 180);
+      noStroke();
+      
+      drawShape(x, y, sizeX, sizeY);
+    }
+  }
+}
+
+
+
+void generateColors() {
+  for (int i = 0; i < cols; i++) {
+    for (int j = 0; j < rows; j++) {
+      colors[i][j] = color(random(255), random(255), random(255));
+    }
+  }
+}
+
+
+void mousePressed() {
+  generateColors();
+}
+
+
+void keyPressed() {
+  if (key == '1') shapeMode = 1; 
+  if (key == '2') shapeMode = 2; 
+  if (key == '3') shapeMode = 3; 
+}
+
+
+void drawShape(float x, float y, float w, float h) {
+  if (shapeMode == 1) {
+    ellipse(x, y, w, h);
+  } else if (shapeMode == 2) {
+    rectMode(CENTER);
+    rect(x, y, w, h);
+  } else if (shapeMode == 3) {
+    triangle(x, y - h / 2, x - w / 2, y + h / 2, x + w / 2, y + h / 2);
+  }
+}
+--- Original source from OpenProcessing API ---
+int cols, rows;
+int spacing = 60;
+color[][] colors;
+int shapeMode = 1; 
+
+void setup() {
+  fullScreen() ;
+  cols = width / spacing;
+  rows = height / spacing;
+  colors = new color[cols][rows];
+  generateColors();
+}
+
+
+void draw() {
+  background(20);
+  for (int j = 0; j < rows; j++) {
+    for (int i = 0; i < cols; i++) {
+      float x = i * spacing + spacing / 2;
+      float y = j * spacing + spacing / 2;
+      float d = dist(mouseX, mouseY, x, y);
+      
+      float deformX = map(d, 0, width / 2, 1.5, 1);
+      float deformY = map(d, 0, width / 2, 0.5, 1);
+      
+      if (d < spacing) {
+        deformX = map(d, 0, spacing, 2, 1);
+        deformY = map(d, 0, spacing, 0.3, 1);
+      }
+      
+      float baseSize = map(d, 0, width, 40, 10);
+      float sizeX = baseSize * deformX;
+      float sizeY = baseSize * deformY;
+
+      fill(colors[i][j], 180);
+      noStroke();
+      
+      drawShape(x, y, sizeX, sizeY);
+    }
+  }
+}
+
+
+
+void generateColors() {
+  for (int i = 0; i < cols; i++) {
+    for (int j = 0; j < rows; j++) {
+      colors[i][j] = color(random(255), random(255), random(255));
+    }
+  }
+}
+
+
+void mousePressed() {
+  generateColors();
+}
+
+
+void keyPressed() {
+  if (key == '1') shapeMode = 1; 
+  if (key == '2') shapeMode = 2; 
+  if (key == '3') shapeMode = 3; 
+}
+
+
+void drawShape(float x, float y, float w, float h) {
+  if (shapeMode == 1) {
+    ellipse(x, y, w, h);
+  } else if (shapeMode == 2) {
+    rectMode(CENTER);
+    rect(x, y, w, h);
+  } else if (shapeMode == 3) {
+    triangle(x, y - h / 2, x - w / 2, y + h / 2, x + w / 2, y + h / 2);
+  }
+}

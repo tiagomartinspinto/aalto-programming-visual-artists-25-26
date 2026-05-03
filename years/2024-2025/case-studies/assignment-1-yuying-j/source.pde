@@ -1,0 +1,41 @@
+// Assignment 1 - Yuying J.
+// Mirrored from OpenProcessing sketch 2564184.
+// Original: https://openprocessing.org/sketch/2564184
+// License: see the original OpenProcessing page
+
+float easeX, easeY; 
+float easeFactor = 0.1; 
+float circleSize = 50; // basic size
+float squareSize = 40; // basic square size
+
+void setup() {
+  size(800, 600);
+  noStroke(); 
+}
+
+void draw() {
+  fill(255, 10); // shadow effect
+  rect(0, 0, width, height); // fill the screen
+
+  easeX += (mouseX - easeX) * easeFactor;
+  easeY += (mouseY - easeY) * easeFactor;
+
+  // color set
+  float r = 0;   
+  float g = map(mouseY, 0, height, 100, 200);  // Green changes with mouseY
+  float b = map(mouseX, 0, width, 100, 255); // Blue changes with mouseX
+
+  //  circle
+  fill(r, g, b, 80);
+  ellipse(easeX, easeY, circleSize, circleSize);
+
+  //  square
+  fill(255 - r, 255 - g, 255 - b, 80); // inverted color
+  rect(width - easeX - squareSize / 2, height - easeY - squareSize / 2, squareSize, squareSize);
+}
+
+// click to change the basic size
+void mouseClicked() {
+  circleSize = random(30, 100);
+  squareSize = random(30, 100);
+}

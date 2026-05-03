@@ -1,0 +1,122 @@
+Assignment 1 - Flynn D.
+Mirrored from https://openprocessing.org/sketch/2564124
+License: see the original OpenProcessing page
+--- Local runnable source.pde ---
+/*
+I really should be using ArrayLists but that seemed more challenging to wrap my head around
+I had a vision and I wanted to achieve it
+I'm sure this code is terribly optimised
+Unfortunately I was getting almost everything wrong
+I made sure to understand why every change was made
+I now know why the code works as it does
+No way can I now create something like this from scratch, without assistance
+I spent sooooo many hours on this
+*/
+
+// creating 30 shapes for each array
+Shape[] shapes1 = new Shape[30];
+Shape[] shapes2 = new Shape[30];
+Shape[] shapes3 = new Shape[30];
+Shape[] shapes4 = new Shape[30];
+
+float twLeft, twRight, thTop, thBottom;
+float k = 0.01;
+
+color cBackground = #64274C;
+color cTop = #F53DAB;
+color cBottom = #B1CD4F;
+color cStroke = #64274C;
+
+void setup() {
+  size(1080, 1080);
+  background(cBackground);
+  noFill();
+  stroke(5);
+  stroke(cStroke);
+  strokeWeight(4);
+  
+  //spawning the shapes for each array
+  for (int i = 0; i < shapes1.length; i++) {
+    shapes1[i] = new Shape(0, 0, twLeft, thTop);
+    shapes2[i] = new Shape(width, 0, twRight, thTop);
+    shapes3[i] = new Shape(width, height, twRight, thBottom);
+    shapes4[i] = new Shape(0, height, twLeft, thBottom);
+  }
+}
+
+void draw() {
+  background(cBackground);
+  
+  for (int i = 0; i < shapes1.length; i++) {
+    // creating "lag" between individual shapes
+    float twLeft = 926 * (1 - exp(-k * (mouseX + 450 - (i * 50)))); // inverted exponential function
+    float twRight = 926 * (1 - exp(k * (mouseX - 1080 - 450 + (i * 50))));
+    float thTop = 926 * (1 - exp(-k * (mouseY + 450 - (i * 50))));
+    float thBottom = 926 * (1 - exp(k * (mouseY - 1080 - 450 + (i * 50))));
+    
+    // applies the new dimensions to the update function
+    shapes1[i].update(twLeft, thTop);
+    shapes2[i].update(twRight, thTop);
+    shapes3[i].update(twRight, thBottom);
+    shapes4[i].update(twLeft, thBottom);
+    
+    // refreshes visuals
+    shapes1[i].display();
+    shapes2[i].display();
+    shapes3[i].display();
+    shapes4[i].display();
+  }
+}
+
+class Shape {
+  int xpos, ypos;
+  float shapeWidth, shapeHeight;
+  float targetWidth, targetHeight;
+  float twLeft, twRight, thTop, thBottom;
+  float amt = 0.3;
+  float r = 50;
+  float rMap;
+  int clr, tClr;
+  float cMap;
+  
+  Shape(int x, int y, float tW, float tH) {
+    xpos = x;
+    ypos = y;
+    targetWidth = tW;
+    targetHeight = tH;
+    
+    shapeWidth = tW; // I don't understand why this is needed
+    shapeHeight = tH;
+    
+    clr = cTop;
+    tClr = cBottom;
+  }
+  
+  void display() {
+    // hides shape when reaches edge
+    if ((shapeWidth < 0) || (shapeHeight < 0)) {
+      return;
+    } 
+    
+    // When shapeWidth is small, r will be 500. When shapeWidth is max, r will be 100.
+    if (shapeWidth < shapeHeight) {
+      rMap = shapeWidth;
+    } else rMap = shapeHeight;
+    r = lerp(r, map(rMap, 0, 926, 500, 100), amt); // converting width/height into corner radius
+    
+    // actually showing the shapes
+    fill(clr);
+    rectMode(CENTER);
+    rect(xpos, ypos, shapeWidth, shapeHeight, r);
+  }
+  
+  void update(float tW, float tH) {
+    // smoothing out the mouse movement, is this actually needed?
+    shapeWidth = lerp(shapeWidth, tW, amt);
+    shapeHeight = lerp(shapeHeight, tH, amt);
+    
+    // making colours change with radius
+    float cMap = map(r, 350, 150, 0, 1); //making rate-of-colour-change as a variable for interpolation
+    clr = lerpColor(cTop, cBottom, cMap);
+  }
+}

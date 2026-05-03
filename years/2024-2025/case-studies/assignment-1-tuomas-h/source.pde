@@ -1,0 +1,51 @@
+// Assignment 1 - Tuomas H.
+// Mirrored from OpenProcessing sketch 2564165.
+// Original: https://openprocessing.org/sketch/2564165
+// License: see the original OpenProcessing page
+
+//Circle Variables
+color CircleColor;
+float CircleX;
+float CircleY;
+int CircleSize;
+
+//Rectangle Variables
+color RectangleColor;
+float RectangleX;
+float RectangleY;
+int RectangleSize;
+
+// ------------------
+
+void setup() {
+  //Screen size
+  size(1080, 1080);
+  noStroke();
+}
+
+void draw() {
+  //Dark gray background
+  background(10);
+  
+  //Draw Circle
+  fill(CircleColor);
+  ellipse(CircleX, CircleY, CircleSize, CircleSize);
+  
+  // Draw Rectangle
+  fill(RectangleColor);
+  rectMode(CENTER);
+  rect(RectangleX, RectangleY, RectangleSize, RectangleSize);
+}
+
+//Values change when the cursor is moved
+void mouseMoved() {
+  CircleColor = color((CircleX % 255), (CircleX % 255), (CircleX % 255), 50);
+  CircleX = mouseX;
+  CircleY = mouseY;
+  CircleSize = mouseX + mouseY;
+  RectangleColor = color((random(255)), (random(255)), (random(255)), 50);
+  // Rectangle moves on the opposite side
+  RectangleX = width - mouseX;
+  RectangleY = height - mouseY;
+  RectangleSize = - mouseX + mouseY;
+}

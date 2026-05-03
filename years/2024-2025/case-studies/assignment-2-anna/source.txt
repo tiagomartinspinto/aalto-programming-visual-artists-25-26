@@ -1,0 +1,69 @@
+Assignment 2 - Anna
+Mirrored from https://openprocessing.org/sketch/2582358
+License: see the original OpenProcessing page
+--- Local runnable source.pde ---
+int cols = 40;
+int rows = 40;
+int spacing;  
+float[][] sizeOffsetsX;
+float[][] sizeOffsetsY;
+boolean isMouseMoved = false; // grid movement with mouse not on yet
+
+void setup() {
+    size(800, 800);
+    spacing = width / cols;
+    sizeOffsetsX = new float[cols][rows]; 
+    sizeOffsetsY = new float[cols][rows]; 
+    noStroke();
+    rectMode(CORNER); // x and y in the corner
+}
+
+void draw() {
+    background(0);
+    
+    for (int y = 0; y < rows; y++) { // outer loop
+        for (int x = 0; x < cols; x++) { // inner loop
+            int posX = x * spacing;
+            int posY = y * spacing;
+
+            // Ripple effect
+            if (isMouseMoved) {
+                float distance = dist(mouseX, mouseY, posX + spacing / 2, posY + spacing / 2);
+
+                if (distance < spacing * 2) {
+                    float randomChangeX = random(-10, 10);
+                    float randomChangeY = random(-10, 10);
+                    sizeOffsetsX[x][y] += randomChangeX;
+                    sizeOffsetsY[x][y] += randomChangeY;
+                } else {
+                    sizeOffsetsX[x][y] *= 0.9;
+                    sizeOffsetsY[x][y] *= 0.9;
+                }
+
+                sizeOffsetsX[x][y] = constrain(sizeOffsetsX[x][y], -spacing / 3, spacing / 3);
+                sizeOffsetsY[x][y] = constrain(sizeOffsetsY[x][y], -spacing / 3, spacing / 3);
+            }
+
+            float newWidth = spacing + sizeOffsetsX[x][y];
+            float newHeight = spacing + sizeOffsetsY[x][y];
+
+            // Manual color interpolation since lerpColor() is not available
+            int baseColor = color(0);
+            int targetColor = color(28, 20, 117);
+            float t = abs(sizeOffsetsX[x][y] + sizeOffsetsY[x][y]) / (spacing / 3);
+            t = constrain(t, 0, 1); // Ensure t is between 0 and 1
+            int r = (int) ((1 - t) * red(baseColor) + t * red(targetColor));
+            int g = (int) ((1 - t) * green(baseColor) + t * green(targetColor));
+            int b = (int) ((1 - t) * blue(baseColor) + t * blue(targetColor));
+
+            fill(r, g, b);
+
+            rect(posX, posY, newWidth, newHeight); 
+        }
+    }
+}
+
+// Detect mouse movement manually
+void mouseMoved() {
+    isMouseMoved = true;
+}

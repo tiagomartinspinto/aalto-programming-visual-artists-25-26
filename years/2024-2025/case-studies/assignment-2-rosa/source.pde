@@ -1,0 +1,54 @@
+// Assignment 2 - Rosa
+// Mirrored from OpenProcessing sketch 2594102.
+// Original: https://openprocessing.org/sketch/2594102
+// License: see the original OpenProcessing page
+
+int cols = 8;
+int rows = 8;
+int spacing;
+int[][] gridColors;
+
+void setup() {
+  size(400, 400);
+  spacing = int(width / cols); // Make sure spacing is an integer
+  frameRate(30);
+  noStroke();
+
+  // Initialize the grid with white (255)
+  gridColors = new int[cols][rows];
+  for (int x = 0; x < cols; x++) {
+    for (int y = 0; y < rows; y++) {
+      gridColors[x][y] = 255;  // White
+    }
+  }
+}
+
+void draw() {
+  background(0); // Optional black background
+  for (int x = 0; x < cols; x++) {
+    for (int y = 0; y < rows; y++) {
+      fill(gridColors[x][y]);
+      rect(x * spacing, y * spacing, spacing, spacing);
+    }
+  }
+}
+
+void mouseClicked() {
+  int gridX = int(mouseX / spacing);
+  int gridY = int(mouseY / spacing);
+
+  if (gridX >= 0 && gridX < cols && gridY >= 0 && gridY < rows) {
+    int current = gridColors[gridX][gridY];
+
+    if (current == 255) {
+      int r = int(random(255));
+      int g = int(random(255));
+      int b = int(random(100));
+      gridColors[gridX][gridY] = color(r, g, b);
+    } else {
+      gridColors[gridX][gridY] = 255;
+    }
+
+    println("Clicked: (" + gridX + ", " + gridY + "), Color: " + gridColors[gridX][gridY]);
+  }
+}

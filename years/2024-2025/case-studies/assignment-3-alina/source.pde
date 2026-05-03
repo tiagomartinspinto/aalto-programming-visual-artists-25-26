@@ -1,0 +1,73 @@
+// Assignment 3 - Alina
+// Mirrored from OpenProcessing sketch 2594121.
+// Original: https://openprocessing.org/sketch/2594121
+// License: see the original OpenProcessing page
+
+ArrayList<Particle> particles;
+
+void setup() {
+  size(600, 400);
+  particles = new ArrayList<Particle>();
+}
+
+void draw() {
+  background(0);
+  
+  for (int i = particles.size()-1; i >= 0; i--) {
+    Particle p = particles.get(i);
+    p.update();
+    p.display();
+    
+    if (p.isDead()) {
+      particles.remove(i);
+    }
+  }
+}
+
+void mousePressed() {
+  particles.add(new Particle(mouseX, mouseY)); 
+}
+
+class Particle {
+  PVector pos;
+  PVector vel;
+  float lifespan;
+  float size;
+  
+  Particle(float x, float y) {
+    pos = new PVector(x, y);
+    vel = new PVector(0, random(0.5, 2));
+    lifespan = 255;
+    size = random(2, 15);
+  }
+  
+  void update() {
+    pos.add(vel);
+    lifespan -= 2;
+  }
+  
+  void display() {
+    noStroke();
+    fill(255, lifespan);
+    drawStar(pos.x, pos.y, size, size * 2, 5);
+  }
+  
+  boolean isDead() {
+    return lifespan < 0;
+  }
+}
+
+void drawStar(float x, float y, float radius1, float radius2, int npoints) {
+  float angle = TWO_PI / npoints;
+  float halfAngle = angle / 2.0;
+  beginShape();
+  for (float a = 0; a < TWO_PI; a += angle) {
+    float sx = x + cos(a) * radius2;
+    float sy = y + sin(a) * radius2;
+    vertex(sx, sy);
+    sx = x + cos(a + halfAngle) * radius1;
+    sy = y + sin(a + halfAngle) * radius1;
+    vertex(sx, sy);
+  }
+  endShape(CLOSE);
+}

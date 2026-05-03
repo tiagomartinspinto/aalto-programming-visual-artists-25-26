@@ -1,0 +1,41 @@
+// Assignment 2 - Tuomas
+// Mirrored from OpenProcessing sketch 2594103.
+// Original: https://openprocessing.org/sketch/2594103
+// License: see the original OpenProcessing page
+
+int gridSize = 10;
+float tileSize;
+float angle = 0;
+
+void setup() {
+  size(600, 600);
+  background(0);
+  noStroke();
+  tileSize = width / float(gridSize);
+}
+
+void draw() {
+background(100);
+  //Loop the grid
+  for (int x = 0; x < width; x += tileSize) {
+    for (int y = 0; y < height; y += tileSize) {
+
+      // Call to draw the shapes
+      drawShapes(x + tileSize, y + tileSize);
+    }
+  }
+}
+void drawShapes(float x, float y) {
+  pushMatrix();
+  translate(x, y);
+      //Change circle stroke color based on the mouse position
+      stroke(mouseX + mouseY, mouseX, mouseY);
+      noFill();
+      rotate(angle);
+      //Change circle size based on the mouse position
+      rect(x + 10, y + 10, mouseY + mouseX / 2, y += 2);
+      rectMode(CENTER);
+      //Rotating animation
+      angle += 0.0001;
+  popMatrix();
+}

@@ -1,0 +1,104 @@
+// Assignment 2 - Vibe
+// Mirrored from OpenProcessing sketch 2594110.
+// Original: https://openprocessing.org/sketch/2594110
+// License: see the original OpenProcessing page
+
+// this program lets you celebrate an olive dance party, go crazy with the spotlight, press a key to help the olive dance or hold down your mouse to help it catch its breath
+
+//columns and rows
+int cols = 10; 
+int rows = 10; 
+int spacing;  // space between circles
+float xSpeed = 10, ySpeed = 8;
+color ballColor;
+float ballX= 100, ballY = 100;
+float squareWidth = 1000 / cols;
+float squareHeight = 1000 / rows;
+float centerX =0;
+float centerY = 0;
+void setup() {
+    size(1000, 1000); // Set canvas size
+    spacing = width / cols; // fit all circles evenly
+    ballColor = color(255, 87, 51 );
+}
+
+void draw() {
+  background(25, 25, 112);
+    // Loop through rows and columns to create the grid
+    for (int y = 0; y < rows; y++) { 
+        for (int x = 0; x < cols; x++) {
+            int posX = x * spacing; // X position of the circle
+            int posY = y * spacing; // Y position of the circle
+         
+            // Check if the ball is inside the current circle and change color
+            if (ballX > posX && ballX < posX + spacing &&
+                ballY > posY && ballY < posY + spacing) {
+                fill(128, 128, 0);
+                
+           
+            // returns circle to default
+            } else {
+               fill(0); 
+              
+            }
+            // changes size based on mouse position
+             if (mouseX > posX && mouseX < posX + spacing &&
+            mouseY > posY && mouseY < posY + spacing) {
+              centerX = x*squareWidth+squareWidth/2;
+              centerY = y*squareHeight+squareHeight/2;
+              
+             
+            }
+            else {
+              ellipse(posX+ spacing/2, posY+spacing/2, spacing,spacing); // Draw the circle;  
+            }
+            
+        }
+      // execute the changes in size, opacity and color based on mouse proximity to center of circle
+      fill(mouseY/4-centerX/4+100,mouseX/4-centerY/4+100,mouseY/4-centerY/4+100,mouseX/4-centerX/4+40);
+    
+     // do crazy math to grow circle as center is approached, -0.08 value determines sensitivity and amount of change
+      ellipse(centerX, centerY, squareWidth+100*exp(-0.08*abs(mouseX-centerX)),squareHeight+100*exp(-0.05*abs(mouseY-centerY)));
+    
+      //-1*(squareWidth)+abs(mouseX-centerX) alternate code for size change
+        
+   
+    }
+   // Draw ball
+  noStroke();
+  fill(ballColor);
+  ellipse(ballX, ballY, 40, 40);
+  
+  
+  // Move ball
+  ballX += xSpeed;
+  ballY += ySpeed;
+     // Check for collisions
+  if (ballX < 25 || ballX > width - 25) {
+    xSpeed *= -1;
+   // ballColor = color(random(255), random(255), random(255));
+  }
+  if (ballY < 25 || ballY > height - 25) {
+    ySpeed *= -1;
+  //  ballColor = color(random(255), random(255), random(255));
+  }
+    //if (ballX > mouseX-60 && ballX < mouseX+60 && ballY > mouseY-60 && ballY < mouseY+60) {
+  //  xSpeed *= -1;
+  // this would allow the ball to bounce off of the mouse- its cool but a little too laggy
+  }
+
+
+
+void mousePressed() {
+  noLoop();
+    // Holding down the mouse activates looping
+}
+
+void mouseReleased() {
+  loop();  // Releasing the mouse stops looping draw()
+}
+
+void keyPressed () {
+  xSpeed *= -1;  // reverse on key 
+
+}

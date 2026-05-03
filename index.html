@@ -4,12 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Programming for Visual Artists - Course Archive</title>
-    <meta name="description" content="Course archive for Programming for Visual Artists at Aalto University. Find materials, sketches, slides, and student work by school year.">
+    <meta name="description" content="Course archive for Programming for Visual Artists at Aalto University. Choose a school year, run sketches, read slides, and browse student work.">
     <meta name="theme-color" content="#090b0f">
     <link rel="canonical" href="https://tiagomartinspinto.github.io/aalto-programming-visual-artists/">
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <meta property="og:title" content="Programming for Visual Artists - Course Archive">
-    <meta property="og:description" content="Find Programming for Visual Artists course materials and student work by school year.">
+    <meta property="og:description" content="Choose a school year, run sketches, read slides, and browse student work from Programming for Visual Artists.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://tiagomartinspinto.github.io/aalto-programming-visual-artists/">
     <meta property="og:image" content="https://tiagomartinspinto.github.io/aalto-programming-visual-artists/site-preview.svg">
@@ -23,9 +23,10 @@
         --ink: #f5f0e8;
         --muted: #aab1bd;
         --line: #2a3140;
-        --accent: #54d6c7;
-        --accent-2: #ff5b4f;
-        --accent-3: #f3c969;
+        --teal: #54d6c7;
+        --rose: #ff7aa8;
+        --sky: #7dd3fc;
+        --gold: #f3c969;
       }
 
       * { box-sizing: border-box; }
@@ -36,14 +37,24 @@
         margin: 0;
         min-height: 100vh;
         background:
-          linear-gradient(rgba(84, 214, 199, 0.045) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(84, 214, 199, 0.045) 1px, transparent 1px),
-          radial-gradient(circle at 18% 12%, rgba(84, 214, 199, 0.2), transparent 28%),
-          radial-gradient(circle at 82% 20%, rgba(255, 91, 79, 0.14), transparent 30%),
-          var(--bg);
-        background-size: 52px 52px, 52px 52px, auto, auto, auto;
+          linear-gradient(118deg, rgba(84, 214, 199, 0.16), transparent 34%),
+          linear-gradient(238deg, rgba(255, 122, 168, 0.13), transparent 36%),
+          linear-gradient(180deg, rgba(125, 211, 252, 0.08), transparent 46%),
+          #090b0f;
         color: var(--ink);
         font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        opacity: 0.12;
+        pointer-events: none;
+        background:
+          repeating-linear-gradient(90deg, rgba(245, 240, 232, 0.08) 0 1px, transparent 1px 72px),
+          repeating-linear-gradient(0deg, rgba(245, 240, 232, 0.05) 0 1px, transparent 1px 72px);
       }
 
       a { color: inherit; }
@@ -78,7 +89,7 @@
       nav::before {
         content: "/pva";
         margin-right: 0.25rem;
-        color: var(--accent);
+        color: var(--teal);
         font-weight: 760;
       }
 
@@ -104,66 +115,145 @@
       }
 
       main {
-        width: min(1120px, calc(100% - 36px));
+        width: min(1180px, calc(100% - 36px));
         margin: 0 auto;
-        padding: clamp(44px, 8vw, 92px) 0 72px;
+        padding: clamp(44px, 8vw, 90px) 0 72px;
       }
 
       .hero {
         display: grid;
+        grid-template-columns: minmax(0, 1.08fr) minmax(280px, 0.62fr);
+        gap: clamp(22px, 5vw, 58px);
+        align-items: end;
+        min-height: 62vh;
+      }
+
+      .hero-copy {
+        display: grid;
         gap: 22px;
-        min-height: 48vh;
-        align-content: center;
       }
 
       .eyebrow {
         margin: 0;
-        color: var(--accent);
+        color: var(--teal);
         font-size: 13px;
         font-weight: 820;
         text-transform: uppercase;
       }
 
       h1 {
-        max-width: 900px;
+        max-width: 980px;
         margin: 0;
-        font-size: clamp(40px, 9vw, 102px);
-        line-height: 0.92;
+        font-size: clamp(42px, 8.5vw, 104px);
+        line-height: 0.93;
         letter-spacing: 0;
       }
 
       .lede {
-        max-width: 740px;
+        max-width: 760px;
         margin: 0;
         color: #d7dbe2;
-        font-size: clamp(19px, 2.3vw, 27px);
+        font-size: clamp(19px, 2.2vw, 27px);
         line-height: 1.42;
       }
 
-      .byline {
+      .hero-actions,
+      .links,
+      .meta {
         display: flex;
         flex-wrap: wrap;
-        gap: 12px 18px;
-        color: var(--muted);
-        font-size: 16px;
+        gap: 8px;
       }
 
-      .byline strong { color: var(--ink); }
+      .button,
+      .links a {
+        min-height: 40px;
+        padding: 9px 12px;
+        border: 1px solid rgba(84, 214, 199, 0.55);
+        border-radius: 6px;
+        background: rgba(84, 214, 199, 0.14);
+        color: var(--ink);
+        font: inherit;
+        font-size: 14px;
+        font-weight: 760;
+        text-decoration: none;
+        transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, color 180ms ease;
+      }
+
+      .button.secondary,
+      .links a:not(.primary) {
+        border-color: var(--line);
+        background: rgba(21, 26, 35, 0.86);
+        color: var(--muted);
+      }
+
+      .button:hover,
+      .links a:hover {
+        transform: translateY(-2px);
+      }
+
+      .archive-panel {
+        display: grid;
+        gap: 12px;
+        padding: 18px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(16, 20, 27, 0.82);
+      }
+
+      .archive-panel h2 {
+        margin: 0;
+        font-size: 24px;
+      }
+
+      .archive-panel p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.45;
+      }
+
+      .route-list {
+        display: grid;
+        gap: 10px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .route-list a {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 10px;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        text-decoration: none;
+      }
+
+      .route-list a:hover {
+        color: var(--ink);
+        border-color: rgba(84, 214, 199, 0.52);
+      }
+
+      .route-list strong { color: var(--ink); }
 
       .year-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
         gap: 16px;
-        margin-top: 32px;
+        margin-top: clamp(42px, 6vw, 78px);
       }
 
       .year-card {
-        --year-accent: var(--accent);
+        --year-accent: var(--teal);
         --year-border: rgba(84, 214, 199, 0.32);
         --year-soft: rgba(84, 214, 199, 0.08);
         display: grid;
         gap: 16px;
-        min-height: 280px;
+        min-height: 320px;
         padding: 18px;
         border: 1px solid var(--year-border);
         border-radius: 8px;
@@ -171,17 +261,21 @@
           linear-gradient(135deg, var(--year-soft), transparent 48%),
           rgba(16, 20, 27, 0.86);
         text-decoration: none;
+        transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
       }
 
       .year-card[data-year="2024-2025"] {
-        --year-accent: #ff7aa8;
+        --year-accent: var(--rose);
         --year-border: rgba(255, 122, 168, 0.34);
         --year-soft: rgba(255, 122, 168, 0.08);
       }
 
       .year-card:hover {
+        transform: translateY(-4px);
         border-color: var(--year-accent);
-        background: rgba(21, 26, 35, 0.9);
+        background:
+          linear-gradient(135deg, var(--year-soft), transparent 56%),
+          rgba(21, 26, 35, 0.92);
       }
 
       .year-card span {
@@ -193,7 +287,7 @@
 
       .year-card h2 {
         margin: 0;
-        font-size: clamp(28px, 4vw, 44px);
+        font-size: clamp(30px, 4vw, 48px);
         line-height: 0.98;
       }
 
@@ -204,9 +298,6 @@
       }
 
       .meta {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
         margin-top: auto;
       }
 
@@ -220,6 +311,9 @@
       }
 
       .footer {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px 18px;
         margin-top: 54px;
         padding-top: 24px;
         border-top: 1px solid var(--line);
@@ -227,9 +321,18 @@
         font-size: 14px;
       }
 
+      .footer strong { color: var(--ink); }
+
       :focus-visible {
-        outline: 3px solid var(--accent-3);
+        outline: 3px solid var(--gold);
         outline-offset: 3px;
+      }
+
+      @media (max-width: 860px) {
+        .hero {
+          grid-template-columns: 1fr;
+          align-items: start;
+        }
       }
 
       @media (max-width: 760px) {
@@ -239,6 +342,20 @@
         }
 
         nav { justify-content: flex-start; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        .button,
+        .links a,
+        .year-card {
+          transition: none;
+        }
+        .button:hover,
+        .links a:hover,
+        .year-card:hover {
+          transform: none;
+        }
       }
     </style>
   </head>
@@ -254,40 +371,57 @@
 
     <main>
       <section class="hero" aria-labelledby="page-title">
-        <p class="eyebrow">Aalto University</p>
-        <h1 id="page-title">Programming for Visual Artists</h1>
-        <p class="lede">Find the course materials by school year. Each archive keeps the sessions, slides, sketches, code examples, and student work together.</p>
-        <div class="byline">
-          <span>Teacher: <strong>Tiago Martins Pinto</strong></span>
-          <span><a href="mailto:tiago.martinspinto@aalto.fi">tiago.martinspinto@aalto.fi</a></span>
-          <span><a href="https://tiagomartinspinto.com">tiagomartinspinto.com</a></span>
+        <div class="hero-copy">
+          <p class="eyebrow">Aalto University course archive</p>
+          <h1 id="page-title">Pick a year. Run the work.</h1>
+          <p class="lede">Use this archive as your course desk: open a year, run examples in the browser, edit code in the Lab, read slides in place, and use student work as reference when you build your own studies.</p>
+          <div class="hero-actions">
+            <a class="button" href="years/2025-2026/">Open 2025-2026</a>
+            <a class="button secondary" href="years/2024-2025/">Open 2024-2025</a>
+          </div>
         </div>
+        <aside class="archive-panel" aria-label="Archive map">
+          <h2>Course Directory</h2>
+          <p>Start with a year page, then move sideways to sketches, sessions, slides, labs, and student galleries.</p>
+          <ul class="route-list">
+            <li><a href="years/2025-2026/"><strong>/2025-2026</strong><span>newer archive</span></a></li>
+            <li><a href="years/2024-2025/"><strong>/2024-2025</strong><span>rebuilt archive</span></a></li>
+            <li><a href="years/2025-2026/case-studies/"><strong>/2025-2026/student-studies</strong><span>local gallery</span></a></li>
+            <li><a href="years/2024-2025/case-studies/"><strong>/2024-2025/student-studies</strong><span>local gallery</span></a></li>
+          </ul>
+        </aside>
       </section>
 
       <section class="year-grid" aria-label="School year archives">
         <a class="year-card" href="years/2025-2026/" data-year="2025-2026">
           <span>/pva/2025-2026</span>
-          <h2>Current Course Archive</h2>
-          <p>Use this archive for the newest course materials, browser sketches, the Lab, slides, session pages, and the mirrored student studies gallery.</p>
+          <h2>Use the newer course archive</h2>
+          <p>Follow session pages as a route, run browser sketches, edit p5.js examples in the Lab, read slides in place, and browse the mirrored student studies gallery.</p>
           <div class="meta" aria-label="2025-2026 contents">
             <b>sessions</b>
             <b>web sketches</b>
+            <b>sketch lab</b>
             <b>student gallery</b>
           </div>
         </a>
         <a class="year-card" href="years/2024-2025/" data-year="2024-2025">
           <span>/pva/2024-2025</span>
-          <h2>Previous Course Archive</h2>
-          <p>Use this archive for the previous course materials: slides, Processing examples, assignments, and the student submission curation.</p>
+          <h2>Compare with the previous edition</h2>
+          <p>Use the rebuilt archive to run translated sketches, read the original slides, compare Processing source, and browse the previous student studies.</p>
           <div class="meta" aria-label="2024-2025 contents">
             <b>sessions</b>
-            <b>assignments</b>
-            <b>submissions</b>
+            <b>web sketches</b>
+            <b>sketch lab</b>
+            <b>student gallery</b>
           </div>
         </a>
       </section>
 
-      <p class="footer">This site is structured by school year so future editions can be added without changing where students look for the course archive. Personal website: <a href="https://tiagomartinspinto.com">tiagomartinspinto.com</a>.</p>
+      <footer class="footer">
+        <span><strong>Teacher:</strong> Tiago Martins Pinto</span>
+        <span><a href="mailto:tiago.martinspinto@aalto.fi">tiago.martinspinto@aalto.fi</a></span>
+        <span><a href="https://tiagomartinspinto.com">tiagomartinspinto.com</a></span>
+      </footer>
     </main>
   </body>
 </html>

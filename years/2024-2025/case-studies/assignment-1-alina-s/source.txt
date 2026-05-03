@@ -1,0 +1,43 @@
+Assignment 1 - Alina S.
+Mirrored from https://openprocessing.org/sketch/2564084
+License: see the original OpenProcessing page
+--- Local runnable source.pde ---
+int numCircles = 70;
+float[] circleX = new float[numCircles];
+float[] circleY = new float[numCircles];
+float[] targetX = new float[numCircles];
+float[] targetY = new float[numCircles];
+color[] circleColors = new color[numCircles];
+
+void setup() {
+  size(600, 550);
+
+  for (int i = 0; i < numCircles; i++) {
+  
+    targetX[i] = circleX[i];
+    targetY[i] = circleY[i];
+
+    circleColors[i] = color(255);
+  }
+}
+
+void draw() {
+  background(0);
+
+  for (int i = 0; i < numCircles; i++) {
+    targetX[i] = mouseX + random(-300, 300);
+    targetY[i] = mouseY + random(-300, 300);
+
+    circleX[i] += (targetX[i] - circleX[i]) * 0.1;
+    circleY[i] += (targetY[i] - circleY[i]) * 0.1;
+
+    if (dist(mouseX, mouseY, circleX[i], circleY[i]) < 25) {
+      circleColors[i] = color(0);
+    } else {
+      circleColors[i] = color(255);
+    }
+
+    fill(circleColors[i]);
+    ellipse(circleX[i], circleY[i], 10, 10);
+  }
+}

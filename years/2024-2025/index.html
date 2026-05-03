@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>2024-2025 - Programming for Visual Artists</title>
-    <meta name="description" content="Programming for Visual Artists course archive for 2024-2025: sessions, slides, assignments, examples, and student submissions.">
+    <meta name="description" content="Programming for Visual Artists course archive for 2024-2025: browser sketches, slides, source files, assignments, and student studies.">
     <meta name="theme-color" content="#090b0f">
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <style>
@@ -19,25 +19,37 @@
         --accent: #ff7aa8;
         --accent-2: #7dd3fc;
         --accent-3: #f3c969;
+        --code: #0d1117;
       }
 
       * { box-sizing: border-box; }
+
       html { scroll-behavior: smooth; }
 
       body {
         margin: 0;
         background:
-          linear-gradient(rgba(255, 122, 168, 0.04) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(125, 211, 252, 0.035) 1px, transparent 1px),
-          radial-gradient(circle at 16% 10%, rgba(255, 122, 168, 0.18), transparent 30%),
-          radial-gradient(circle at 88% 18%, rgba(125, 211, 252, 0.14), transparent 32%),
+          linear-gradient(118deg, rgba(255, 122, 168, 0.13), transparent 32%),
+          linear-gradient(242deg, rgba(125, 211, 252, 0.11), transparent 38%),
+          repeating-linear-gradient(90deg, rgba(245, 240, 232, 0.055) 0 1px, transparent 1px 72px),
+          repeating-linear-gradient(0deg, rgba(245, 240, 232, 0.04) 0 1px, transparent 1px 72px),
           var(--bg);
-        background-size: 52px 52px, 52px 52px, auto, auto, auto;
         color: var(--ink);
         font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        line-height: 1.5;
       }
 
       a { color: inherit; }
+
+      code {
+        padding: 0.08em 0.28em;
+        border: 1px solid rgba(245, 240, 232, 0.16);
+        border-radius: 4px;
+        background: rgba(255, 255, 255, 0.04);
+        color: var(--accent-3);
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+        font-size: 0.88em;
+      }
 
       .topbar {
         position: sticky;
@@ -88,22 +100,45 @@
         color: var(--line);
       }
 
-      nav a:hover,
-      nav a[aria-current="page"] {
+      nav a:hover { color: var(--ink); }
+      nav a[aria-current="page"],
+      nav a[aria-current="true"] {
         color: var(--ink);
-        background: rgba(255, 122, 168, 0.12);
+        background: rgba(255, 122, 168, 0.13);
       }
 
-      main {
-        width: min(1120px, calc(100% - 36px));
-        margin: 0 auto;
-        padding: clamp(44px, 8vw, 92px) 0 72px;
+      a:focus-visible,
+      button:focus-visible,
+      iframe:focus-visible,
+      select:focus-visible {
+        outline: 3px solid var(--accent-3);
+        outline-offset: 3px;
       }
 
       .hero {
+        min-height: 64vh;
         display: grid;
-        gap: 20px;
-        margin-bottom: 42px;
+        align-items: end;
+        padding: clamp(52px, 8vw, 108px) clamp(18px, 4vw, 56px);
+        border-bottom: 1px solid var(--line);
+        background:
+          linear-gradient(120deg, rgba(9, 11, 15, 0.06), rgba(9, 11, 15, 0.86) 70%),
+          repeating-linear-gradient(115deg, rgba(255, 122, 168, 0.12) 0 1px, transparent 1px 34px),
+          repeating-linear-gradient(25deg, rgba(125, 211, 252, 0.08) 0 1px, transparent 1px 46px),
+          #0a0d12;
+        background-size: auto, 56px 56px, 72px 72px, auto;
+        animation: hero-field 34s ease-in-out infinite alternate;
+      }
+
+      @keyframes hero-field {
+        from { background-position: 0 0, 0 0, 0 0, 0 0; }
+        to { background-position: 0 0, 42px -18px, -30px 22px, 0 0; }
+      }
+
+      .hero-inner {
+        display: grid;
+        gap: 22px;
+        width: min(1120px, 100%);
       }
 
       .eyebrow {
@@ -115,104 +150,29 @@
       }
 
       h1 {
-        max-width: 900px;
+        max-width: 980px;
         margin: 0;
-        font-size: clamp(40px, 8vw, 92px);
-        line-height: 0.92;
+        font-size: clamp(42px, 8vw, 98px);
+        line-height: 0.93;
         letter-spacing: 0;
       }
 
       .lede {
-        max-width: 760px;
+        max-width: 780px;
         margin: 0;
         color: #d7dbe2;
-        font-size: clamp(18px, 2.1vw, 25px);
+        font-size: clamp(19px, 2.2vw, 27px);
         line-height: 1.42;
       }
 
+      .byline,
       .actions,
       .links,
-      .tag-row,
-      .byline {
+      .tags,
+      .slide-actions {
         display: flex;
         flex-wrap: wrap;
         gap: 8px;
-      }
-
-      .button,
-      .links a {
-        min-height: 40px;
-        padding: 9px 12px;
-        border: 1px solid rgba(255, 122, 168, 0.55);
-        border-radius: 6px;
-        background: rgba(255, 122, 168, 0.14);
-        color: var(--ink);
-        font: inherit;
-        font-size: 14px;
-        font-weight: 760;
-        text-decoration: none;
-      }
-
-      .button.secondary,
-      .links a:not(.primary) {
-        border-color: var(--line);
-        background: var(--panel-2);
-        color: var(--muted);
-      }
-
-      section { margin-top: 42px; }
-
-      .section-heading {
-        display: grid;
-        gap: 10px;
-        margin-bottom: 18px;
-      }
-
-      .section-heading h2 {
-        margin: 0;
-        font-size: clamp(28px, 4vw, 48px);
-      }
-
-      .section-heading p {
-        max-width: 760px;
-        margin: 0;
-        color: var(--muted);
-        line-height: 1.5;
-      }
-
-      .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 14px;
-      }
-
-      .card {
-        display: grid;
-        gap: 12px;
-        padding: 16px;
-        border: 1px solid var(--line);
-        border-radius: 8px;
-        background: rgba(16, 20, 27, 0.86);
-      }
-
-      .card h3 {
-        margin: 0;
-        font-size: 23px;
-        line-height: 1.05;
-      }
-
-      .card p {
-        margin: 0;
-        color: var(--muted);
-        line-height: 1.45;
-      }
-
-      .tag {
-        padding: 5px 8px;
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        color: var(--muted);
-        font-size: 12px;
       }
 
       .byline {
@@ -223,17 +183,265 @@
 
       .byline strong { color: var(--ink); }
 
+      .button,
+      .links a,
+      .reader-button,
+      .slide-picker {
+        min-height: 40px;
+        padding: 9px 12px;
+        border: 1px solid rgba(255, 122, 168, 0.55);
+        border-radius: 6px;
+        background: rgba(255, 122, 168, 0.14);
+        color: var(--ink);
+        font: inherit;
+        font-size: 14px;
+        font-weight: 760;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      .button.secondary,
+      .links a:not(.primary),
+      .reader-button {
+        border-color: var(--line);
+        background: var(--panel-2);
+        color: var(--muted);
+      }
+
+      main {
+        width: min(1180px, calc(100% - 36px));
+        margin: 0 auto;
+        padding: 44px 0 72px;
+      }
+
+      section { margin-top: clamp(44px, 6vw, 72px); }
+
+      .status-cues,
+      .feature-grid,
+      .sessions {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+        gap: 14px;
+      }
+
+      .status-cue,
+      .feature-card,
+      .session-card,
+      .notice,
+      .slide-viewer,
+      .slide-controls {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(16, 20, 27, 0.86);
+      }
+
+      .status-cue {
+        display: grid;
+        gap: 6px;
+        padding: 14px;
+      }
+
+      .status-cue span,
+      .tag,
+      .session-kicker span {
+        color: var(--accent);
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+        font-size: 12px;
+        font-weight: 760;
+      }
+
+      .status-cue strong { font-size: 17px; }
+
+      .section-heading {
+        display: grid;
+        gap: 10px;
+        margin-bottom: 18px;
+      }
+
+      .section-heading h2 {
+        margin: 0;
+        font-size: clamp(30px, 4vw, 52px);
+        line-height: 1;
+      }
+
+      .section-heading p {
+        max-width: 780px;
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .feature-card,
+      .session-card {
+        display: grid;
+        gap: 12px;
+        padding: 16px;
+      }
+
+      .feature-card h3,
+      .session-card h3 {
+        margin: 0;
+        font-size: 24px;
+        line-height: 1.05;
+      }
+
+      .feature-card p,
+      .session-card p,
+      .notice p,
+      .web-card p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .notice {
+        display: grid;
+        gap: 8px;
+        padding: 16px;
+        margin-bottom: 16px;
+        border-color: rgba(255, 122, 168, 0.36);
+      }
+
+      .web-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+        gap: 16px;
+      }
+
+      .web-card {
+        display: grid;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(16, 20, 27, 0.88);
+      }
+
+      .preview {
+        position: relative;
+        min-height: 230px;
+        border-bottom: 1px solid var(--line);
+        background: #05070a;
+      }
+
+      .preview iframe {
+        width: 100%;
+        height: 100%;
+        min-height: 230px;
+        border: 0;
+        display: block;
+      }
+
+      .web-card-content {
+        display: grid;
+        gap: 12px;
+        padding: 16px;
+      }
+
+      .web-card h3 {
+        margin: 0;
+        font-size: 24px;
+        line-height: 1.05;
+      }
+
+      .tag {
+        padding: 5px 8px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+      }
+
+      .details {
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .details span {
+        color: var(--ink);
+        font-weight: 760;
+      }
+
+      .slides-reader {
+        display: grid;
+        grid-template-columns: minmax(220px, 0.28fr) minmax(0, 0.72fr);
+        gap: 14px;
+      }
+
+      .slide-controls {
+        display: grid;
+        align-content: start;
+        gap: 8px;
+        padding: 12px;
+      }
+
+      .slide-list-label {
+        margin: 0 0 4px;
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 760;
+        text-transform: uppercase;
+      }
+
+      .slide-select-label {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+      }
+
+      .slide-select {
+        min-height: 42px;
+        padding: 8px 10px;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        background: var(--panel-2);
+        color: var(--ink);
+        font: inherit;
+      }
+
+      .slide-picker[aria-pressed="true"] {
+        color: #16070d;
+        background: var(--accent);
+      }
+
+      .slide-viewer {
+        min-width: 0;
+        overflow: hidden;
+      }
+
+      .slide-viewer-bar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 12px 14px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .slide-actions a {
+        color: var(--accent);
+        font-weight: 760;
+      }
+
+      .pdf-frame {
+        width: 100%;
+        height: min(76vh, 760px);
+        min-height: 520px;
+        border: 0;
+        display: block;
+        background: #05070a;
+      }
+
       .footer {
-        margin-top: 54px;
-        padding-top: 24px;
+        margin-top: 48px;
+        padding-top: 22px;
         border-top: 1px solid var(--line);
         color: var(--muted);
         font-size: 14px;
       }
 
-      :focus-visible {
-        outline: 3px solid var(--accent-3);
-        outline-offset: 3px;
+      @media (max-width: 880px) {
+        .slides-reader {
+          grid-template-columns: 1fr;
+        }
       }
 
       @media (max-width: 760px) {
@@ -243,6 +451,14 @@
         }
 
         nav { justify-content: flex-start; }
+        .hero { min-height: auto; }
+        .slide-picker { display: none; }
+        .pdf-frame { min-height: 430px; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        .hero { animation: none; }
       }
     </style>
   </head>
@@ -252,120 +468,478 @@
       <nav aria-label="2024-2025 directory">
         <a href="../../index.html">archive</a>
         <a href="./" aria-current="page">2024-2025</a>
+        <a href="#web-sketches">sketches</a>
+        <a href="#lab">lab</a>
+        <a href="#slides">slides</a>
+        <a href="#assignments">projects</a>
         <a href="#sessions">sessions</a>
-        <a href="#assignments">assignments</a>
-        <a href="#submissions">submissions</a>
+        <a href="#student-studies">student-studies</a>
       </nav>
     </header>
 
-    <main>
-      <section class="hero" aria-labelledby="page-title">
+    <div class="hero">
+      <div class="hero-inner">
         <p class="eyebrow">Aalto University, 2024-2025</p>
-        <h1 id="page-title">Programming for Visual Artists</h1>
-        <p class="lede">Use this archive to find the previous course materials: session slides, Processing examples, assignment files, and student submissions.</p>
+        <h1>Programming for Visual Artists</h1>
+        <p class="lede">Use this previous course archive like a working studio: run a sketch first, change it in the Lab, read the slides in place, then open the Processing files when you want to continue locally.</p>
         <div class="byline">
           <span>Teacher: <strong>Tiago Martins Pinto</strong></span>
           <span><a href="mailto:tiago.martinspinto@aalto.fi">tiago.martinspinto@aalto.fi</a></span>
-          <span><a href="https://tiagomartinspinto.com">tiagomartinspinto.com</a></span>
         </div>
         <div class="actions">
-          <a class="button" href="#sessions">Browse sessions</a>
-          <a class="button secondary" href="#assignments">Open assignments</a>
-          <a class="button secondary" href="#submissions">Student submissions</a>
+          <a class="button" href="#sessions">Follow the sessions</a>
+          <a class="button secondary" href="#web-sketches">Run the sketches</a>
+          <a class="button secondary" href="web/lab.html">Edit code</a>
+        </div>
+      </div>
+    </div>
+
+    <main>
+      <section class="status-cues" aria-label="Course material status">
+        <div class="status-cue">
+          <span>Start here</span>
+          <strong>Choose a session to get the slides, sketches, and source together.</strong>
+        </div>
+        <div class="status-cue">
+          <span>Runs in browser</span>
+          <strong>Open translated p5.js sketches before downloading Processing files.</strong>
+        </div>
+        <div class="status-cue">
+          <span>Edit safely</span>
+          <strong>Use the Lab for quick changes; your edits stay in the browser.</strong>
+        </div>
+        <div class="status-cue">
+          <span>Media care</span>
+          <strong>Camera, microphone, and sound examples stay source-first when permissions matter.</strong>
+        </div>
+      </section>
+
+      <section id="course-path">
+        <div class="section-heading">
+          <h2>How to Use This Year</h2>
+          <p>Work through the material in the same rhythm as the newer archive: observe, edit, compare, then build your own study.</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <h3>1. Open a Session</h3>
+            <p>Use a session page when you want the day’s slides, runnable sketches, and Processing files together.</p>
+            <div class="links"><a class="primary" href="#sessions">Choose your session</a></div>
+          </article>
+          <article class="feature-card">
+            <h3>2. Run a Sketch</h3>
+            <p>Open a web sketch to see what the code does before you read through the source.</p>
+            <div class="links"><a class="primary" href="#web-sketches">Run a browser sketch</a></div>
+          </article>
+          <article class="feature-card">
+            <h3>3. Change the Code</h3>
+            <p>Use the Lab to test color, speed, size, loop count, and function changes quickly.</p>
+            <div class="links"><a class="primary" href="web/lab.html">Open the Lab</a></div>
+          </article>
+          <article class="feature-card">
+            <h3>4. Continue in Processing</h3>
+            <p>Open the original <code>.pde</code> files when you are ready to compare syntax or keep working locally.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="web-sketches">
+        <div class="section-heading">
+          <h2>Web Sketches</h2>
+          <p>These p5.js companions bring the older course examples into the same browser-first workflow as the current archive.</p>
+        </div>
+        <div class="notice">
+          <strong>Use the web version first</strong>
+          <p>Each card lets you run the sketch, edit it in the Lab, and compare it with the original Processing source. Media examples that need microphone or webcam permissions are kept as source-first material in the sessions.</p>
+        </div>
+        <div class="web-grid">
+          <article class="web-card">
+            <div class="preview"><iframe loading="lazy" src="web/smile-face/" title="Smile face preview"></iframe></div>
+            <div class="web-card-content">
+              <h3>Smile Face</h3>
+              <p>See how one drawing function can produce several related faces.</p>
+              <div class="tags"><span class="tag">Session 01</span><span class="tag">functions</span><span class="tag">drawing</span></div>
+              <div class="details"><span>You can:</span> change proportions, draw more faces, or alter the expression.</div>
+              <div class="links"><a class="primary" href="web/lab.html?sketch=smile-face">Edit in the Lab</a><a href="web/smile-face/">View sketch only</a><a href="Session-01/smileface/smileface.pde">Compare Processing code</a></div>
+            </div>
+          </article>
+          <article class="web-card">
+            <div class="preview"><iframe loading="lazy" src="web/follow-mouse/" title="Follow the mouse preview"></iframe></div>
+            <div class="web-card-content">
+              <h3>Follow the Mouse</h3>
+              <p>Move the pointer and compare direct input with eased motion.</p>
+              <div class="tags"><span class="tag">Session 01</span><span class="tag">mouse</span><span class="tag">motion</span></div>
+              <div class="details"><span>You can:</span> change the easing value, trail opacity, or follower size.</div>
+              <div class="links"><a class="primary" href="web/lab.html?sketch=follow-mouse">Edit in the Lab</a><a href="web/follow-mouse/">View sketch only</a><a href="Session-01/extra_followthemouse/extra_followthemouse.pde">Compare Processing code</a></div>
+            </div>
+          </article>
+          <article class="web-card">
+            <div class="preview"><iframe loading="lazy" src="web/mouse-shapes/" title="Mouse shapes preview"></iframe></div>
+            <div class="web-card-content">
+              <h3>Mouse Shapes</h3>
+              <p>Use the pointer to control a shape while another mirrors it.</p>
+              <div class="tags"><span class="tag">Session 02</span><span class="tag">mouseX</span><span class="tag">mapping</span></div>
+              <div class="details"><span>You can:</span> change color mappings, shape size, or mirrored movement.</div>
+              <div class="links"><a class="primary" href="web/lab.html?sketch=mouse-shapes">Edit in the Lab</a><a href="web/mouse-shapes/">View sketch only</a><a href="Session-02/mouseshapes/mouseshapes.pde">Compare Processing code</a></div>
+            </div>
+          </article>
+          <article class="web-card">
+            <div class="preview"><iframe loading="lazy" src="web/color-house/" title="Color house preview"></iframe></div>
+            <div class="web-card-content">
+              <h3>Color House</h3>
+              <p>Click to recolor a simple scene and see mouse events change state.</p>
+              <div class="tags"><span class="tag">Session 02</span><span class="tag">mousePressed()</span><span class="tag">state</span></div>
+              <div class="details"><span>You can:</span> add windows, change the palette rules, or animate the sky.</div>
+              <div class="links"><a class="primary" href="web/lab.html?sketch=color-house">Edit in the Lab</a><a href="web/color-house/">View sketch only</a><a href="Session-02/extra_coloronmousepress/extra_coloronmousepress.pde">Compare Processing code</a></div>
+            </div>
+          </article>
+          <article class="web-card">
+            <div class="preview"><iframe loading="lazy" src="web/bouncing-ball/" title="Bouncing ball preview"></iframe></div>
+            <div class="web-card-content">
+              <h3>Bouncing Ball Color</h3>
+              <p>Watch a ball reverse at the canvas edges and change color on contact.</p>
+              <div class="tags"><span class="tag">Session 03</span><span class="tag">conditionals</span><span class="tag">movement</span></div>
+              <div class="details"><span>You can:</span> change speed, radius, color rules, or add more balls.</div>
+              <div class="links"><a class="primary" href="web/lab.html?sketch=bouncing-ball">Edit in the Lab</a><a href="web/bouncing-ball/">View sketch only</a><a href="Session-03/extra_bouncingballcolor/extra_bouncingballcolor.pde">Compare Processing code</a></div>
+            </div>
+          </article>
+          <article class="web-card">
+            <div class="preview"><iframe loading="lazy" src="web/generative-grid/" title="Generative grid preview"></iframe></div>
+            <div class="web-card-content">
+              <h3>Generative Grid Hover</h3>
+              <p>Move across nested squares driven by distance, noise, and loops.</p>
+              <div class="tags"><span class="tag">Session 04</span><span class="tag">nested loops</span><span class="tag">noise()</span></div>
+              <div class="details"><span>You can:</span> change grid density, opacity, rotation, or color mapping.</div>
+              <div class="links"><a class="primary" href="web/lab.html?sketch=generative-grid">Edit in the Lab</a><a href="web/generative-grid/">View sketch only</a><a href="Session-04/generativegridhover/generativegridhover.pde">Compare Processing code</a></div>
+            </div>
+          </article>
+          <article class="web-card">
+            <div class="preview"><iframe loading="lazy" src="web/recursive-tree/" title="Recursive tree preview"></iframe></div>
+            <div class="web-card-content">
+              <h3>Recursive Tree</h3>
+              <p>Watch a function call itself to grow two mirrored branching systems.</p>
+              <div class="tags"><span class="tag">Session 05</span><span class="tag">recursion</span><span class="tag">animation</span></div>
+              <div class="details"><span>You can:</span> change branch length, angle, scale, or colors.</div>
+              <div class="links"><a class="primary" href="web/lab.html?sketch=recursive-tree">Edit in the Lab</a><a href="web/recursive-tree/">View sketch only</a><a href="Session-05/extra_recursivetreeanimated/extra_recursivetreeanimated.pde">Compare Processing code</a></div>
+            </div>
+          </article>
+          <article class="web-card">
+            <div class="preview"><iframe loading="lazy" src="web/sparkles/" title="Sparkles preview"></iframe></div>
+            <div class="web-card-content">
+              <h3>Sparkles</h3>
+              <p>See arrays of particle systems emit, update, fade, and remove particles.</p>
+              <div class="tags"><span class="tag">Session 06</span><span class="tag">objects</span><span class="tag">arrays</span></div>
+              <div class="details"><span>You can:</span> change lifespan, velocity, particle size, or color.</div>
+              <div class="links"><a class="primary" href="web/lab.html?sketch=sparkles">Edit in the Lab</a><a href="web/sparkles/">View sketch only</a><a href="Session-06/sparkles/sparkles.pde">Compare Processing code</a></div>
+            </div>
+          </article>
+          <article class="web-card">
+            <div class="preview"><iframe loading="lazy" src="web/video-filters/" title="Video filters preview"></iframe></div>
+            <div class="web-card-content">
+              <h3>Video Filters</h3>
+              <p>Use a local video file to test image-processing filters without opening a new site.</p>
+              <div class="tags"><span class="tag">Session 07</span><span class="tag">video</span><span class="tag">pixels</span></div>
+              <div class="details"><span>You can:</span> press I, G, B, or T to toggle filters, then change the pixel rules.</div>
+              <div class="links"><a class="primary" href="web/lab.html?sketch=video-filters">Edit in the Lab</a><a href="web/video-filters/">View sketch only</a><a href="Session-07/example_videofilters/example_videofilters.pde">Compare Processing code</a></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="lab">
+        <div class="section-heading">
+          <h2>Sketch Lab</h2>
+          <p>Edit translated p5.js versions of the 2024-2025 examples directly in the browser. This gives the older archive the same experiment-first workflow as 2025-2026.</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <h3>Run Code in Place</h3>
+            <p>Choose a sketch, change its JavaScript, and press Run your code. The preview updates in the same page.</p>
+            <div class="links"><a class="primary" href="web/lab.html">Open the Lab</a></div>
+          </article>
+          <article class="feature-card">
+            <h3>Try a Small Change</h3>
+            <p>Start with color, speed, size, branch length, particle lifespan, or the number of grid cells.</p>
+            <div class="links"><a href="web/lab.html?sketch=generative-grid">Edit generative grid</a><a href="web/lab.html?sketch=sparkles">Edit sparkles</a></div>
+          </article>
+          <article class="feature-card">
+            <h3>Compare Later</h3>
+            <p>The original Processing files remain linked from every sketch, so you can compare syntax when you are ready.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="comparison">
+        <div class="section-heading">
+          <h2>Processing vs p5.js</h2>
+          <p>The web sketches are teaching companions. Use this quick map when moving between the browser versions and the original Processing files.</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <h3>Canvas Setup</h3>
+            <p>Processing uses <code>size(600, 400)</code>. p5.js uses <code>createCanvas(600, 400)</code>.</p>
+          </article>
+          <article class="feature-card">
+            <h3>Drawing Loop</h3>
+            <p>Processing writes <code>void draw()</code>. p5.js writes <code>function draw()</code>.</p>
+          </article>
+          <article class="feature-card">
+            <h3>Transforms</h3>
+            <p>Processing uses <code>pushMatrix()</code> and <code>popMatrix()</code>. p5.js uses <code>push()</code> and <code>pop()</code>.</p>
+          </article>
+          <article class="feature-card">
+            <h3>Variables</h3>
+            <p>Processing often declares types like <code>float x</code>. p5.js usually uses <code>let x</code> or <code>const x</code>.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="slides">
+        <div class="section-heading">
+          <h2>Slides Reader</h2>
+          <p>Read the PDF slides without leaving the year archive. Choose a session and the reader updates in place.</p>
+        </div>
+        <div class="slides-reader" aria-label="In-page PDF slides reader">
+          <div class="slide-controls">
+            <p class="slide-list-label">Choose a slide deck</p>
+            <label class="slide-select-label" for="slide-select">Choose a slide deck</label>
+            <select class="slide-select" id="slide-select" aria-label="Choose a slide deck">
+              <option value="0">Session 01 - Drawing basics</option>
+              <option value="1">Session 02 - Mouse and variables</option>
+              <option value="2">Session 03 - Conditionals and movement</option>
+              <option value="3">Session 04 - Loops, grids, and waves</option>
+              <option value="4">Session 05 - Functions and recursion</option>
+              <option value="5">Session 06 - Objects and particles</option>
+              <option value="6">Session 07 - Image and video</option>
+              <option value="7">Session 08 - Sound and camera</option>
+            </select>
+            <button class="slide-picker" type="button" aria-pressed="true" data-title="Session 01 - Drawing basics" data-pdf="Session-01/programmingvisualartists_session1.pdf">Session 01</button>
+            <button class="slide-picker" type="button" aria-pressed="false" data-title="Session 02 - Mouse and variables" data-pdf="Session-02/programmingvisualartists_session2.pdf">Session 02</button>
+            <button class="slide-picker" type="button" aria-pressed="false" data-title="Session 03 - Conditionals and movement" data-pdf="Session-03/programmingvisualartists_session3.pdf">Session 03</button>
+            <button class="slide-picker" type="button" aria-pressed="false" data-title="Session 04 - Loops, grids, and waves" data-pdf="Session-04/programmingvisualartists_session4.pdf">Session 04</button>
+            <button class="slide-picker" type="button" aria-pressed="false" data-title="Session 05 - Functions and recursion" data-pdf="Session-05/programmingvisualartists_session5.pdf">Session 05</button>
+            <button class="slide-picker" type="button" aria-pressed="false" data-title="Session 06 - Objects and particles" data-pdf="Session-06/programmingvisualartists_session6.pdf">Session 06</button>
+            <button class="slide-picker" type="button" aria-pressed="false" data-title="Session 07 - Image and video" data-pdf="Session-07/programmingvisualartists_session7.pdf">Session 07</button>
+            <button class="slide-picker" type="button" aria-pressed="false" data-title="Session 08 - Sound and camera" data-pdf="Session-08/programmingvisualartists_session8.pdf">Session 08</button>
+          </div>
+          <div class="slide-viewer">
+            <div class="slide-viewer-bar">
+              <strong id="slide-title">Session 01 - Drawing basics</strong>
+              <div class="slide-actions">
+                <button class="reader-button" id="prev-slide-deck" type="button">Previous deck</button>
+                <button class="reader-button" id="next-slide-deck" type="button">Next deck</button>
+                <a id="slide-direct-link" href="Session-01/programmingvisualartists_session1.pdf" target="_blank" rel="noopener">Open PDF in a new tab</a>
+              </div>
+            </div>
+            <iframe id="slide-frame" class="pdf-frame" title="Session 01 slides" src="Session-01/programmingvisualartists_session1.pdf"></iframe>
+          </div>
+        </div>
+      </section>
+
+      <section id="assignments">
+        <div class="section-heading">
+          <h2>Projects</h2>
+          <p>Use these example files when you are preparing study work or comparing how a prompt can become code.</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <h3>Study 1</h3>
+            <p>Start from interactive drawing, mouse input, and visible changes in response to the viewer.</p>
+            <div class="links"><a class="primary" href="Assignments/study1_interaction_example.pde">Open Study 1 example</a><a href="web/lab.html?sketch=mouse-shapes">Start from mouse shapes</a></div>
+          </article>
+          <article class="feature-card">
+            <h3>Study 2</h3>
+            <p>Start from generative systems, grids, loops, and controlled variation.</p>
+            <div class="links"><a class="primary" href="Assignments/study2_generative_grid_example.pde">Open Study 2 example</a><a href="web/lab.html?sketch=generative-grid">Start from generative grid</a></div>
+          </article>
+          <article class="feature-card">
+            <h3>More Examples</h3>
+            <p>Use these task examples and Sonic Pi files when you want additional references.</p>
+            <div class="links"><a href="Assignments/task3_example.pde">Task 3</a><a href="Assignments/task4_example.pde">Task 4</a><a href="extras/with_sonicpi/sonicpimusic.rb">Sonic Pi code</a></div>
+          </article>
         </div>
       </section>
 
       <section id="sessions">
         <div class="section-heading">
           <h2>Sessions</h2>
-          <p>Start with the slides, then open the example files when you want to compare code.</p>
+          <p>Use a session page when you want the day’s slides, runnable sketches, and Processing material together.</p>
         </div>
-        <div class="grid">
-          <article class="card">
-            <div class="tag-row"><span class="tag">Session 01</span></div>
-            <h3>Drawing Basics</h3>
-            <p>Coordinates, shapes, and first sketches.</p>
-            <div class="links"><a class="primary" href="Session-01/programmingvisualartists_session1.pdf">Read slides</a><a href="Session-01/smileface/smileface.pde">Smile face</a><a href="Session-01/extra_followthemouse/extra_followthemouse.pde">Follow the mouse</a></div>
+        <div class="sessions">
+          <article class="session-card">
+            <div class="session-kicker"><span>Session 01</span></div>
+            <h3>Drawing basics</h3>
+            <p>Coordinates, shapes, color, and first reusable drawing functions.</p>
+            <div class="links"><a class="primary" href="sessions/session-01/">Open session page</a><a href="web/smile-face/">Open smile face</a><a href="#slides" data-title="Session 01 - Drawing basics" data-pdf="Session-01/programmingvisualartists_session1.pdf">Read slides here</a></div>
           </article>
-          <article class="card">
-            <div class="tag-row"><span class="tag">Session 02</span></div>
-            <h3>Mouse and Variables</h3>
+          <article class="session-card">
+            <div class="session-kicker"><span>Session 02</span></div>
+            <h3>Mouse and variables</h3>
             <p>Mouse input, values, operators, and color changes.</p>
-            <div class="links"><a class="primary" href="Session-02/programmingvisualartists_session2.pdf">Read slides</a><a href="Session-02/mouseshapes/mouseshapes.pde">Mouse shapes</a><a href="Session-02/extra_coloronmousepress/extra_coloronmousepress.pde">Color on mouse press</a></div>
+            <div class="links"><a class="primary" href="sessions/session-02/">Open session page</a><a href="web/mouse-shapes/">Open mouse shapes</a><a href="#slides" data-title="Session 02 - Mouse and variables" data-pdf="Session-02/programmingvisualartists_session2.pdf">Read slides here</a></div>
           </article>
-          <article class="card">
-            <div class="tag-row"><span class="tag">Session 03</span></div>
-            <h3>Conditionals and Movement</h3>
-            <p>Hover states, changing color, and moving forms.</p>
-            <div class="links"><a class="primary" href="Session-03/programmingvisualartists_session3.pdf">Read slides</a><a href="Session-03/hoverisred/hoverisred.pde">Hover is red</a><a href="Session-03/extra_bouncingballcolor/extra_bouncingballcolor.pde">Bouncing ball</a></div>
+          <article class="session-card">
+            <div class="session-kicker"><span>Session 03</span></div>
+            <h3>Conditionals and movement</h3>
+            <p>Hover states, collisions, changing color, and motion over time.</p>
+            <div class="links"><a class="primary" href="sessions/session-03/">Open session page</a><a href="web/bouncing-ball/">Open ball sketch</a><a href="#slides" data-title="Session 03 - Conditionals and movement" data-pdf="Session-03/programmingvisualartists_session3.pdf">Read slides here</a></div>
           </article>
-          <article class="card">
-            <div class="tag-row"><span class="tag">Session 04</span></div>
-            <h3>Loops, Grids, and Waves</h3>
-            <p>Repeated structures, waves, and generative grid behavior.</p>
-            <div class="links"><a class="primary" href="Session-04/programmingvisualartists_session4.pdf">Read slides</a><a href="Session-04/extra_simplewaves/extra_simplewaves.pde">Simple waves</a><a href="Session-04/generativegridhover/generativegridhover.pde">Generative grid</a></div>
+          <article class="session-card">
+            <div class="session-kicker"><span>Session 04</span></div>
+            <h3>Loops, grids, and waves</h3>
+            <p>Nested loops, repeated structures, waves, and generative grids.</p>
+            <div class="links"><a class="primary" href="sessions/session-04/">Open session page</a><a href="web/generative-grid/">Open grid sketch</a><a href="#slides" data-title="Session 04 - Loops, grids, and waves" data-pdf="Session-04/programmingvisualartists_session4.pdf">Read slides here</a></div>
           </article>
-          <article class="card">
-            <div class="tag-row"><span class="tag">Session 05</span></div>
-            <h3>Functions and Recursion</h3>
+          <article class="session-card">
+            <div class="session-kicker"><span>Session 05</span></div>
+            <h3>Functions and recursion</h3>
             <p>Reusable code, recursive drawing, spiral systems, and noise.</p>
-            <div class="links"><a class="primary" href="Session-05/programmingvisualartists_session5.pdf">Read slides</a><a href="Session-05/shapesfunction/shapesfunction.pde">Shapes function</a><a href="Session-05/extra_recursivetreeanimated/extra_recursivetreeanimated.pde">Recursive tree</a></div>
+            <div class="links"><a class="primary" href="sessions/session-05/">Open session page</a><a href="web/recursive-tree/">Open tree sketch</a><a href="#slides" data-title="Session 05 - Functions and recursion" data-pdf="Session-05/programmingvisualartists_session5.pdf">Read slides here</a></div>
           </article>
-          <article class="card">
-            <div class="tag-row"><span class="tag">Session 06</span></div>
-            <h3>Objects and Particles</h3>
-            <p>Objects, classes, particle systems, and repeated moving elements.</p>
-            <div class="links"><a class="primary" href="Session-06/programmingvisualartists_session6.pdf">Read slides</a><a href="Session-06/exampleOOP1/exampleOOP1.pde">Object example</a><a href="Session-06/exampleparticle1/exampleparticle1.pde">Particle example</a></div>
+          <article class="session-card">
+            <div class="session-kicker"><span>Session 06</span></div>
+            <h3>Objects and particles</h3>
+            <p>Object-oriented thinking, arrays, particle systems, and repeated motion.</p>
+            <div class="links"><a class="primary" href="sessions/session-06/">Open session page</a><a href="web/sparkles/">Open sparkles</a><a href="#slides" data-title="Session 06 - Objects and particles" data-pdf="Session-06/programmingvisualartists_session6.pdf">Read slides here</a></div>
           </article>
-          <article class="card">
-            <div class="tag-row"><span class="tag">Session 07</span></div>
-            <h3>Image and Video</h3>
-            <p>Image filters, video filters, glitch images, and zoom interactions.</p>
-            <div class="links"><a class="primary" href="Session-07/programmingvisualartists_session7.pdf">Read slides</a><a href="Session-07/example_imagefilters/example_imagefilters.pde">Image filters</a><a href="Session-07/example_videofilters/example_videofilters.pde">Video filters</a></div>
+          <article class="session-card">
+            <div class="session-kicker"><span>Session 07</span></div>
+            <h3>Image and video</h3>
+            <p>Image filters, video filters, glitch effects, and zoom interactions.</p>
+            <div class="links"><a class="primary" href="sessions/session-07/">Open session page</a><a href="web/video-filters/">Open video filters</a><a href="#slides" data-title="Session 07 - Image and video" data-pdf="Session-07/programmingvisualartists_session7.pdf">Read slides here</a></div>
           </article>
-          <article class="card">
-            <div class="tag-row"><span class="tag">Session 08</span></div>
-            <h3>Sound and Camera</h3>
-            <p>Audio input, webcam mosaics, kaleidoscopes, and image-to-sound experiments.</p>
-            <div class="links"><a class="primary" href="Session-08/programmingvisualartists_session8.pdf">Read slides</a><a href="Session-08/fft/fft.pde">FFT</a><a href="Session-08/extra_webcammosaic/extra_webcammosaic.pde">Webcam mosaic</a></div>
+          <article class="session-card">
+            <div class="session-kicker"><span>Session 08</span></div>
+            <h3>Sound and camera</h3>
+            <p>Audio, webcam, image-to-sound, kaleidoscopes, and media experiments.</p>
+            <div class="links"><a class="primary" href="sessions/session-08/">Open session page</a><a href="#slides" data-title="Session 08 - Sound and camera" data-pdf="Session-08/programmingvisualartists_session8.pdf">Read slides here</a></div>
           </article>
         </div>
       </section>
 
-      <section id="assignments">
+      <section id="student-studies">
         <div class="section-heading">
-          <h2>Assignments</h2>
-          <p>Use these files as reference examples when preparing study work.</p>
+          <h2>Student Studies</h2>
+          <p>Browse local mirrors of the previous course studies. Run one work at a time, then open the source when you want to learn from how it was made.</p>
         </div>
-        <div class="grid">
-          <article class="card">
-            <h3>Study and Task Examples</h3>
-            <p>Processing example files from the course repository.</p>
-            <div class="links"><a class="primary" href="Assignments/study1_interaction_example.pde">Study 1 example</a><a href="Assignments/study2_generative_grid_example.pde">Study 2 example</a><a href="Assignments/task3_example.pde">Task 3</a><a href="Assignments/task4_example.pde">Task 4</a></div>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <h3>Local Gallery</h3>
+            <p>Use the in-site viewer to browse the mirrored Processing sketches without opening a new page for each one.</p>
+            <div class="links"><a class="primary" href="case-studies/">Open student studies</a><a href="case-studies/#assignment-1-alina-s">Start with Assignment 1</a></div>
           </article>
-          <article class="card">
-            <h3>Extras</h3>
-            <p>Additional Processing and Sonic Pi material from the previous course repository.</p>
-            <div class="links"><a class="primary" href="extras/with_sonicpi/sonicpimusic.pde">Processing + Sonic Pi</a><a href="extras/with_sonicpi/sonicpimusic.rb">Sonic Pi code</a></div>
+          <article class="feature-card">
+            <h3>Source and Attribution</h3>
+            <p>Each mirrored submission keeps a source file and a link back to the original OpenProcessing sketch.</p>
+            <div class="links"><a href="case-studies/assignment-1-alina-s/source.txt">Open an example source</a><a href="https://openprocessing.org/curation/88721">View original curation</a></div>
           </article>
-        </div>
-      </section>
-
-      <section id="submissions">
-        <div class="section-heading">
-          <h2>Student Submissions</h2>
-          <p>The previous student submission curation is kept linked from OpenProcessing.</p>
-        </div>
-        <div class="grid">
-          <article class="card">
-            <h3>OpenProcessing Curation</h3>
-            <p>Open the original student submission collection.</p>
-            <div class="links"><a class="primary" href="https://openprocessing.org/curation/88721">Open student submissions</a></div>
+          <article class="feature-card">
+            <h3>Use it as Reference</h3>
+            <p>Look for interaction patterns, visual systems, and ways students handled variation before building your own study.</p>
           </article>
         </div>
       </section>
 
-      <p class="footer">Course material by Tiago Martins Pinto for Aalto University. Personal website: <a href="https://tiagomartinspinto.com">tiagomartinspinto.com</a>.</p>
+      <footer class="footer">
+        Programming for Visual Artists, Aalto University. Course material by Tiago Martins Pinto.
+      </footer>
     </main>
+
+    <script>
+      const slideTitle = document.querySelector("#slide-title");
+      const slideFrame = document.querySelector("#slide-frame");
+      const slideDirectLink = document.querySelector("#slide-direct-link");
+      const slideSelect = document.querySelector("#slide-select");
+      const slidePickers = [...document.querySelectorAll(".slide-picker")];
+      const prevSlideDeck = document.querySelector("#prev-slide-deck");
+      const nextSlideDeck = document.querySelector("#next-slide-deck");
+      const navLinks = [...document.querySelectorAll('nav a[href^="#"]')];
+      const trackedSections = navLinks
+        .map((link) => document.querySelector(link.getAttribute("href")))
+        .filter(Boolean);
+      let activeSlideIndex = 0;
+      let navTicking = false;
+      let activeNavHoldId = "";
+      let activeNavHoldUntil = 0;
+
+      function setSlide(index) {
+        const safeIndex = (index + slidePickers.length) % slidePickers.length;
+        const picker = slidePickers[safeIndex];
+        activeSlideIndex = safeIndex;
+        slideTitle.textContent = picker.dataset.title;
+        slideFrame.src = picker.dataset.pdf;
+        slideFrame.title = picker.dataset.title + " slides";
+        slideDirectLink.href = picker.dataset.pdf;
+        slidePickers.forEach((button, buttonIndex) => {
+          button.setAttribute("aria-pressed", String(buttonIndex === safeIndex));
+        });
+        slideSelect.value = String(safeIndex);
+      }
+
+      function setNavCurrent(sectionId) {
+        navLinks.forEach((link) => {
+          if (link.getAttribute("href") === "#" + sectionId) {
+            link.setAttribute("aria-current", "true");
+          } else {
+            link.removeAttribute("aria-current");
+          }
+        });
+      }
+
+      function updateActiveNav() {
+        navTicking = false;
+        if (Date.now() < activeNavHoldUntil && activeNavHoldId) {
+          setNavCurrent(activeNavHoldId);
+          return;
+        }
+
+        let active = "";
+        const offset = 120;
+        trackedSections.forEach((section) => {
+          if (section.getBoundingClientRect().top <= offset) {
+            active = section.id;
+          }
+        });
+        if (active) setNavCurrent(active);
+      }
+
+      function queueNavUpdate() {
+        if (navTicking) return;
+        navTicking = true;
+        requestAnimationFrame(updateActiveNav);
+      }
+
+      slidePickers.forEach((button, index) => button.addEventListener("click", () => setSlide(index)));
+      slideSelect.addEventListener("change", () => setSlide(Number(slideSelect.value)));
+      prevSlideDeck.addEventListener("click", () => setSlide(activeSlideIndex - 1));
+      nextSlideDeck.addEventListener("click", () => setSlide(activeSlideIndex + 1));
+
+      document.querySelectorAll('[data-pdf][href="#slides"]').forEach((link) => {
+        link.addEventListener("click", () => {
+          const index = slidePickers.findIndex((picker) => picker.dataset.pdf === link.dataset.pdf);
+          if (index >= 0) setSlide(index);
+        });
+      });
+
+      document.querySelectorAll('a[href^="#"]').forEach((link) => {
+        link.addEventListener("click", (event) => {
+          const href = link.getAttribute("href");
+          if (!href || href === "#") return;
+          const target = document.querySelector(href);
+          if (!target) return;
+          event.preventDefault();
+          const topbarHeight = document.querySelector(".topbar")?.offsetHeight || 0;
+          const targetTop = target.getBoundingClientRect().top + window.scrollY - topbarHeight - 18;
+          activeNavHoldId = target.id;
+          activeNavHoldUntil = Date.now() + 900;
+          setNavCurrent(target.id);
+          window.scrollTo({ top: targetTop, behavior: "smooth" });
+          history.replaceState(null, "", href);
+        });
+      });
+
+      window.addEventListener("scroll", queueNavUpdate, { passive: true });
+      window.addEventListener("resize", queueNavUpdate);
+      updateActiveNav();
+    </script>
   </body>
 </html>

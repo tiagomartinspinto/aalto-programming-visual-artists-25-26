@@ -1,0 +1,56 @@
+Assignment 1 - Elias N.
+Mirrored from https://openprocessing.org/sketch/2564121
+License: see the original OpenProcessing page
+--- Local runnable source.pde ---
+//A spiral-like formation of pink lines,
+//that follow the mouse position
+//and change their shade of pink. (or gray or beige)
+//An ellipse at the bottom of the screen,
+//that follows the mouse x coordinates
+//and changes opacity based on mouse y coordinates.
+//cursor is invisible
+
+float ellipseX = 0;
+float ellipseY = 640;
+color ellipseColor;
+color[] colArray = {
+  color(255, 191, 229), 
+  color(242, 193, 214),
+  color(183, 133, 174),
+  color(234, 215, 182),
+  color(211, 209, 194),
+  color(242, 157, 157),
+  color(222, 175, 186),
+  color(206, 184, 216),
+  color(245, 226, 173),
+  color(224, 215, 232),
+};
+
+
+void setup(){
+  size(600, 600);
+  noCursor(); 
+}
+
+void draw (){
+  background(#467C74);
+  
+  //ellipse
+  ellipseX = mouseX;
+  ellipseY = mouseY;
+  ellipseColor = color(220, 242, 240, ellipseY/2); //color and changing opacity
+  noStroke();
+  fill(ellipseColor);
+  ellipse(ellipseX, 640, 300, 150); //size, y position and follow mouse
+  
+  //spiral thing
+  translate(mouseX, mouseY); //follow mouse
+  for (int i=0; i<600; i=i+1){ //a lot of tiny lines in a spiral (kinda :D )
+    line(1, i/10, 5, i/10);
+    rotate(i);
+    strokeWeight(6);
+    int colArrayNum = (int)random(10); //random colors from array
+    stroke(colArray[colArrayNum]);
+  }
+
+}

@@ -1,0 +1,76 @@
+Assignment 2 - Elias
+Mirrored from https://openprocessing.org/sketch/2582361
+License: see the original OpenProcessing page
+--- Local runnable source.pde ---
+int gridSize = 10;
+float tileSize;
+
+void setup() {
+  size(500, 500);
+  background(0);
+  strokeWeight(2);
+  tileSize = width / float(gridSize);
+}
+
+void draw() {
+  background(0); 
+  
+// flashlight beam:
+  noStroke();
+  fill(211, 189, 128, 20);
+  ellipse(mouseX, mouseY, 300, 300);
+  ellipse(mouseX, mouseY, 270, 270);
+  ellipse(mouseX, mouseY, 250, 250);
+  strokeWeight(50);
+  stroke(211, 189, 128, 20);
+  noFill();
+  ellipse(mouseX, mouseY, 150, 150);
+  ellipse(mouseX, mouseY, 80, 80);
+  strokeWeight(40);
+  ellipse(mouseX, mouseY, 150, 150);
+  ellipse(mouseX, mouseY, 80, 80);
+  strokeWeight(2);
+  
+  
+  
+
+
+  for (int x = 0; x < width; x += tileSize) {
+    for (int y = 0; y < height; y += tileSize) {
+      
+      float d = dist(mouseX, mouseY, x + tileSize / 2, y + tileSize / 2);
+      float opacity = map(d, 0, width / 2, 255, 0);
+      
+      drawPattern(x + tileSize / 2, y + tileSize / 2, tileSize * 0.4, opacity);
+    }
+  }
+}
+
+
+void drawPattern(float x, float y, float size, float opacity) {
+  pushMatrix(); 
+  translate(x, y); 
+
+    rectMode(CENTER);
+    float c = map(mouseX, 0, width, 50, 255); 
+    stroke(14, 2, 50+c, opacity); 
+
+    
+    if (opacity > 230) {                // closed eye
+      fill(197, 191, 206, opacity);
+      ellipse(0, 0, size, 0);
+      
+    } else if (opacity < 150) {         // relaxed eye
+      fill(197, 191, 206, opacity);
+      ellipse(0, 0, size, size/2);
+      fill(2*c, 82, 147-c, opacity);
+      ellipse(0, 0, size/4, size/4);
+      
+    } else {                            // open eye
+      fill(197, 191, 206, opacity);
+      ellipse(0, 0, size, size);
+      fill(2*c, 82, 147-c, opacity);
+      ellipse(0, 0, size/4, size/4);
+    }
+  popMatrix();
+}

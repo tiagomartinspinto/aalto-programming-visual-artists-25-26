@@ -14,7 +14,7 @@ Aalto University course archive for Programming for Visual Artists.
 - [Session 06](Session-06/)
 - [Session 07](Session-07/)
 - [Session 08](Session-08/)
-- [Student submissions](https://openprocessing.org/curation/88721)
+- [Local student studies gallery](case-studies/)
+- [Original OpenProcessing curation](https://openprocessing.org/curation/88721)
 
-Teacher: Tiago Martins Pinto  
-Website: <https://tiagomartinspinto.com>
+Teacher: Tiago Martins Pinto

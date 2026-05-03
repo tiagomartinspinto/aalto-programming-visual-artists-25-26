@@ -1,0 +1,77 @@
+Assignment 3 - Elias
+Mirrored from https://openprocessing.org/sketch/2594129
+License: see the original OpenProcessing page
+--- Local runnable source.pde ---
+Snow[] flakes = new Snow[3000];
+int snowValue = 255;
+int rainValue = 0;
+int bgValue = 150;
+int speedVariable = 0;
+
+  
+void setup() {
+  size (500, 500);
+  for (int i = 0; i<flakes.length; i++) { 
+    flakes[i] = new Snow();
+    flakes[i].spreadY(i);
+  }
+  
+}
+void draw() {
+  background(bgValue); 
+
+  for (int i = 0; i < flakes.length; i++) {
+    flakes[i] .display();
+  }
+  }
+
+void mouseClicked() {
+  if (snowValue == 255) {
+    snowValue = 0;
+    rainValue = 255;
+    bgValue = 0;
+    speedVariable = 2;
+  }
+  else {
+    snowValue = 255;
+    rainValue = 0;
+    bgValue = 150;
+    speedVariable = 0;
+  }
+}
+
+class Snow {
+  float x; 
+  float y;
+  float speed = random(0.1, 1);
+  float descentX;
+
+  Snow() {
+    x = random(-50, width+50);
+    y = random(0,40);
+  }
+  
+  void spreadY(int i) {
+    y = y - i*3;
+  }
+  
+  void display() {
+    
+    pushMatrix();
+    stroke(255, snowValue);
+    strokeWeight(5);
+    point(x, y);
+    y = y + speed+speedVariable;
+    x = x + descentX; 
+    popMatrix();
+
+    pushMatrix();
+    stroke(255, rainValue);
+    strokeWeight(2);
+    line(x, y, x, y+6);
+    y = y + speed+speedVariable;
+    x = x + descentX;
+    popMatrix();
+  }
+    
+}
