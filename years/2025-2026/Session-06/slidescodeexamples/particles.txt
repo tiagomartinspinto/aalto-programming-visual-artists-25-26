@@ -1,0 +1,53 @@
+class Particle {
+  float x;
+  float y;
+  float vx;
+  float vy;
+  float life;
+
+  Particle(float startX, float startY) {
+    x = startX;
+    y = startY;
+    vx = random(-1, 1);
+    vy = random(-2, -0.5);
+    life = 255;
+  }
+
+  void update() {
+    x += vx;
+    y += vy;
+    life -= 2;
+  }
+
+  void display() {
+    noStroke();
+    fill(0, life);
+    ellipse(x, y, 8, 8);
+  }
+
+  boolean isDead() {
+    return life <= 0;
+  }
+}
+
+ArrayList<Particle> particles = new ArrayList<Particle>();
+
+void setup() {
+  size(400, 400);
+}
+
+void draw() {
+  background(255);
+
+  particles.add(new Particle(mouseX, mouseY));
+
+  for (int i = particles.size() - 1; i >= 0; i--) {
+    Particle p = particles.get(i);
+    p.update();
+    p.display();
+
+    if (p.isDead()) {
+      particles.remove(i);
+    }
+  }
+}

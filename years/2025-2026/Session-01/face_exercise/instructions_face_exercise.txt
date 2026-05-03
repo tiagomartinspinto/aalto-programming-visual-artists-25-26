@@ -1,0 +1,108 @@
+Programming for Visual Artists
+Session 01 – Face Exercise
+
+You have been given a working sketch that draws a smiling face.
+Your task is to modify it and experiment.
+Do not worry about breaking things. If something stops working, read the error message and try again.
+
+---
+
+EXERCISE 1 – Make It Yours
+
+Change:
+
+* Background color
+* Face color
+* Eye size
+* Stroke weight of the mouth
+
+Goal: Understand how parameters affect the visual result.
+
+---
+
+EXERCISE 2 – Change the Mood
+
+Modify the expression.
+
+Ideas:
+
+* Make it happier (bigger smile)
+* Make it neutral (straight mouth)
+* Make it sad (invert the arc)
+
+Hints:
+
+* The mouth position uses y + 20
+* The arc width and height use diameter * values
+* The arc angles control direction
+
+Experiment with these values.
+
+---
+
+EXERCISE 3 – Move the Face
+
+Change this line:
+drawFace(200, 200, 200);
+
+Try:
+
+* Placing the face off center
+* Making it smaller or larger
+* Drawing multiple faces by calling drawFace() more than once
+
+---
+
+EXERCISE 4 – Make It Interactive
+
+Remove noLoop() from setup().
+
+In draw(), change:
+drawFace(200, 200, 200);
+
+to:
+drawFace(mouseX, mouseY, 200);
+
+Now the face follows the mouse.
+
+Optional:
+
+* Change the diameter using mouseX or mouseY
+* Make features respond to movement
+
+---
+
+EXERCISE 5 – Add One New Feature
+
+Add at least one new visual element.
+
+Examples:
+
+* Eyebrows
+* Nose
+* Cheeks
+* Hat
+* Glasses
+
+Use only basic shapes and color.
+
+---
+
+EXTRA CHALLENGE
+
+Introduce randomness.
+
+Ideas:
+
+* Random eye size
+* Random face color
+* Random background
+
+Optional:
+Trigger randomness when the mouse is clicked.
+
+---
+
+Observe how small changes in numbers produce large visual differences.
+You are designing a system of rules, not just drawing a picture.
+Experiment. Explore. Be curious.

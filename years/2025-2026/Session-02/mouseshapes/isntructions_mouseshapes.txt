@@ -1,0 +1,69 @@
+Session 02 – Hands-On Exercise
+Creative Coding with Processing
+
+Objective:
+Create an interactive sketch where shapes respond to mouse movement and color changes dynamically.
+
+------------------------------------------------------------
+PART 1 – Follow the Mouse
+------------------------------------------------------------
+
+1. Make a circle follow the mouse cursor.
+   - Use mouseX and mouseY.
+   - Draw the circle inside draw().
+
+2. Make sure the background is refreshed every frame
+   using background().
+
+------------------------------------------------------------
+PART 2 – Dynamic Color
+------------------------------------------------------------
+
+3. Change the circle’s color based on its position.
+   - Use map() to convert position values to color values.
+   - Example idea:
+     map(mouseX, 0, width, 0, 255);
+
+4. Observe how movement affects color.
+
+------------------------------------------------------------
+PART 3 – Inverted Movement
+------------------------------------------------------------
+
+5. Add a second shape (e.g., a square).
+
+6. Make the second shape move in the opposite direction:
+   squareX = width - mouseX;
+   squareY = height - mouseY;
+
+7. Use rectMode(CENTER) if needed.
+
+------------------------------------------------------------
+PART 4 – Dynamic Background
+------------------------------------------------------------
+
+8. Make the background color change dynamically.
+   - Use mouse position or combined values.
+   - Example:
+     background(r, g, b);
+
+------------------------------------------------------------
+OPTIONAL CHALLENGES
+------------------------------------------------------------
+
+- Add transparency (alpha channel).
+- Change size based on mouse position.
+- Add keyboard interaction.
+- Make shapes bounce.
+- Create a small visual composition.
+
+------------------------------------------------------------
+REMEMBER
+------------------------------------------------------------
+
+Change one variable at a time.
+Run the sketch often.
+Observe what changes.
+Experiment and explore.
+
+Programming is exploration.

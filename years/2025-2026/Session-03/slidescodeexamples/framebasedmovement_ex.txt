@@ -1,0 +1,12 @@
+float x = 0;
+
+void setup() {
+  size(400, 400);
+  frameRate(60);  // Attempt to run at 60 FPS
+}
+
+void draw() {
+  background(240);
+  ellipse(x, height / 2, 50, 50);
+  x += 2;  // Moves 2 pixels per frame
+}
