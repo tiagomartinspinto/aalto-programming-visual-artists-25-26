@@ -39,6 +39,45 @@
       }
 
       header strong { font-size: 18px; }
+      header nav {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 0;
+        color: var(--muted);
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+        font-size: 14px;
+      }
+
+      header nav::before {
+        content: "/pva-25-26";
+        margin-right: 0.25rem;
+        color: var(--accent);
+        font-weight: 760;
+      }
+
+      header nav a,
+      header nav span {
+        display: inline-flex;
+        align-items: center;
+        min-height: 32px;
+        padding: 0 0.35rem;
+        border-radius: 4px;
+        text-decoration: none;
+      }
+
+      header nav a::before,
+      header nav span::before {
+        content: "/";
+        margin-right: 0.35rem;
+        color: var(--line);
+      }
+
+      header nav span {
+        color: var(--ink);
+        background: rgba(84, 214, 199, 0.12);
+      }
 
       main {
         display: grid;
@@ -197,7 +236,10 @@
   <body>
     <header>
       <strong>Sketch Lab</strong>
-      <nav><a href="../index.html">Back to course</a></nav>
+      <nav aria-label="Lab directory">
+        <a href="../index.html">course</a>
+        <span aria-current="page">lab</span>
+      </nav>
     </header>
     <div class="file-warning" id="file-warning" role="status" hidden>
       <strong>The Lab works best from GitHub Pages or a local server.</strong>

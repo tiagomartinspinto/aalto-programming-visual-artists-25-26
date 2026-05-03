@@ -100,17 +100,40 @@
       nav {
         display: flex;
         flex-wrap: wrap;
-        gap: 14px;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 0;
         color: var(--muted);
         font-size: 14px;
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
       }
 
-      nav a { text-decoration: none; }
+      nav::before {
+        content: "/pva-25-26";
+        margin-right: 0.25rem;
+        color: var(--accent);
+        font-weight: 760;
+      }
+
+      nav a {
+        display: inline-flex;
+        align-items: center;
+        min-height: 32px;
+        padding: 0 0.35rem;
+        border-radius: 4px;
+        text-decoration: none;
+      }
+
+      nav a::before {
+        content: "/";
+        margin-right: 0.35rem;
+        color: var(--line);
+      }
+
       nav a:hover { color: var(--ink); }
       nav a[aria-current="true"] {
-        color: var(--accent-2);
-        text-decoration: underline;
-        text-underline-offset: 6px;
+        color: var(--ink);
+        background: rgba(84, 214, 199, 0.12);
       }
 
       a:focus-visible,
@@ -732,14 +755,14 @@
     <a class="skip-link" href="#web-sketches">Skip to course materials</a>
     <header class="topbar">
       <div class="brand">Programming for Visual Artists</div>
-      <nav aria-label="Main navigation">
-        <a href="#course-path">Start</a>
-        <a href="#web-sketches">Sketches</a>
-        <a href="#removed-coursework">Coursework</a>
-        <a href="#lab">Lab</a>
-        <a href="#slides">Slides</a>
-        <a href="#assignments">Projects</a>
-        <a href="#sessions">Sessions</a>
+      <nav aria-label="Course directory">
+        <a href="#course-path">start</a>
+        <a href="#web-sketches">sketches</a>
+        <a href="#removed-coursework">removed-coursework</a>
+        <a href="#lab">lab</a>
+        <a href="#slides">slides</a>
+        <a href="#assignments">projects</a>
+        <a href="#sessions">sessions</a>
       </nav>
     </header>
 
@@ -833,7 +856,7 @@
               <p>Use this to see how simple shapes become a reusable <code>drawFace()</code> function.</p>
               <div class="tags"><span class="tag">Session 01</span><span class="tag">functions</span><span class="tag">drawing</span></div>
               <div class="details"><span>You can:</span> change face size, eye spacing, mouth arc, or call <code>drawFace()</code> more than once.</div>
-              <div class="links"><a class="primary" href="web/lab.html?sketch=face-exercise">Edit in the Lab</a><a href="web/face-exercise/">View sketch only</a><a href="Session-01_23022026/face_exercise/face_exercise.pde">Compare Processing code</a></div>
+              <div class="links"><a class="primary" href="web/lab.html?sketch=face-exercise">Edit in the Lab</a><a href="web/face-exercise/">View sketch only</a><a href="Session-01/face_exercise/face_exercise.pde">Compare Processing code</a></div>
             </div>
           </article>
 
@@ -844,7 +867,7 @@
               <p>Move the pointer to control a circle, a removed copyed square, and the background color.</p>
               <div class="tags"><span class="tag">Session 02</span><span class="tag">mouseX</span><span class="tag">map()</span></div>
               <div class="details"><span>You can:</span> swap the removed copyed movement, change the color mappings, or alter shape sizes.</div>
-              <div class="links"><a class="primary" href="web/lab.html?sketch=mouse-shapes">Edit in the Lab</a><a href="web/mouse-shapes/">View sketch only</a><a href="Session-02_24022026/mouseshapes/mouseshapes.pde">Compare Processing code</a></div>
+              <div class="links"><a class="primary" href="web/lab.html?sketch=mouse-shapes">Edit in the Lab</a><a href="web/mouse-shapes/">View sketch only</a><a href="Session-02/mouseshapes/mouseshapes.pde">Compare Processing code</a></div>
             </div>
           </article>
 
@@ -855,7 +878,7 @@
               <p>Move across an 8 by 8 grid to see how conditionals react to pointer position.</p>
               <div class="tags"><span class="tag">Session 03</span><span class="tag">conditionals</span><span class="tag">loops</span></div>
               <div class="details"><span>You can:</span> change rows and columns, use gradients, or make neighboring cells react too.</div>
-              <div class="links"><a class="primary" href="web/lab.html?sketch=hover-grid">Edit in the Lab</a><a href="web/hover-grid/">View sketch only</a><a href="Session-03_02032026/hoverisred/hoverisred.pde">Compare Processing code</a></div>
+              <div class="links"><a class="primary" href="web/lab.html?sketch=hover-grid">Edit in the Lab</a><a href="web/hover-grid/">View sketch only</a><a href="Session-03/hoverisred/hoverisred.pde">Compare Processing code</a></div>
             </div>
           </article>
 
@@ -866,7 +889,7 @@
               <p>Watch a ball reverse at the canvas edges and change color on each bounce.</p>
               <div class="tags"><span class="tag">Session 03</span><span class="tag">motion</span><span class="tag">state</span></div>
               <div class="details"><span>You can:</span> adjust speed, radius, background fade, or add more bouncing objects.</div>
-              <div class="links"><a class="primary" href="web/lab.html?sketch=bouncing-ball">Edit in the Lab</a><a href="web/bouncing-ball/">View sketch only</a><a href="Session-03_02032026/extra_bouncingballcolor/extra_bouncingballcolor.pde">Compare Processing code</a></div>
+              <div class="links"><a class="primary" href="web/lab.html?sketch=bouncing-ball">Edit in the Lab</a><a href="web/bouncing-ball/">View sketch only</a><a href="Session-03/extra_bouncingballcolor/extra_bouncingballcolor.pde">Compare Processing code</a></div>
             </div>
           </article>
 
@@ -877,7 +900,7 @@
               <p>Use an animated sine wave to see how time changes repeated drawing.</p>
               <div class="tags"><span class="tag">Session 04</span><span class="tag">sin()</span><span class="tag">animation</span></div>
               <div class="details"><span>You can:</span> change amplitude, frequency, spacing, or draw connected lines instead of points.</div>
-              <div class="links"><a class="primary" href="web/lab.html?sketch=simple-waves">Edit in the Lab</a><a href="web/simple-waves/">View sketch only</a><a href="Session-04_03032026/extra_simplewaves/extra_simplewaves.pde">Compare Processing code</a></div>
+              <div class="links"><a class="primary" href="web/lab.html?sketch=simple-waves">Edit in the Lab</a><a href="web/simple-waves/">View sketch only</a><a href="Session-04/extra_simplewaves/extra_simplewaves.pde">Compare Processing code</a></div>
             </div>
           </article>
 
@@ -888,7 +911,7 @@
               <p>Use a rotating noise-driven grid to connect nested loops with smooth randomness.</p>
               <div class="tags"><span class="tag">Session 04</span><span class="tag">noise()</span><span class="tag">nested loops</span></div>
               <div class="details"><span>You can:</span> change grid size, rotation amount, tile shape, or noise scale.</div>
-              <div class="links"><a class="primary" href="web/lab.html?sketch=generative-grid">Edit in the Lab</a><a href="web/generative-grid/">View sketch only</a><a href="Session-04_03032026/generativegrid/generativegrid.pde">Compare Processing code</a></div>
+              <div class="links"><a class="primary" href="web/lab.html?sketch=generative-grid">Edit in the Lab</a><a href="web/generative-grid/">View sketch only</a><a href="Session-04/generativegrid/generativegrid.pde">Compare Processing code</a></div>
             </div>
           </article>
 
@@ -899,7 +922,7 @@
               <p>Click to regenerate a composition made from one reusable abstract-shape function.</p>
               <div class="tags"><span class="tag">Session 05</span><span class="tag">parameters</span><span class="tag">randomness</span></div>
               <div class="details"><span>You can:</span> click the sketch to regenerate, add a fourth shape type, or constrain the color palette.</div>
-              <div class="links"><a class="primary" href="web/lab.html?sketch=shapes-function">Edit in the Lab</a><a href="web/shapes-function/">View sketch only</a><a href="Session-05_09032026/shapesfunction/shapesfunction.pde">Compare Processing code</a></div>
+              <div class="links"><a class="primary" href="web/lab.html?sketch=shapes-function">Edit in the Lab</a><a href="web/shapes-function/">View sketch only</a><a href="Session-05/shapesfunction/shapesfunction.pde">Compare Processing code</a></div>
             </div>
           </article>
 
@@ -910,7 +933,7 @@
               <p>Move the pointer to control a polar-coordinate spiral’s speed and radius.</p>
               <div class="tags"><span class="tag">Session 05</span><span class="tag">functions</span><span class="tag">polar coordinates</span></div>
               <div class="details"><span>You can:</span> move the pointer, press <code>T</code> for trails, then change turns, curve, or color mode.</div>
-              <div class="links"><a class="primary" href="web/lab.html?sketch=spiral-spins">Edit in the Lab</a><a href="web/spiral-spins/">View sketch only</a><a href="Session-05_09032026/extra_spiralspins/extra_spiralspins.pde">Compare Processing code</a></div>
+              <div class="links"><a class="primary" href="web/lab.html?sketch=spiral-spins">Edit in the Lab</a><a href="web/spiral-spins/">View sketch only</a><a href="Session-05/extra_spiralspins/extra_spiralspins.pde">Compare Processing code</a></div>
             </div>
           </article>
 
@@ -921,7 +944,7 @@
               <p>Move the pointer to emit fading particles and see how arrays of objects behave.</p>
               <div class="tags"><span class="tag">Session 06</span><span class="tag">arrays</span><span class="tag">objects</span></div>
               <div class="details"><span>You can:</span> move the pointer, change lifespan, vary velocity, or color particles by age.</div>
-              <div class="links"><a class="primary" href="web/lab.html?sketch=particles-follow">Edit in the Lab</a><a href="web/particles-follow/">View sketch only</a><a href="Session-06_10032026/particlesfollow/particlesfollow.pde">Compare Processing code</a></div>
+              <div class="links"><a class="primary" href="web/lab.html?sketch=particles-follow">Edit in the Lab</a><a href="web/particles-follow/">View sketch only</a><a href="Session-06/particlesfollow/particlesfollow.pde">Compare Processing code</a></div>
             </div>
           </article>
 
@@ -932,7 +955,7 @@
               <p>Watch particles follow a smooth Perlin-noise field and wrap around the canvas.</p>
               <div class="tags"><span class="tag">Session 06</span><span class="tag">noise()</span><span class="tag">systems</span></div>
               <div class="details"><span>You can:</span> change particle count, movement speed, fade amount, or noise scale.</div>
-              <div class="links"><a class="primary" href="web/lab.html?sketch=particles-noise">Edit in the Lab</a><a href="web/particles-noise/">View sketch only</a><a href="Session-06_10032026/extra_particlesperlinoise/extra_particlesperlinoise.pde">Compare Processing code</a></div>
+              <div class="links"><a class="primary" href="web/lab.html?sketch=particles-noise">Edit in the Lab</a><a href="web/particles-noise/">View sketch only</a><a href="Session-06/extra_particlesperlinoise/extra_particlesperlinoise.pde">Compare Processing code</a></div>
             </div>
           </article>
         </div>
@@ -1027,12 +1050,12 @@
               <option value="4">Session 05 - Functions, parameters, and reuse</option>
               <option value="5">Session 06 - Arrays, objects, and particles</option>
             </select>
-            <button class="slide-picker" type="button" aria-pressed="true" data-title="Session 01 - Drawing, coordinates, and first functions" data-pdf="Session-01_23022026/programmingvisualartists_session1_2026.pdf">Session 01</button>
-            <button class="slide-picker" type="button" aria-pressed="false" data-title="Session 02 - Mouse input and changing color" data-pdf="Session-02_24022026/programmingvisualartists_session2.pdf">Session 02</button>
-            <button class="slide-picker" type="button" aria-pressed="false" data-title="Session 03 - Conditionals, loops, and movement" data-pdf="Session-03_02032026/programmingvisualartists_session3.pdf">Session 03</button>
-            <button class="slide-picker" type="button" aria-pressed="false" data-title="Session 04 - Waves, grids, noise, and recursion" data-pdf="Session-04_03032026/programmingvisualartists_session4.pdf">Session 04</button>
-            <button class="slide-picker" type="button" aria-pressed="false" data-title="Session 05 - Functions, parameters, and reuse" data-pdf="Session-05_09032026/programmingvisualartists_session5.pdf">Session 05</button>
-            <button class="slide-picker" type="button" aria-pressed="false" data-title="Session 06 - Arrays, objects, and particles" data-pdf="Session-06_10032026/programmingvisualartists_session6.pdf">Session 06</button>
+            <button class="slide-picker" type="button" aria-pressed="true" data-title="Session 01 - Drawing, coordinates, and first functions" data-pdf="Session-01/programmingvisualartists_session1.pdf">Session 01</button>
+            <button class="slide-picker" type="button" aria-pressed="false" data-title="Session 02 - Mouse input and changing color" data-pdf="Session-02/programmingvisualartists_session2.pdf">Session 02</button>
+            <button class="slide-picker" type="button" aria-pressed="false" data-title="Session 03 - Conditionals, loops, and movement" data-pdf="Session-03/programmingvisualartists_session3.pdf">Session 03</button>
+            <button class="slide-picker" type="button" aria-pressed="false" data-title="Session 04 - Waves, grids, noise, and recursion" data-pdf="Session-04/programmingvisualartists_session4.pdf">Session 04</button>
+            <button class="slide-picker" type="button" aria-pressed="false" data-title="Session 05 - Functions, parameters, and reuse" data-pdf="Session-05/programmingvisualartists_session5.pdf">Session 05</button>
+            <button class="slide-picker" type="button" aria-pressed="false" data-title="Session 06 - Arrays, objects, and particles" data-pdf="Session-06/programmingvisualartists_session6.pdf">Session 06</button>
           </div>
           <div class="slide-viewer">
             <div class="slide-viewer-bar">
@@ -1040,10 +1063,10 @@
               <div class="slide-actions">
                 <button class="reader-button" id="prev-slide-deck" type="button">Previous deck</button>
                 <button class="reader-button" id="next-slide-deck" type="button">Next deck</button>
-                <a id="slide-direct-link" href="Session-01_23022026/programmingvisualartists_session1_2026.pdf" target="_blank" rel="noopener">Open PDF in a new tab</a>
+                <a id="slide-direct-link" href="Session-01/programmingvisualartists_session1.pdf" target="_blank" rel="noopener">Open PDF in a new tab</a>
               </div>
             </div>
-            <iframe id="slide-frame" class="pdf-frame" title="Session 01 slides" src="Session-01_23022026/programmingvisualartists_session1_2026.pdf"></iframe>
+            <iframe id="slide-frame" class="pdf-frame" title="Session 01 slides" src="Session-01/programmingvisualartists_session1.pdf"></iframe>
           </div>
         </div>
       </section>
@@ -1079,40 +1102,40 @@
         </div>
         <div class="sessions">
           <article class="session-card">
-            <div class="session-kicker"><span>Session 01</span><span>23 Feb 2026</span></div>
+            <div class="session-kicker"><span>Session 01</span></div>
             <h3>Drawing, coordinates, and first functions</h3>
             <p>Shapes, color, canvas coordinates, and reusable drawing code.</p>
-            <div class="links"><a class="primary" href="sessions/session-01/">Open session page</a><a href="web/face-exercise/">Open web sketch</a><a href="#slides" data-title="Session 01 - Drawing, coordinates, and first functions" data-pdf="Session-01_23022026/programmingvisualartists_session1_2026.pdf">Read slides here</a></div>
+            <div class="links"><a class="primary" href="sessions/session-01/">Open session page</a><a href="web/face-exercise/">Open web sketch</a><a href="#slides" data-title="Session 01 - Drawing, coordinates, and first functions" data-pdf="Session-01/programmingvisualartists_session1.pdf">Read slides here</a></div>
           </article>
           <article class="session-card">
-            <div class="session-kicker"><span>Session 02</span><span>24 Feb 2026</span></div>
+            <div class="session-kicker"><span>Session 02</span></div>
             <h3>Mouse input and changing color</h3>
             <p>Mouse position, clicks, mapping values, and dynamic color.</p>
-            <div class="links"><a class="primary" href="sessions/session-02/">Open session page</a><a href="web/mouse-shapes/">Open web sketch</a><a href="#slides" data-title="Session 02 - Mouse input and changing color" data-pdf="Session-02_24022026/programmingvisualartists_session2.pdf">Read slides here</a></div>
+            <div class="links"><a class="primary" href="sessions/session-02/">Open session page</a><a href="web/mouse-shapes/">Open web sketch</a><a href="#slides" data-title="Session 02 - Mouse input and changing color" data-pdf="Session-02/programmingvisualartists_session2.pdf">Read slides here</a></div>
           </article>
           <article class="session-card">
-            <div class="session-kicker"><span>Session 03</span><span>2 Mar 2026</span></div>
+            <div class="session-kicker"><span>Session 03</span></div>
             <h3>Conditionals, loops, and movement</h3>
             <p>Decision-making, repeated actions, frame-based motion, and state.</p>
-            <div class="links"><a class="primary" href="sessions/session-03/">Open session page</a><a href="web/hover-grid/">Open hover sketch</a><a href="web/bouncing-ball/">Open ball sketch</a><a href="#slides" data-title="Session 03 - Conditionals, loops, and movement" data-pdf="Session-03_02032026/programmingvisualartists_session3.pdf">Read slides here</a></div>
+            <div class="links"><a class="primary" href="sessions/session-03/">Open session page</a><a href="web/hover-grid/">Open hover sketch</a><a href="web/bouncing-ball/">Open ball sketch</a><a href="#slides" data-title="Session 03 - Conditionals, loops, and movement" data-pdf="Session-03/programmingvisualartists_session3.pdf">Read slides here</a></div>
           </article>
           <article class="session-card">
-            <div class="session-kicker"><span>Session 04</span><span>3 Mar 2026</span></div>
+            <div class="session-kicker"><span>Session 04</span></div>
             <h3>Waves, grids, noise, and recursion</h3>
             <p>Nested loops, sine waves, random walks, Perlin noise, and recursion.</p>
-            <div class="links"><a class="primary" href="sessions/session-04/">Open session page</a><a href="web/simple-waves/">Open waves sketch</a><a href="web/generative-grid/">Open grid sketch</a><a href="#slides" data-title="Session 04 - Waves, grids, noise, and recursion" data-pdf="Session-04_03032026/programmingvisualartists_session4.pdf">Read slides here</a></div>
+            <div class="links"><a class="primary" href="sessions/session-04/">Open session page</a><a href="web/simple-waves/">Open waves sketch</a><a href="web/generative-grid/">Open grid sketch</a><a href="#slides" data-title="Session 04 - Waves, grids, noise, and recursion" data-pdf="Session-04/programmingvisualartists_session4.pdf">Read slides here</a></div>
           </article>
           <article class="session-card">
-            <div class="session-kicker"><span>Session 05</span><span>9 Mar 2026</span></div>
+            <div class="session-kicker"><span>Session 05</span></div>
             <h3>Functions, parameters, and reuse</h3>
             <p>Named behavior, parameterized drawing, randomness, and recursion.</p>
-            <div class="links"><a class="primary" href="sessions/session-05/">Open session page</a><a href="web/shapes-function/">Open shapes sketch</a><a href="web/spiral-spins/">Open spiral sketch</a><a href="#slides" data-title="Session 05 - Functions, parameters, and reuse" data-pdf="Session-05_09032026/programmingvisualartists_session5.pdf">Read slides here</a></div>
+            <div class="links"><a class="primary" href="sessions/session-05/">Open session page</a><a href="web/shapes-function/">Open shapes sketch</a><a href="web/spiral-spins/">Open spiral sketch</a><a href="#slides" data-title="Session 05 - Functions, parameters, and reuse" data-pdf="Session-05/programmingvisualartists_session5.pdf">Read slides here</a></div>
           </article>
           <article class="session-card">
-            <div class="session-kicker"><span>Session 06</span><span>10 Mar 2026</span></div>
+            <div class="session-kicker"><span>Session 06</span></div>
             <h3>Arrays, objects, and particles</h3>
             <p>Object-oriented thinking, arrays, particle systems, and smooth motion fields.</p>
-            <div class="links"><a class="primary" href="sessions/session-06/">Open session page</a><a href="web/particles-follow/">Open follow sketch</a><a href="web/particles-noise/">Open noise sketch</a><a href="#slides" data-title="Session 06 - Arrays, objects, and particles" data-pdf="Session-06_10032026/programmingvisualartists_session6.pdf">Read slides here</a></div>
+            <div class="links"><a class="primary" href="sessions/session-06/">Open session page</a><a href="web/particles-follow/">Open follow sketch</a><a href="web/particles-noise/">Open noise sketch</a><a href="#slides" data-title="Session 06 - Arrays, objects, and particles" data-pdf="Session-06/programmingvisualartists_session6.pdf">Read slides here</a></div>
           </article>
         </div>
       </section>
