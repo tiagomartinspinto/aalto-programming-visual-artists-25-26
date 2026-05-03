@@ -91,7 +91,7 @@ The course index includes an embedded PDF reader for all six slide decks. Studen
 
 ## Projects
 
-The website includes a small project area:
+The course page includes a small project area:
 
 - Creative Study 1: interaction with mouse position, color, and at least one custom function.
 - Creative Study 2: a generative composition using loops, randomness or noise.
@@ -99,7 +99,7 @@ The website includes a small project area:
 
 ## Student Studies Gallery
 
-Student Study 1 and Study 2 sketches from the OpenProcessing curation are mirrored in `case-studies/`. The gallery runs the local copies in an in-page viewer, links to each local source file, and keeps the original OpenProcessing pages available for attribution and backup.
+Student Study 1 and Study 2 sketches from the OpenProcessing curation are kept in `case-studies/` for classroom reference. The gallery runs the course copies in an in-page viewer, links to each source file, and keeps the original OpenProcessing pages available for attribution and backup.
 
 ## Repository Structure
 
@@ -111,7 +111,7 @@ Each session folder follows the same general idea:
 - `web/` contains browser-friendly p5.js companion sketches.
 - `web/lab.html` contains the in-browser code editor.
 - `web/vendor/p5.min.js` is the local p5.js runtime used by the Lab and web sketches.
-- `case-studies/` contains the local student studies gallery and mirrored p5.js sketches.
+- `case-studies/` contains the student studies gallery and course p5.js copies.
 - `sessions/` contains focused landing pages for each session.
 - `preview-assets/` contains guidance and a place for screenshots or GIFs.
 

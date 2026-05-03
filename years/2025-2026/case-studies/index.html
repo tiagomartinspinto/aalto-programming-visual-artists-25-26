@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Student Studies Gallery - Programming for Visual Artists</title>
-    <meta name="description" content="Browse local mirrors of student Study 1 and Study 2 sketches from Programming for Visual Artists at Aalto University.">
+    <meta name="description" content="Student Study 1 and Study 2 gallery for Programming for Visual Artists at Aalto University, with local classroom mirrors and source links.">
     <link rel="icon" href="../favicon.svg" type="image/svg+xml">
     <style>
       :root { color-scheme: dark; --bg: #090b0f; --panel: #10141b; --panel-2: #151b23; --ink: #f5f0e8; --muted: #aab1bd; --line: #28313f; --accent: #54d6c7; --accent-2: #ff5b4f; --accent-3: #f3c969; }
@@ -73,7 +73,7 @@
     <header class="topbar">
       <div class="brand">Student Studies</div>
       <nav aria-label="Gallery directory">
-        <a href="../../../index.html">archive</a>
+        <a href="../../../index.html">all-years</a>
         <a href="../index.html">2025-2026</a>
         <a href="./" aria-current="page">student-studies</a>
         <a href="https://openprocessing.org/curation/90882">openprocessing</a>
@@ -83,9 +83,9 @@
       <section class="hero" aria-labelledby="page-title">
         <p class="eyebrow">Programming for Visual Artists</p>
         <h1 id="page-title">Student Studies Gallery</h1>
-        <p class="lede">Browse Study 1 and Study 2 work from the course without leaving this site. Each study is mirrored locally so you can run it here, then open the source when you want to learn from how it was made.</p>
+        <p class="lede">These are student works from the current course year. Use the gallery to look carefully at Study 1 and Study 2 responses, run one sketch at a time, and read the source as course reference.</p>
         <div class="stats" aria-label="Gallery totals">
-          <span class="stat">22 local studies</span>
+          <span class="stat">22 course studies</span>
           <span class="stat">11 Study 1 works</span>
           <span class="stat">11 Study 2 works</span>
         </div>
@@ -96,18 +96,18 @@
           <div class="stage-placeholder" id="stage-placeholder">
             <div>
               <strong>Choose a study, then run it.</strong>
-              <span>The gallery keeps sketches paused until you ask for one, so you can browse many p5.js projects without starting everything at once.</span>
+              <span>The viewer keeps sketches paused until you ask for one, so you can browse the course gallery without starting every project at once.</span>
             </div>
           </div>
         </div>
         <div class="viewer-info">
           <div class="tag-row" id="viewer-tags"></div>
           <h2 id="viewer-title">Choose a study</h2>
-          <p id="viewer-description">Select a card below to run the study in this viewer.</p>
+          <p id="viewer-description">Select a student study below to run it in this viewer.</p>
           <div class="actions">
             <button type="button" id="run-study">Run in viewer</button>
             <button type="button" class="secondary" id="toggle-source">Show source here</button>
-            <a class="button secondary" id="open-study" href="#">Standalone page</a>
+            <a class="button secondary" id="open-study" href="#">Open study page</a>
             <a class="button secondary" id="open-original" href="#">Original on OpenProcessing</a>
           </div>
           <div class="source-panel" id="source-panel" hidden>
@@ -121,7 +121,7 @@
       </section>
       <section aria-labelledby="gallery-title">
         <div class="gallery-header">
-          <h2 id="gallery-title">All Studies</h2>
+          <h2 id="gallery-title">Course Studies</h2>
           <div class="filters" aria-label="Filter studies">
             <button type="button" data-filter="all" aria-pressed="true">All</button>
             <button type="button" data-filter="Study 1" class="secondary" aria-pressed="false">Study 1</button>
@@ -137,9 +137,9 @@
           </div>
         </div>
         <div class="gallery-grid" id="gallery-grid"></div>
-        <p class="empty-state" id="empty-state" hidden>No studies match those filters.</p>
+        <p class="empty-state" id="empty-state" hidden>No course studies match those filters.</p>
       </section>
-      <p class="footer">Mirrored from the OpenProcessing course curation for classroom viewing. Original OpenProcessing pages remain linked on each study.</p>
+      <p class="footer">Kept here for classroom reference by Tiago Martins Pinto. Original OpenProcessing pages remain linked on each study.</p>
     </main>
     <script src="studies.js"></script>
     <script>
@@ -176,12 +176,12 @@
         card.dataset.slug = study.slug;
         card.dataset.student = study.student;
         card.dataset.search = studySearchText(study);
-        const info = study.instructions ? study.instructions : 'Open the local mirror and explore how the sketch behaves.';
-        card.innerHTML = '<div class="mini-preview" style="--x: ' + (22 + (index * 13) % 58) + '%; --y: ' + (18 + (index * 17) % 54) + '%"><iframe loading="lazy" data-src="' + escapeHTML(embedPath(study)) + '" title="' + escapeHTML(study.title) + ' miniature preview"></iframe><span>Local preview</span></div>' +
+        const info = study.instructions ? study.instructions : 'Run this study here and observe how the sketch behaves before reading the source.';
+        card.innerHTML = '<div class="mini-preview" style="--x: ' + (22 + (index * 13) % 58) + '%; --y: ' + (18 + (index * 17) % 54) + '%"><iframe loading="lazy" data-src="' + escapeHTML(embedPath(study)) + '" title="' + escapeHTML(study.title) + ' miniature preview"></iframe><span>Course preview</span></div>' +
           '<div class="tag-row"><span class="tag">' + escapeHTML(study.study) + '</span><span class="tag">' + escapeHTML(study.student) + '</span></div>' +
           '<h3>' + escapeHTML(study.title) + '</h3>' +
           '<p>' + escapeHTML(info) + '</p>' +
-          '<div class="actions"><button type="button" data-select="' + escapeHTML(study.slug) + '">View here</button><a class="button secondary" href="' + escapeHTML(study.path) + '">Standalone page</a></div>';
+          '<div class="actions"><button type="button" data-select="' + escapeHTML(study.slug) + '">View in gallery</button><a class="button secondary" href="' + escapeHTML(study.path) + '">Open study page</a></div>';
         return card;
       }
       function populateStudentFilter() {
@@ -239,7 +239,7 @@
         frame.removeAttribute('src');
         frame.title = study.title + ' live sketch';
         title.textContent = study.title;
-        description.textContent = study.instructions ? study.instructions : 'Run ' + study.student + '\'s ' + study.study + ' study here, then open the local source to inspect the code.';
+        description.textContent = study.instructions ? study.instructions : 'Run ' + study.student + '\'s ' + study.study + ' study here, then open the source to inspect the code choices.';
         tags.innerHTML = '<span class="tag">' + escapeHTML(study.study) + '</span><span class="tag">' + escapeHTML(study.student) + '</span><span class="tag">' + escapeHTML(study.license) + '</span>';
         openStudy.href = study.path;
         openSource.href = study.sourcePath;

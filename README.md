@@ -1,8 +1,8 @@
 # Programming for Visual Artists
 
-Aalto University course archive maintained by Tiago Martins Pinto.
+Aalto University course materials maintained by Tiago Martins Pinto.
 
-This repository is organized by school year so students can find course materials, sketches, slides, examples, and student work in one place.
+This repository is organized by school year so students can find sessions, sketches, slides, examples, and student work in one course home.
 
 ## School Years
 
