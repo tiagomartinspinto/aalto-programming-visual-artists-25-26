@@ -136,6 +136,12 @@ h2 {
   gap: 14px;
 }
 
+.rhythm-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 14px;
+}
+
 article {
   padding: 18px;
   border: 1px solid var(--line);
@@ -145,6 +151,25 @@ article {
 
 article p {
   color: var(--muted);
+}
+
+.rhythm-card {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+}
+
+.rhythm-card span {
+  color: var(--accent);
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 12px;
+  font-weight: 760;
+  text-transform: uppercase;
+}
+
+.rhythm-card h2,
+.rhythm-card p {
+  margin: 0;
 }
 
 .links {
