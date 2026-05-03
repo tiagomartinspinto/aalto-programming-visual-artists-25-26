@@ -8,7 +8,7 @@ No prior programming experience is required. The emphasis is on sketching, play,
 
 ## Start Here
 
-1. Start with the public course site: [Programming for Visual Artists](https://tiagomartinspinto.github.io/aalto-programming-visual-artists-25-26/).
+1. Start with the public course site: [Programming for Visual Artists](https://tiagomartinspinto.github.io/aalto-programming-visual-artists/).
 2. Choose a session from the course path.
 3. Use the [Sketch Lab](web/lab.html) to edit p5.js code directly in the browser.
 4. Compare the p5.js web sketch with the original Processing `.pde` file when you are ready.
@@ -125,7 +125,7 @@ Use the checklist in [preview-assets/README.md](preview-assets/README.md) to cap
 
 This repository is published with GitHub Pages:
 
-[https://tiagomartinspinto.github.io/aalto-programming-visual-artists-25-26/](https://tiagomartinspinto.github.io/aalto-programming-visual-artists-25-26/)
+[https://tiagomartinspinto.github.io/aalto-programming-visual-artists/](https://tiagomartinspinto.github.io/aalto-programming-visual-artists/)
 
 ## Teaching Notes
 
