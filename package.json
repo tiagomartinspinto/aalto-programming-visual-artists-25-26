@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "build:index": "node tools/build-course-index.mjs",
+    "check:site": "node tools/check-site.mjs",
+    "check": "npm run build:index && npm run check:site"
+  },
+  "devDependencies": {}
+}

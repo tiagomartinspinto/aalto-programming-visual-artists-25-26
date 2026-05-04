@@ -1,17 +1,18 @@
 # Filename Notes
 
-Some original course files were committed with typo'd names. They are preserved for compatibility with existing links, slides, and classroom references.
+Some original course files were committed with typo-prone names. They have been renamed so new links are easier to read and maintain.
 
-Use this file as a readable map when browsing the repository.
+Use this file as a readable map if you are comparing older notes, slides, or local bookmarks with the current repository.
 
-| Existing path | Intended meaning |
+| Old path | Current path |
 | --- | --- |
-| `Session-02/mouseshapes/isntructions_mouseshapes.txt` | `instructions_mouseshapes.txt` |
-| `Session-04/slidecodeexamples/animtedwave_p5js.txt` | `animatedwave_p5js.txt` |
-| `Session-04/slidecodeexamples/nextedloops_ex.txt` | `nestedloops_ex.txt` |
-| `Session-05/slidescodeexamples/function_parame_ex.txt` | `function_parameter_ex.txt` |
-| `Session-05/extra_spiralspins/extra_spiralspins_isntructions.txt` | `extra_spiralspins_instructions.txt` |
-| `Session-06/extra_particlesperlinoise/` | `extra_particlesperlinnoise/` |
-| `Session-06/extra_particlesperlinoise/extra_isntructions` | `extra_instructions.txt` |
+| `Session-02/mouseshapes/isntructions_mouseshapes.txt` | `Session-02/mouseshapes/instructions_mouseshapes.txt` |
+| `Session-04/slidecodeexamples/animtedwave_p5js.txt` | `Session-04/slidecodeexamples/animatedwave_p5js.txt` |
+| `Session-04/slidecodeexamples/nextedloops_ex.txt` | `Session-04/slidecodeexamples/nestedloops_ex.txt` |
+| `Session-05/slidescodeexamples/function_parame_ex.txt` | `Session-05/slidescodeexamples/function_parameters_ex.txt` |
+| `Session-05/extra_spiralspins/extra_spiralspins_isntructions.txt` | `Session-05/extra_spiralspins/extra_spiralspins_instructions.txt` |
+| `Session-06/extra_particlesperlinoise/` | `Session-06/extra_particles_perlin_noise/` |
+| `Session-06/extra_particlesperlinoise/extra_isntructions` | `Session-06/extra_particles_perlin_noise/extra_instructions.txt` |
+| `Session-06/extra_particlesperlinoise/extra_particlesperlinoise.pde` | `Session-06/extra_particles_perlin_noise/extra_particles_perlin_noise.pde` |
 
-If this repository is used by students during a live course, prefer correcting links in new material before renaming old files. Rename only when you are ready to update every reference at once.
+When updating external course handouts, use the current paths in the right column.

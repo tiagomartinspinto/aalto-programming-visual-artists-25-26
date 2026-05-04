@@ -27,6 +27,7 @@
         --accent-2: #54d6c7;
         --accent-3: #f3c969;
         --code: #0d1117;
+        --hero-scroll: 0;
       }
 
       * { box-sizing: border-box; }
@@ -160,6 +161,123 @@
         transform: translateY(0);
       }
 
+      .hero {
+        position: relative;
+        isolation: isolate;
+        overflow: clip;
+        min-height: 70vh;
+        display: grid;
+        align-items: end;
+        padding: clamp(52px, 8vw, 108px) clamp(18px, 4vw, 56px);
+        background:
+          linear-gradient(120deg, rgba(9, 11, 15, 0.18), rgba(9, 11, 15, 0.88) 68%),
+          radial-gradient(circle at 16% 18%, rgba(84, 214, 199, 0.26), transparent 32%),
+          radial-gradient(circle at 78% 22%, rgba(255, 91, 79, 0.22), transparent 28%),
+          repeating-linear-gradient(90deg, rgba(245, 240, 232, 0.08) 0 1px, transparent 1px 46px),
+          repeating-linear-gradient(0deg, rgba(245, 240, 232, 0.06) 0 1px, transparent 1px 46px),
+          #0a0d12;
+        background-position:
+          0 0,
+          0 0,
+          0 0,
+          0 0,
+          0 0,
+          0 0;
+        background-size:
+          auto,
+          auto,
+          auto,
+          46px 46px,
+          46px 46px,
+          auto;
+        animation: hero-field-drift 32s ease-in-out infinite alternate;
+      }
+
+      .hero::before,
+      .hero::after {
+        content: "";
+        position: absolute;
+        pointer-events: none;
+      }
+
+      .hero::before {
+        inset: -18% -8% auto auto;
+        width: min(54vw, 680px);
+        aspect-ratio: 1;
+        border: 1px solid rgba(84, 214, 199, 0.24);
+        opacity: 0.86;
+        transform: translate3d(0, calc(var(--hero-scroll) * 0.045px), 0);
+        translate: 0 -8px;
+        rotate: 18deg;
+        animation: hero-plate-drift 18s ease-in-out infinite alternate;
+        will-change: transform, translate, rotate, opacity;
+      }
+
+      .hero::after {
+        left: clamp(18px, 6vw, 92px);
+        bottom: -120px;
+        width: min(46vw, 560px);
+        aspect-ratio: 1;
+        border: 1px solid rgba(255, 91, 79, 0.2);
+        border-radius: 50%;
+        opacity: 0.82;
+        transform: translate3d(0, calc(var(--hero-scroll) * -0.035px), 0);
+        translate: 0 6px;
+        scale: 1;
+        animation: hero-orbit-breathe 22s ease-in-out infinite alternate;
+        will-change: transform, translate, scale, opacity;
+      }
+
+      @keyframes hero-plate-drift {
+        from {
+          opacity: 0.72;
+          translate: -8px -10px;
+          rotate: 16deg;
+        }
+
+        to {
+          opacity: 0.96;
+          translate: 10px 12px;
+          rotate: 21deg;
+        }
+      }
+
+      @keyframes hero-field-drift {
+        from {
+          background-position:
+            0 0,
+            0 0,
+            0 0,
+            0 0,
+            0 0,
+            0 0;
+        }
+
+        to {
+          background-position:
+            0 0,
+            -18px 10px,
+            16px -12px,
+            12px 0,
+            0 12px,
+            0 0;
+        }
+      }
+
+      @keyframes hero-orbit-breathe {
+        from {
+          opacity: 0.62;
+          translate: 8px 10px;
+          scale: 0.98;
+        }
+
+        to {
+          opacity: 0.9;
+          translate: -10px -4px;
+          scale: 1.04;
+        }
+      }
+
       .hero-inner {
         position: relative;
         z-index: 1;
@@ -218,18 +336,13 @@
         color: #06100f;
         font-weight: 800;
         text-decoration: none;
-        transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
       }
-
-      .button:hover { transform: translateY(-2px); background: rgba(84, 214, 199, 0.88); }
 
       .button.secondary {
         border-color: var(--line);
         background: transparent;
         color: var(--ink);
       }
-
-      .button.secondary:hover { background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.18); }
 
       main { padding: 0 clamp(18px, 4vw, 56px) 64px; }
 
@@ -532,17 +645,12 @@
         font-size: 14px;
         font-weight: 680;
         text-decoration: none;
-        transition: transform 160ms ease, border-color 160ms ease;
       }
-
-      .links a:hover { transform: translateY(-2px); border-color: rgba(255, 255, 255, 0.22); }
 
       .links a.primary {
         border-color: rgba(84, 214, 199, 0.62);
         color: var(--accent-2);
       }
-
-      .links a.primary:hover { border-color: var(--accent-2); }
 
       .slides-reader {
         display: grid;
@@ -724,6 +832,9 @@
       .note { padding: 18px; }
 
       .footer {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px 18px;
         margin-top: 64px;
         padding-top: 24px;
         border-top: 1px solid var(--line);
@@ -793,16 +904,6 @@
           scale: none;
           will-change: auto;
         }
-
-        .button,
-        .links a {
-          transition: none;
-        }
-
-        .button:hover,
-        .links a:hover {
-          transform: none;
-        }
       }
     </style>
   </head>
@@ -825,8 +926,8 @@
     <main>
       <section class="course-header" aria-labelledby="course-title">
         <p class="eyebrow">Aalto University, 2025-2026</p>
-        <h1 id="course-title">Programming for Visual Artists 2025-2026</h1>
-        <p class="lede">Course materials for the 2025-2026 cohort — sessions, companion sketches, slides, and student work, kept here as a reference for students and as a foundation for future iterations of the course.</p>
+        <h1 id="course-title">2025-2026 Course Materials</h1>
+        <p class="lede">Sessions, web sketches, Lab, PDF slides, Processing source links, and student studies.</p>
         <div class="byline">
           <span>Teacher: <strong>Tiago Martins Pinto</strong></span>
           <span><a href="mailto:tiago.martinspinto@aalto.fi">tiago.martinspinto@aalto.fi</a></span>
@@ -841,19 +942,19 @@
       <section class="status-cues" aria-label="Course material status">
         <div class="status-cue">
           <span>Sessions</span>
-          <strong>Each session page gathers its slides, companion sketch, and Processing source in one place.</strong>
+          <strong>Session pages collect slides, web sketches, and source links.</strong>
         </div>
         <div class="status-cue">
           <span>Browser</span>
-          <strong>The companion sketches are written in p5.js and run directly in the page.</strong>
+          <strong>Web sketches run in the page where possible.</strong>
         </div>
         <div class="status-cue">
           <span>Lab</span>
-          <strong>The Lab lets students edit and run the companion sketches without leaving the browser.</strong>
+          <strong>The Lab edits p5.js companion sketches in the browser.</strong>
         </div>
         <div class="status-cue">
           <span>Source</span>
-          <strong>The original Processing files stay linked so students can work in either environment.</strong>
+          <strong>Processing files remain linked with the course materials.</strong>
         </div>
       </section>
 
@@ -891,12 +992,12 @@
       <section id="web-sketches">
         <div class="section-heading">
           <h2>Web Sketches</h2>
-          <p>These p5.js companion sketches were written alongside the Processing exercises. They run in the page and open in the Lab for editing.</p>
+          <p>These p5.js companion sketches run directly in the page.</p>
         </div>
 
         <div class="notice">
-          <strong>p5.js companions for each session</strong>
-          <p>Each core exercise has a browser version that runs in the page and opens in the Lab. The original Processing files are always linked alongside for comparison.</p>
+          <strong>Web-first where possible</strong>
+          <p>PDFs and <code>.pde</code> files remain available. Sketches with a browser version are embedded here and also linked to the Lab.</p>
         </div>
 
         <div class="web-grid">
@@ -981,7 +1082,7 @@
             <div class="preview"><iframe loading="lazy" src="about:blank" data-src="web/spiral-spins/index.html" title="Spiral spins preview"></iframe></div>
             <div class="web-card-content">
               <h3>Spiral Spins</h3>
-              <p>Move the pointer to control a polar-coordinate spiral’s speed and radius.</p>
+              <p>Move the pointer to control a polar-coordinate spiral?s speed and radius.</p>
               <div class="tags"><span class="tag">Session 05</span><span class="tag">functions</span><span class="tag">polar coordinates</span></div>
               <div class="details"><span>You can:</span> move the pointer, press <code>T</code> for trails, then change turns, curve, or color mode.</div>
               <div class="links"><a class="primary" href="web/lab.html?sketch=spiral-spins">Edit in the Lab</a><a href="web/spiral-spins/">Open sketch only</a><a href="Session-05/extra_spiralspins/extra_spiralspins.pde">Compare Processing code</a></div>
@@ -1006,7 +1107,7 @@
               <p>Watch particles follow a smooth Perlin-noise field and wrap around the canvas.</p>
               <div class="tags"><span class="tag">Session 06</span><span class="tag">noise()</span><span class="tag">systems</span></div>
               <div class="details"><span>You can:</span> change particle count, movement speed, fade amount, or noise scale.</div>
-              <div class="links"><a class="primary" href="web/lab.html?sketch=particles-noise">Edit in the Lab</a><a href="web/particles-noise/">Open sketch only</a><a href="Session-06/extra_particlesperlinoise/extra_particlesperlinoise.pde">Compare Processing code</a></div>
+              <div class="links"><a class="primary" href="web/lab.html?sketch=particles-noise">Edit in the Lab</a><a href="web/particles-noise/">Open sketch only</a><a href="Session-06/extra_particles_perlin_noise/extra_particles_perlin_noise.pde">Compare Processing code</a></div>
             </div>
           </article>
         </div>
@@ -1015,12 +1116,12 @@
       <section id="student-studies">
         <div class="section-heading">
           <h2>Student Studies Gallery</h2>
-          <p>Student work from the 2025-2026 cohort, mirrored here from OpenProcessing with source files and attribution links.</p>
+          <p>The gallery contains 22 local mirrors from the OpenProcessing course curation, with source files and original links.</p>
         </div>
         <div class="feature-grid">
           <article class="feature-card">
-            <h3>Course Gallery</h3>
-            <p>Browse Study 1 and Study 2 works from the 2025-2026 cohort in the in-page viewer.</p>
+            <h3>Local Mirrors</h3>
+            <p>Open the gallery to view the course copies of Study 1 and Study 2 sketches.</p>
             <div class="links"><a class="primary" href="case-studies/">Open student studies</a></div>
           </article>
           <article class="feature-card">
@@ -1039,7 +1140,7 @@
       <section id="lab">
         <div class="section-heading">
           <h2>Sketch Lab</h2>
-          <p>Try edits in the browser without switching to Processing.</p>
+          <p>Edit the p5.js companion sketches directly in the browser.</p>
         </div>
         <div class="feature-grid">
           <article class="feature-card">
@@ -1053,8 +1154,8 @@
             <div class="links"><a href="web/lab.html?sketch=generative-grid">Edit generative grid</a><a href="web/lab.html?sketch=particles-noise">Edit particles</a></div>
           </article>
           <article class="feature-card">
-            <h3>Compare with the Source</h3>
-            <p>Every companion sketch links to its original Processing file so students can compare p5.js and Processing syntax side by side.</p>
+            <h3>Download Only When Needed</h3>
+            <p>The original <code>.pde</code> files are linked from session pages and sketch cards.</p>
           </article>
         </div>
       </section>
@@ -1149,7 +1250,7 @@
       <section id="sessions">
         <div class="section-heading">
           <h2>Sessions</h2>
-          <p>Each session page brings together that week's slides, companion sketch, and Processing source files.</p>
+          <p>Use a session page when you want that week's slides, web sketches, instructions, and Processing material together.</p>
         </div>
         <div class="sessions">
           <article class="session-card">
@@ -1192,7 +1293,8 @@
       </section>
 
       <footer class="footer">
-        Programming for Visual Artists, Aalto University. Taught and maintained by Tiago Martins Pinto.
+        <span>Programming for Visual Artists, Aalto University. Course material by Tiago Martins Pinto.</span>
+        <span>Last updated: 2026-05-04</span>
       </footer>
     </main>
     <script>

@@ -86,7 +86,7 @@ window.COURSE_SKETCHES = [
     session: "Session 06",
     path: "particles-noise/sketch.js",
     page: "particles-noise/",
-    source: "../Session-06/extra_particlesperlinoise/extra_particlesperlinoise.pde",
+    source: "../Session-06/extra_particles_perlin_noise/extra_particles_perlin_noise.pde",
     notes: "You can change particle count, speed, fade amount, or noise scale."
   }
 ];

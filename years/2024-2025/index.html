@@ -115,22 +115,6 @@
         outline-offset: 3px;
       }
 
-      .skip-link {
-        position: fixed;
-        top: 12px;
-        left: 12px;
-        z-index: 20;
-        transform: translateY(-140%);
-        padding: 8px 10px;
-        border-radius: 6px;
-        background: var(--accent-3);
-        color: #090b0f;
-        font-weight: 800;
-        text-decoration: none;
-      }
-
-      .skip-link:focus { transform: translateY(0); }
-
       .hero {
         min-height: 64vh;
         display: grid;
@@ -214,12 +198,6 @@
         font-weight: 760;
         text-decoration: none;
         cursor: pointer;
-        transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
-      }
-
-      .button:hover,
-      .links a:hover {
-        transform: translateY(-2px);
       }
 
       .button.secondary,
@@ -236,7 +214,7 @@
         padding: 44px 0 72px;
       }
 
-      section { margin-top: clamp(44px, 6vw, 72px); scroll-margin-top: 72px; }
+      section { margin-top: clamp(44px, 6vw, 72px); }
 
       .course-header {
         display: grid;
@@ -531,16 +509,14 @@
       }
 
       .details {
-        display: grid;
-        gap: 4px;
-        padding: 10px;
-        border-radius: 6px;
-        background: var(--panel-2);
-        color: #cdd3dc;
+        color: var(--muted);
         font-size: 14px;
       }
 
-      .details span { color: var(--muted); }
+      .details span {
+        color: var(--ink);
+        font-weight: 760;
+      }
 
       .slides-reader {
         display: grid;
@@ -572,7 +548,6 @@
       }
 
       .slide-select {
-        display: none;
         min-height: 42px;
         padding: 8px 10px;
         border: 1px solid var(--line);
@@ -617,6 +592,9 @@
       }
 
       .footer {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px 18px;
         margin-top: 48px;
         padding-top: 22px;
         border-top: 1px solid var(--line);
@@ -640,20 +618,16 @@
         nav { justify-content: flex-start; }
         .hero { min-height: auto; }
         .slide-picker { display: none; }
-        .slide-select { display: block; }
         .pdf-frame { min-height: 430px; }
       }
 
       @media (prefers-reduced-motion: reduce) {
         html { scroll-behavior: auto; }
         .hero { animation: none; }
-        .button, .links a { transition: none; }
-        .button:hover, .links a:hover { transform: none; }
       }
     </style>
   </head>
   <body>
-    <a class="skip-link" href="#web-sketches">Skip to course materials</a>
     <header class="topbar">
       <div class="brand">Programming for Visual Artists</div>
       <nav aria-label="2024-2025 directory">
@@ -671,8 +645,8 @@
     <main>
       <section class="course-header" aria-labelledby="course-title">
         <p class="eyebrow">Aalto University, 2024-2025</p>
-        <h1 id="course-title">Programming for Visual Artists 2024-2025</h1>
-        <p class="lede">Course materials for the 2024-2025 cohort — sessions, companion sketches, slides, assignment examples, and student work, kept here as a reference for students and as a record of this iteration of the course.</p>
+        <h1 id="course-title">2024-2025 Course Materials</h1>
+        <p class="lede">Sessions, web sketches, Lab, PDF slides, Processing source links, assignment examples, and student studies.</p>
         <div class="byline">
           <span>Teacher: <strong>Tiago Martins Pinto</strong></span>
           <span><a href="mailto:tiago.martinspinto@aalto.fi">tiago.martinspinto@aalto.fi</a></span>
@@ -686,19 +660,19 @@
       <section class="status-cues" aria-label="Course material status">
         <div class="status-cue">
           <span>Sessions</span>
-          <strong>Each session page gathers its slides, companion sketches, and Processing source in one place.</strong>
+          <strong>Session pages collect slides, web sketches, and source links.</strong>
         </div>
         <div class="status-cue">
           <span>Browser</span>
-          <strong>The companion sketches are written in p5.js and run directly in the page.</strong>
+          <strong>Translated p5.js sketches run in the page where possible.</strong>
         </div>
         <div class="status-cue">
           <span>Lab</span>
-          <strong>The Lab lets students edit and run the companion sketches without leaving the browser.</strong>
+          <strong>The Lab edits translated p5.js sketches in the browser.</strong>
         </div>
         <div class="status-cue">
           <span>Media</span>
-          <strong>Media examples that need camera or microphone permissions are kept as source files in the session pages.</strong>
+          <strong>Camera, microphone, and sound examples stay source-first when permissions matter.</strong>
         </div>
       </section>
 
@@ -736,11 +710,11 @@
       <section id="web-sketches">
         <div class="section-heading">
           <h2>Web Sketches</h2>
-          <p>These p5.js companion sketches were written alongside the Processing exercises. They run in the page and open in the Lab for editing.</p>
+          <p>These p5.js companion sketches run directly in the page.</p>
         </div>
         <div class="notice">
-          <strong>p5.js companions for each session</strong>
-          <p>Each core exercise has a browser version that runs in the page and opens in the Lab. Media sketches that need microphone or webcam permissions stay source-first and are linked from the session pages.</p>
+          <strong>Web-first where possible</strong>
+          <p>Each card links to a browser sketch, the Lab, and the original Processing source. Media examples that need microphone or webcam permissions are kept as source-first material in the sessions.</p>
         </div>
         <div class="web-grid">
           <article class="web-card">
@@ -839,7 +813,7 @@
       <section id="lab">
         <div class="section-heading">
           <h2>Sketch Lab</h2>
-          <p>Try edits in the browser without switching to Processing.</p>
+          <p>Edit translated p5.js versions of the 2024-2025 examples directly in the browser.</p>
         </div>
         <div class="feature-grid">
           <article class="feature-card">
@@ -853,8 +827,8 @@
             <div class="links"><a href="web/lab.html?sketch=generative-grid">Edit generative grid</a><a href="web/lab.html?sketch=sparkles">Edit sparkles</a></div>
           </article>
           <article class="feature-card">
-            <h3>Compare with the Source</h3>
-            <p>Every companion sketch links to its original Processing file so students can compare p5.js and Processing syntax side by side.</p>
+            <h3>Compare Later</h3>
+            <p>The original Processing files remain linked from every sketch, so you can compare syntax when you are ready.</p>
           </article>
         </div>
       </section>
@@ -953,7 +927,7 @@
       <section id="sessions">
         <div class="section-heading">
           <h2>Sessions</h2>
-          <p>Each session page brings together that week's slides, companion sketches, and Processing source files.</p>
+          <p>Use a session page when you want that week's slides, runnable sketches, and Processing material together.</p>
         </div>
         <div class="sessions">
           <article class="session-card">
@@ -1010,7 +984,7 @@
       <section id="student-studies">
         <div class="section-heading">
           <h2>Student Studies</h2>
-          <p>Student work from the 2024-2025 cohort, mirrored here from OpenProcessing with source files and attribution links.</p>
+          <p>Browse the 2024-2025 student studies. Run one work at a time, then open the local source file or original OpenProcessing page.</p>
         </div>
         <div class="feature-grid">
           <article class="feature-card">
@@ -1031,7 +1005,8 @@
       </section>
 
       <footer class="footer">
-        Programming for Visual Artists, Aalto University. Taught and maintained by Tiago Martins Pinto.
+        <span>Programming for Visual Artists, Aalto University. Course material by Tiago Martins Pinto.</span>
+        <span>Last updated: 2026-05-04</span>
       </footer>
     </main>
 
