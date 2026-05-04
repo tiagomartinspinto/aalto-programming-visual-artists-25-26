@@ -153,12 +153,23 @@
         padding: 8px 12px;
         cursor: pointer;
         font-weight: 760;
+        transition: transform 150ms ease, border-color 150ms ease, background 150ms ease;
+      }
+
+      button:hover {
+        transform: translateY(-1px);
+        border-color: rgba(255, 122, 168, 0.5);
       }
 
       button.primary {
         border-color: rgba(255, 122, 168, 0.72);
         background: var(--accent);
         color: #12070c;
+      }
+
+      button.primary:hover {
+        border-color: var(--accent);
+        background: rgba(255, 122, 168, 0.88);
       }
 
       .preview-frame {
@@ -229,6 +240,11 @@
       }
 
       .error { color: var(--danger); }
+
+      @media (prefers-reduced-motion: reduce) {
+        button { transition: none; }
+        button:hover, button.primary:hover { transform: none; }
+      }
 
       @media (max-width: 900px) {
         header {

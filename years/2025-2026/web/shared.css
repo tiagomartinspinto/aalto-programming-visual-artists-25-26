@@ -87,6 +87,10 @@ aside a {
   color: var(--line);
 }
 
+.directory-nav a {
+  transition: color 150ms ease, background 150ms ease;
+}
+
 .directory-nav a:hover,
 .directory-nav span[aria-current="page"] {
   color: var(--ink);
@@ -120,6 +124,12 @@ p {
   background: rgba(255, 255, 255, 0.03);
   color: var(--ink);
   text-decoration: none;
+  transition: transform 150ms ease, border-color 150ms ease, color 150ms ease;
+}
+
+.sketch-links a:hover {
+  transform: translateY(-2px);
+  border-color: rgba(84, 214, 199, 0.42);
 }
 
 .sketch-links a.primary {
@@ -132,6 +142,22 @@ p {
   padding-top: 16px;
   border-top: 1px solid var(--line);
   font-size: 13px;
+}
+
+:focus-visible {
+  outline: 3px solid rgba(84, 214, 199, 0.8);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .directory-nav a,
+  .sketch-links a {
+    transition: none;
+  }
+
+  .sketch-links a:hover {
+    transform: none;
+  }
 }
 
 @media (max-width: 760px) {

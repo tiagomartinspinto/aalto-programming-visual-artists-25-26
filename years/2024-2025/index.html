@@ -115,6 +115,22 @@
         outline-offset: 3px;
       }
 
+      .skip-link {
+        position: fixed;
+        top: 12px;
+        left: 12px;
+        z-index: 20;
+        transform: translateY(-140%);
+        padding: 8px 10px;
+        border-radius: 6px;
+        background: var(--accent-3);
+        color: #090b0f;
+        font-weight: 800;
+        text-decoration: none;
+      }
+
+      .skip-link:focus { transform: translateY(0); }
+
       .hero {
         min-height: 64vh;
         display: grid;
@@ -198,6 +214,12 @@
         font-weight: 760;
         text-decoration: none;
         cursor: pointer;
+        transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+      }
+
+      .button:hover,
+      .links a:hover {
+        transform: translateY(-2px);
       }
 
       .button.secondary,
@@ -214,7 +236,7 @@
         padding: 44px 0 72px;
       }
 
-      section { margin-top: clamp(44px, 6vw, 72px); }
+      section { margin-top: clamp(44px, 6vw, 72px); scroll-margin-top: 72px; }
 
       .course-header {
         display: grid;
@@ -509,14 +531,16 @@
       }
 
       .details {
-        color: var(--muted);
+        display: grid;
+        gap: 4px;
+        padding: 10px;
+        border-radius: 6px;
+        background: var(--panel-2);
+        color: #cdd3dc;
         font-size: 14px;
       }
 
-      .details span {
-        color: var(--ink);
-        font-weight: 760;
-      }
+      .details span { color: var(--muted); }
 
       .slides-reader {
         display: grid;
@@ -548,6 +572,7 @@
       }
 
       .slide-select {
+        display: none;
         min-height: 42px;
         padding: 8px 10px;
         border: 1px solid var(--line);
@@ -615,16 +640,20 @@
         nav { justify-content: flex-start; }
         .hero { min-height: auto; }
         .slide-picker { display: none; }
+        .slide-select { display: block; }
         .pdf-frame { min-height: 430px; }
       }
 
       @media (prefers-reduced-motion: reduce) {
         html { scroll-behavior: auto; }
         .hero { animation: none; }
+        .button, .links a { transition: none; }
+        .button:hover, .links a:hover { transform: none; }
       }
     </style>
   </head>
   <body>
+    <a class="skip-link" href="#web-sketches">Skip to course materials</a>
     <header class="topbar">
       <div class="brand">Programming for Visual Artists</div>
       <nav aria-label="2024-2025 directory">

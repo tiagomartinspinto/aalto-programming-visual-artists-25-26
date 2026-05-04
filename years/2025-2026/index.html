@@ -336,13 +336,18 @@
         color: #06100f;
         font-weight: 800;
         text-decoration: none;
+        transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
       }
+
+      .button:hover { transform: translateY(-2px); background: rgba(84, 214, 199, 0.88); }
 
       .button.secondary {
         border-color: var(--line);
         background: transparent;
         color: var(--ink);
       }
+
+      .button.secondary:hover { background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.18); }
 
       main { padding: 0 clamp(18px, 4vw, 56px) 64px; }
 
@@ -645,12 +650,17 @@
         font-size: 14px;
         font-weight: 680;
         text-decoration: none;
+        transition: transform 160ms ease, border-color 160ms ease;
       }
+
+      .links a:hover { transform: translateY(-2px); border-color: rgba(255, 255, 255, 0.22); }
 
       .links a.primary {
         border-color: rgba(84, 214, 199, 0.62);
         color: var(--accent-2);
       }
+
+      .links a.primary:hover { border-color: var(--accent-2); }
 
       .slides-reader {
         display: grid;
@@ -900,6 +910,16 @@
           rotate: none;
           scale: none;
           will-change: auto;
+        }
+
+        .button,
+        .links a {
+          transition: none;
+        }
+
+        .button:hover,
+        .links a:hover {
+          transform: none;
         }
       }
     </style>
