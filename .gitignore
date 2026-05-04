@@ -1,2 +1,3 @@
 .removed-coursework-*.json
 .DS_Store
+.claude/
