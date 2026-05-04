@@ -1,0 +1,9 @@
+Change turns (5, 20, 40)
+
+Change step (0.2, 0.05, 0.02)
+
+Change curve (0.5, 1, 2, 3)
+
+Press T to toggle trails
+
+Make your own color scheme (sat/bri/alpha)

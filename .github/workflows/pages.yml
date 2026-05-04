@@ -25,6 +25,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Run repository checks
+        run: npm run check
+
+      - name: Confirm generated index is current
+        run: git diff --exit-code COURSE_INDEX.md
+
       - name: Configure Pages
         uses: actions/configure-pages@v5
 

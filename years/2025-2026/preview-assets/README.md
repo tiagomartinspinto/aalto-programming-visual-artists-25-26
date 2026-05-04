@@ -1,6 +1,8 @@
 # Preview Assets
 
-Use this folder for screenshots and short GIFs of finished sketches.
+Use this folder for screenshots and short GIFs of finished 2025-2026 sketches.
+
+See the root [Preview Manifest](../../PREVIEW_MANIFEST.md) for suggested filenames and descriptions.
 
 Suggested filenames:
 

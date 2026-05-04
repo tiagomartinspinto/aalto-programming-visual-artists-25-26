@@ -30,7 +30,7 @@ Tiago Martins Pinto
 | 03 | Conditionals, loops, movement, state variables | [PDF](Session-03/programmingvisualartists_session3.pdf) | [Hover is red](Session-03/hoverisred/hoverisred.pde), [bouncing ball color](Session-03/extra_bouncingballcolor/extra_bouncingballcolor.pde), [slide examples](Session-03/slidescodeexamples/) |
 | 04 | Nested loops, waves, random walks, recursion, noise | [PDF](Session-04/programmingvisualartists_session4.pdf) | [Generative grid](Session-04/generativegrid/generativegrid.pde), [simple waves](Session-04/extra_simplewaves/extra_simplewaves.pde), [slide examples](Session-04/slidecodeexamples/) |
 | 05 | Functions, parameters, reuse, recursion | [PDF](Session-05/programmingvisualartists_session5.pdf) | [Shapes function](Session-05/shapesfunction/shapesfunction.pde), [spiral spins](Session-05/extra_spiralspins/extra_spiralspins.pde), [slide examples](Session-05/slidescodeexamples/) |
-| 06 | Arrays, objects, particles, following behavior | [PDF](Session-06/programmingvisualartists_session6.pdf) | [Particles follow](Session-06/particlesfollow/particlesfollow.pde), [particles perlin noise](Session-06/extra_particlesperlinoise/extra_particlesperlinoise.pde), [slide examples](Session-06/slidescodeexamples/) |
+| 06 | Arrays, objects, particles, following behavior | [PDF](Session-06/programmingvisualartists_session6.pdf) | [Particles follow](Session-06/particlesfollow/particlesfollow.pde), [particles Perlin noise](Session-06/extra_particles_perlin_noise/extra_particles_perlin_noise.pde), [slide examples](Session-06/slidescodeexamples/) |
 
 Each session also has a focused browser page:
 
@@ -115,7 +115,7 @@ Each session folder follows the same general idea:
 - `sessions/` contains focused landing pages for each session.
 - `preview-assets/` contains guidance and a place for screenshots or GIFs.
 
-Some original filenames include small typos such as `isntructions` or `animted`. They are currently preserved so existing links do not break. See [FILENAME_NOTES.md](FILENAME_NOTES.md) for a readable map.
+Older typo-prone filenames have been standardized. See [FILENAME_NOTES.md](FILENAME_NOTES.md) for the rename map.
 
 ## Making Sketch Previews
 
