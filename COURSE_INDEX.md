@@ -40,14 +40,14 @@ Generated from the repository structure. Run `npm run build:index` after adding 
 
 ### Slide Decks
 
-- [Session-01 slides](years/2024-2025/Session-01/programmingvisualartists_session1.pdf)
-- [Session-02 slides](years/2024-2025/Session-02/programmingvisualartists_session2.pdf)
-- [Session-03 slides](years/2024-2025/Session-03/programmingvisualartists_session3.pdf)
-- [Session-04 slides](years/2024-2025/Session-04/programmingvisualartists_session4.pdf)
-- [Session-05 slides](years/2024-2025/Session-05/programmingvisualartists_session5.pdf)
-- [Session-06 slides](years/2024-2025/Session-06/programmingvisualartists_session6.pdf)
-- [Session-07 slides](years/2024-2025/Session-07/programmingvisualartists_session7.pdf)
-- [Session-08 slides](years/2024-2025/Session-08/programmingvisualartists_session8.pdf)
+- [session-01 slides](years/2024-2025/slides/session-01.pdf)
+- [session-02 slides](years/2024-2025/slides/session-02.pdf)
+- [session-03 slides](years/2024-2025/slides/session-03.pdf)
+- [session-04 slides](years/2024-2025/slides/session-04.pdf)
+- [session-05 slides](years/2024-2025/slides/session-05.pdf)
+- [session-06 slides](years/2024-2025/slides/session-06.pdf)
+- [session-07 slides](years/2024-2025/slides/session-07.pdf)
+- [session-08 slides](years/2024-2025/slides/session-08.pdf)
 
 ## 2025-2026
 
@@ -79,9 +79,9 @@ Generated from the repository structure. Run `npm run build:index` after adding 
 
 ### Slide Decks
 
-- [Session-01 slides](years/2025-2026/Session-01/programmingvisualartists_session1.pdf)
-- [Session-02 slides](years/2025-2026/Session-02/programmingvisualartists_session2.pdf)
-- [Session-03 slides](years/2025-2026/Session-03/programmingvisualartists_session3.pdf)
-- [Session-04 slides](years/2025-2026/Session-04/programmingvisualartists_session4.pdf)
-- [Session-05 slides](years/2025-2026/Session-05/programmingvisualartists_session5.pdf)
-- [Session-06 slides](years/2025-2026/Session-06/programmingvisualartists_session6.pdf)
+- [session-01 slides](years/2025-2026/slides/session-01.pdf)
+- [session-02 slides](years/2025-2026/slides/session-02.pdf)
+- [session-03 slides](years/2025-2026/slides/session-03.pdf)
+- [session-04 slides](years/2025-2026/slides/session-04.pdf)
+- [session-05 slides](years/2025-2026/slides/session-05.pdf)
+- [session-06 slides](years/2025-2026/slides/session-06.pdf)

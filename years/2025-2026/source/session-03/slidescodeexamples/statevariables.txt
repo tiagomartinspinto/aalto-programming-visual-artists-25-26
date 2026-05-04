@@ -1,0 +1,17 @@
+boolean isRed = false; // State variable
+
+void setup() {
+  size(400, 400);
+}
+
+void draw() {
+  if (isRed) {
+    background(255, 0, 0); // Red background
+  } else {
+    background(0, 0, 255); // Blue background
+  }
+}
+
+void mousePressed() {
+  isRed = !isRed; // Toggle state on mouse click
+}

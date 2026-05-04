@@ -5,7 +5,7 @@ window.COURSE_SKETCHES = [
     session: "Session 01",
     path: "smile-face/sketch.js",
     page: "smile-face/",
-    source: "../Session-01/smileface/smileface.pde",
+    source: "../source/session-01/smileface/smileface.pde",
     notes: "You can change the face function, draw multiple faces, or adjust the expression."
   },
   {
@@ -14,7 +14,7 @@ window.COURSE_SKETCHES = [
     session: "Session 01",
     path: "follow-mouse/sketch.js",
     page: "follow-mouse/",
-    source: "../Session-01/extra_followthemouse/extra_followthemouse.pde",
+    source: "../source/session-01/extra_followthemouse/extra_followthemouse.pde",
     notes: "You can change the follower size, trail behavior, or how quickly it catches the pointer."
   },
   {
@@ -23,7 +23,7 @@ window.COURSE_SKETCHES = [
     session: "Session 02",
     path: "mouse-shapes/sketch.js",
     page: "mouse-shapes/",
-    source: "../Session-02/mouseshapes/mouseshapes.pde",
+    source: "../source/session-02/mouseshapes/mouseshapes.pde",
     notes: "You can map the pointer to position, color, scale, or symmetry."
   },
   {
@@ -32,7 +32,7 @@ window.COURSE_SKETCHES = [
     session: "Session 02",
     path: "color-house/sketch.js",
     page: "color-house/",
-    source: "../Session-02/extra_coloronmousepress/extra_coloronmousepress.pde",
+    source: "../source/session-02/extra_coloronmousepress/extra_coloronmousepress.pde",
     notes: "You can click to change the palette, then add more parts to the scene."
   },
   {
@@ -41,7 +41,7 @@ window.COURSE_SKETCHES = [
     session: "Session 03",
     path: "bouncing-ball/sketch.js",
     page: "bouncing-ball/",
-    source: "../Session-03/extra_bouncingballcolor/extra_bouncingballcolor.pde",
+    source: "../source/session-03/extra_bouncingballcolor/extra_bouncingballcolor.pde",
     notes: "You can adjust speed, radius, edge checks, or color rules."
   },
   {
@@ -50,7 +50,7 @@ window.COURSE_SKETCHES = [
     session: "Session 04",
     path: "generative-grid/sketch.js",
     page: "generative-grid/",
-    source: "../Session-04/generativegridhover/generativegridhover.pde",
+    source: "../source/session-04/generativegridhover/generativegridhover.pde",
     notes: "You can change the grid density, rotation amount, opacity, or color mapping."
   },
   {
@@ -59,7 +59,7 @@ window.COURSE_SKETCHES = [
     session: "Session 05",
     path: "recursive-tree/sketch.js",
     page: "recursive-tree/",
-    source: "../Session-05/extra_recursivetreeanimated/extra_recursivetreeanimated.pde",
+    source: "../source/session-05/extra_recursivetreeanimated/extra_recursivetreeanimated.pde",
     notes: "You can change the branch angle, recursion depth, or draw only one tree."
   },
   {
@@ -68,7 +68,7 @@ window.COURSE_SKETCHES = [
     session: "Session 06",
     path: "sparkles/sketch.js",
     page: "sparkles/",
-    source: "../Session-06/sparkles/sparkles.pde",
+    source: "../source/session-06/sparkles/sparkles.pde",
     notes: "You can change particle lifespan, speed, color, or how many systems emit."
   },
   {
@@ -77,7 +77,7 @@ window.COURSE_SKETCHES = [
     session: "Session 07",
     path: "video-filters/sketch.js",
     page: "video-filters/",
-    source: "../Session-07/example_videofilters/example_videofilters.pde",
+    source: "../source/session-07/example_videofilters/example_videofilters.pde",
     notes: "You can press I, G, B, or T to toggle image-processing effects."
   }
 ];

@@ -1,0 +1,15 @@
+void setup() {
+  size(400, 400);
+  background(255);
+
+  drawCircle(100, 100, 50);
+  drawSquare(200, 200, 80);
+}
+
+void drawCircle(float x, float y, float radius) {
+  ellipse(x, y, radius * 2, radius * 2);
+}
+
+void drawSquare(float x, float y, float sideLength) {
+  rect(x, y, sideLength, sideLength);
+}

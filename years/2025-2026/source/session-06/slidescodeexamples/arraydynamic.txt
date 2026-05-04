@@ -1,0 +1,21 @@
+ArrayList<Float> sizes = new ArrayList<Float>();
+
+void setup() {
+  size(400, 400);
+
+  sizes.add(20.0);
+  sizes.add(40.0);
+  sizes.add(60.0);
+}
+
+void draw() {
+  background(255);
+
+  for (int i = 0; i < sizes.size(); i++) {
+    ellipse(50 + i * 70, height / 2, sizes.get(i), sizes.get(i));
+  }
+}
+
+void mousePressed() {
+  sizes.add(random(10, 80));
+}
