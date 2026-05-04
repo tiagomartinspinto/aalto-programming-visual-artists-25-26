@@ -7,8 +7,8 @@
 
 // Fractal Tree & Fractal Birds: Function-Based Modular Artwork
 // This sketch uses two custom functions to generate visual elements:
-// 1. drawFractalTree() – draws a fractal tree from the bottom center.
-// 2. drawFractalBird() – draws a fractal bird (a pair of recursive wing branches) in the sky.
+// 1. drawFractalTree() ? draws a fractal tree from the bottom center.
+// 2. drawFractalBird() ? draws a fractal bird (a pair of recursive wing branches) in the sky.
 
 void setup() {
   size(800, 800);
@@ -61,7 +61,7 @@ void drawFractalTree(float length, float angle, int depth) {
   int branches = int(random(2, 4));
   for (int i = 0; i < branches; i++) {
     pushMatrix();
-    // Randomize branch angle within ±45° and branch length
+    // Randomize branch angle within ?45? and branch length
     float randomAngle = angle + random(-PI / 4, PI / 4);
     float randomLength = length * random(0.5, 0.8);
     drawFractalTree(randomLength, randomAngle, depth - 1);

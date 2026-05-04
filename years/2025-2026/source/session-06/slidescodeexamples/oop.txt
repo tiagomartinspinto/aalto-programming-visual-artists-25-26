@@ -1,0 +1,30 @@
+class Ball {
+  float x;
+  float y;
+
+  Ball(float startX, float startY) {
+    x = startX;
+    y = startY;
+  }
+
+  void move() {
+    x += 2;
+  }
+
+  void display() {
+    ellipse(x, y, 20, 20);
+  }
+}
+
+Ball myBall;
+
+void setup() {
+  size(400, 400);
+  myBall = new Ball(50, 200);
+}
+
+void draw() {
+  background(255);
+  myBall.move();
+  myBall.display();
+}

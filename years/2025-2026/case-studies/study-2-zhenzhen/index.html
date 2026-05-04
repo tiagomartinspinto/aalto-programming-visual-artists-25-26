@@ -10,14 +10,14 @@
         body {
             margin: 0;
             padding: 0;
-            overflow: hidden; /* 防止滚动条影响画布 */
+            overflow: hidden; /* ????????? */
             background-color: #ebebeb;
             font-family: 'Helvetica', sans-serif;
         }
         canvas {
             display: block;
         }
-        /* 为按钮添加简单的样式 */
+        /* ?????????? */
         button {
             cursor: pointer;
             border: 1px solid #333;
@@ -47,27 +47,27 @@ let showMatrix = true;
 function setup() {
   createCanvas(windowWidth, windowHeight);
   createUI();
-  updateTargetAndGenerate(); // 初始生成
+  updateTargetAndGenerate(); // ????
 }
 
 function createUI() {
-  // 基础生成按钮
+  // ??????
   let btnGen = createButton('GENERATE MONSTER');
   btnGen.position(20, 20);
   btnGen.style('font-weight', 'bold');
   btnGen.mousePressed(updateTargetAndGenerate);
 
-  // 网格列数 (Cols)
+  // ???? (Cols)
   createLabel('Grid Cols:', 20, 60);
   createAdjustButton('-', 130, 60, () => { cols = max(3, cols - 1); updateTargetAndGenerate(); });
   createAdjustButton('+', 165, 60, () => { cols = min(40, cols + 1); updateTargetAndGenerate(); });
 
-  // 网格行数 (Rows)
+  // ???? (Rows)
   createLabel('Grid Rows:', 20, 90);
   createAdjustButton('-', 130, 90, () => { rows = max(3, rows - 1); updateTargetAndGenerate(); });
   createAdjustButton('+', 165, 90, () => { rows = min(40, rows + 1); updateTargetAndGenerate(); });
 
-  // 数量手动微调
+  // ??????
   createLabel('Black Dots:', 20, 120);
   createAdjustButton('-', 130, 120, () => { targetCount = max(1, targetCount - 2); generate(); });
   createAdjustButton('+', 165, 120, () => { targetCount = min(cols * rows, targetCount + 2); generate(); });
@@ -89,7 +89,7 @@ function createUI() {
 }
 
 function updateTargetAndGenerate() {
-  targetCount = floor((cols * rows) * 5 / 7); // 5/7 填充逻辑
+  targetCount = floor((cols * rows) * 5 / 7); // 5/7 ????
   generate();
 }
 

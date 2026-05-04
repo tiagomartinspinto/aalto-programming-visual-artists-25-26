@@ -14,18 +14,19 @@ This repository is a static course archive. Keep each academic year self-contain
 
 1. Create `years/YYYY-YYYY/`.
 2. Add a year `index.html`, `README.md`, `favicon.svg`, and `site-preview.svg`.
-3. Keep session source material inside that year folder.
-4. Add `sessions/session-XX/` pages for student-facing weekly entry points.
-5. Add browser sketches under `web/` only when they are useful companions to the Processing source.
-6. Link the new year from the root `index.html` and `README.md`.
-7. Run the checks.
+3. Keep original Processing/source material in `source/session-XX/`.
+4. Keep slide decks in `slides/` using names like `session-01.pdf`.
+5. Add `sessions/session-XX/` pages for student-facing weekly entry points.
+6. Add browser sketches under `web/` only when they are useful companions to the Processing source.
+7. Link the new year from the root `index.html` and `README.md`.
+8. Run the checks.
 
 ## Adding a Session
 
 Each session should include:
 
-- a PDF slide deck in `Session-XX/`
-- source files or exercise folders in `Session-XX/`
+- a PDF slide deck in `slides/`
+- source files or exercise folders in `source/session-XX/`
 - a focused page in `sessions/session-XX/`
 - optional web sketch companions under `web/`
 - links from the year landing page and README

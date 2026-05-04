@@ -64,9 +64,7 @@ const lines = [
 for (const year of years) {
   const yearPath = path.join(yearsRoot, year);
   const sessions = listDirectories(path.join(yearPath, "sessions")).filter((name) => name.startsWith("session-"));
-  const slideDecks = listDirectories(yearPath)
-    .filter((name) => /^Session-\d+$/i.test(name))
-    .flatMap((session) => listFiles(path.join(yearPath, session), ".pdf"));
+  const slideDecks = listFiles(path.join(yearPath, "slides"), ".pdf");
   lines.push(`| [${year}](years/${year}/) | ${sessions.length} | ${webSketches(yearPath).length} | ${slideDecks.length} | ${countCaseStudies(yearPath)} |`);
 }
 
@@ -98,13 +96,12 @@ for (const year of years) {
     }
   }
 
-  const slideSessions = listDirectories(yearPath).filter((name) => /^Session-\d+$/i.test(name));
-  if (slideSessions.length) {
+  const slideDecks = listFiles(path.join(yearPath, "slides"), ".pdf");
+  if (slideDecks.length) {
     lines.push("", "### Slide Decks", "");
-    for (const session of slideSessions) {
-      for (const pdf of listFiles(path.join(yearPath, session), ".pdf")) {
-        lines.push(`- [${session} slides](years/${year}/${session}/${pdf})`);
-      }
+    for (const pdf of slideDecks) {
+      const session = pdf.replace(/\.pdf$/i, "");
+      lines.push(`- [${session} slides](years/${year}/slides/${pdf})`);
     }
   }
 }

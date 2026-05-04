@@ -3,7 +3,7 @@ Mirrored from https://openprocessing.org/sketch/2901277
 License shown on OpenProcessing: CC BY-NC-SA 3.0
 
 // File: sketch.js
-// I'll to explain at least some of my steps here (I'm sorry for potential typos, I have troubles with proofreading) :—)
+// I'll to explain at least some of my steps here (I'm sorry for potential typos, I have troubles with proofreading) :?)
 // The main idea is that you have a little guy blowing a bubblegum. As the bubble covers the whole canvas it explodes, boom! 
 // Oh, and also his eyes are following the cursor direction (no specific reason for that, just to practice)
 

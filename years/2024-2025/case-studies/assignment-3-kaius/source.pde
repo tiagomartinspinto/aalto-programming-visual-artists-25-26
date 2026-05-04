@@ -35,7 +35,7 @@ String[] letters = { // defines an array of character strings
   "b",
   "j","}",
   "y",
-  "5","£",
+  "5","?",
   "3",
   "8",
   "@",

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>p5.js Example</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+</head>
+<body>
+    <script>
+        let circleColor;
+
+        function setup() {
+            createCanvas(windowWidth, windowHeight);
+            circleColor = color(255, 0, 0); // Initial color (red)
+        }
+
+        function draw() {
+            background(30); // Dark background
+            fill(circleColor);
+            noStroke();
+            ellipse(mouseX, mouseY, 50, 50); // Draw circle at mouse position
+        }
+
+        function mousePressed() {
+            circleColor = color(random(255), random(255), random(255)); // Change color on click
+        }
+    </script>
+</body>
+</html>
