@@ -60,5 +60,5 @@ Do not commit local scratch folders, operating-system metadata, generated tempor
 ## Quality Checks
 
 - `npm run build:index` regenerates `COURSE_INDEX.md`.
-- `npm run check:site` checks local links, anchors, iframe titles, image alt text, count labels, update markers, and typo-prone paths.
+- `npm run check:site` checks local links, anchors, iframe titles, image alt text, labeled controls, skip links, ARIA control targets, count labels, update markers, and typo-prone paths.
 - The Pages workflow runs both commands before deployment on pushes to `main`; the quality workflow runs them for pull requests and manual checks.

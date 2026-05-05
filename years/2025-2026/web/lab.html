@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../../../assets/ascii-skin.css">
   </head>
   <body>
+    <a class="skip-link" href="#code">Skip to code editor</a>
     <header>
       <strong>Sketch Lab</strong>
       <nav aria-label="Lab directory">
@@ -21,15 +22,15 @@
       <strong>For class, open the Lab from GitHub Pages or a local server.</strong>
       <span>You opened it as a local file, and your browser may block the course sketch code from loading with <code>fetch()</code>.</span>
     </div>
-    <main>
+    <main id="main-content">
       <section class="stage" aria-label="Live sketch preview">
         <div class="toolbar">
           <label for="sketch-select">Choose course sketch</label>
           <select id="sketch-select"></select>
-          <button class="primary" id="run-button" type="button">Run your changes</button>
-          <button id="reset-button" type="button">Reset to course version</button>
+          <button class="primary" id="run-button" type="button" aria-controls="preview">Run your changes</button>
+          <button id="reset-button" type="button" aria-controls="code preview">Reset to course version</button>
         </div>
-        <div id="preview" class="preview-frame" role="img" aria-label="Editable sketch preview"></div>
+        <div id="preview" class="preview-frame" role="region" aria-label="Editable sketch preview" aria-describedby="status"></div>
       </section>
       <section class="editor" aria-label="Sketch source editor">
         <div>
@@ -40,7 +41,8 @@
           <a id="open-page" href="#">Open sketch only</a>
           <a id="open-source" href="#">Compare Processing code</a>
         </div>
-        <textarea id="code" spellcheck="false" aria-label="Editable p5.js code"></textarea>
+        <label class="visually-hidden" for="code">Edit p5.js code</label>
+        <textarea id="code" spellcheck="false" aria-describedby="status"></textarea>
         <div class="status" id="status" aria-live="polite"></div>
       </section>
     </main>

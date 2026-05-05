@@ -45,6 +45,7 @@ function checkLocalTarget(sourceFile, value) {
 
 function checkHtml(filePath) {
   const html = readFileSync(filePath, "utf8");
+  const rel = relative(filePath);
   for (const match of html.matchAll(/\b(?:href|src|data-src|data-pdf)=["']([^"']+)["']/gi)) {
     checkLocalTarget(filePath, match[1]);
   }
@@ -52,6 +53,37 @@ function checkHtml(filePath) {
   const ids = new Set([...html.matchAll(/\bid=["']([^"']+)["']/gi)].map((match) => match[1]));
   for (const match of html.matchAll(/\bhref=["']#([^"']+)["']/gi)) {
     if (match[1] && !ids.has(match[1])) errors.push(`${relative(filePath)} links to missing in-page section: #${match[1]}`);
+  }
+
+  const requiresSkipLink = rel === "index.html" ||
+    rel === "404.html" ||
+    /^years\/\d{4}-\d{4}\/(?:index\.html|case-coursework\/index\.html|web\/lab\.html)$/.test(rel);
+  if (requiresSkipLink) {
+    const skipLink = [...html.matchAll(/<a\b([^>]*)>/gi)].find((match) => {
+      const attributes = match[1];
+      return /\bclass=["'][^"']*\bskip-link\b[^"']*["']/i.test(attributes) && /\bhref=["']#[^"']+["']/i.test(attributes);
+    });
+    if (!skipLink) {
+      errors.push(`${rel} is missing a keyboard skip link`);
+    } else {
+      const target = skipLink[1].match(/\bhref=["']#([^"']+)["']/i)?.[1];
+      if (target && !ids.has(target)) errors.push(`${rel} has a skip link to missing section: #${target}`);
+    }
+  }
+
+  for (const match of html.matchAll(/\baria-controls=["']([^"']+)["']/gi)) {
+    for (const target of match[1].split(/\s+/).filter(Boolean)) {
+      if (!target.includes("${") && !ids.has(target)) errors.push(`${rel} has aria-controls pointing to missing id: ${target}`);
+    }
+  }
+
+  for (const match of html.matchAll(/<(input|select|textarea)\b([^>]*)>/gi)) {
+    const attributes = match[2];
+    const id = attributes.match(/\bid=["']([^"']+)["']/i)?.[1];
+    const hasAccessibleName = /\baria-label=["'][^"']+["']/i.test(attributes) ||
+      /\baria-labelledby=["'][^"']+["']/i.test(attributes) ||
+      (id && new RegExp(`<label\\b[^>]*\\bfor=["']${id}["']`, "i").test(html));
+    if (!hasAccessibleName) errors.push(`${rel} has a ${match[1]} control without an accessible name`);
   }
 
   for (const match of html.matchAll(/<iframe\b([^>]*)>/gi)) {

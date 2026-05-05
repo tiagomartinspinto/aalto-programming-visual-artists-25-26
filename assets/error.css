@@ -66,6 +66,25 @@ nav a {
 nav a::before { content: "/"; }
 nav a:hover { border-color: var(--line); background: var(--soft); }
 
+.skip-link {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 999;
+  transform: translateY(-150%);
+  padding: 6px 10px;
+  border: 2px solid var(--line);
+  background: var(--bg);
+  color: var(--ink);
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
 main {
   min-height: calc(100vh - 74px);
   display: grid;
