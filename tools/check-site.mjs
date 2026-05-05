@@ -3,7 +3,7 @@ import path from "node:path";
 
 const root = process.cwd();
 const errors = [];
-const typoPattern = /isntru|animted|nexted|function_parame_ex|particlesperlinoise/i;
+const typoPattern = /isntru|animted|nexted|function_parame_ex|particlesperlinoise|seperate/i;
 
 function walk(directory) {
   return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {

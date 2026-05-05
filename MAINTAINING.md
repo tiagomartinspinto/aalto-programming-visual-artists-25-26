@@ -39,6 +39,20 @@ Put local mirrored studies in `case-studies/` with a source file and attribution
 
 Use readable lowercase paths with hyphens or underscores, and avoid typo-prone abbreviations in new material. If a path must change, update every link in the same commit and run `npm run check:site`.
 
+## Local Sync
+
+If your local checkout is stale or dirty, do not force-reset it until you have saved any local work you care about.
+
+1. Run `git status`.
+2. Commit, stash, or copy aside any local changes you want to keep.
+3. Run `git fetch origin main`.
+4. Use `git pull --ff-only` only when the checkout is clean and can fast-forward.
+5. If the local folder is too tangled, re-clone the repository into a fresh folder instead of copying old assets back into `main`.
+
+## Media Policy
+
+Keep media files when they are needed for public course pages or for self-contained source examples. Duplicate media can be acceptable when students need to download a single exercise folder and run it without hunting for shared assets. See [MEDIA_INVENTORY.md](MEDIA_INVENTORY.md).
+
 ## What Not To Commit
 
 Do not commit local scratch folders, operating-system metadata, generated temporary exports, or private student data. Keep large media only when it is needed for the public course site.
@@ -47,4 +61,4 @@ Do not commit local scratch folders, operating-system metadata, generated tempor
 
 - `npm run build:index` regenerates `COURSE_INDEX.md`.
 - `npm run check:site` checks local links, anchors, iframe titles, image alt text, count labels, update markers, and typo-prone paths.
-- The GitHub workflow runs both commands on pushes and pull requests.
+- The Pages workflow runs both commands before deployment on pushes to `main`; the quality workflow runs them for pull requests and manual checks.

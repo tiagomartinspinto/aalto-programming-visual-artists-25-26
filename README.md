@@ -12,6 +12,8 @@ Live site: [tiagomartinspinto.github.io/aalto-programming-visual-artists](https:
 - [2024-2025](years/2024-2025/)
 - [Generated course index](COURSE_INDEX.md)
 - [Preview manifest](PREVIEW_MANIFEST.md)
+- [Changelog](CHANGELOG.md)
+- [Media inventory](MEDIA_INVENTORY.md)
 
 ## Structure
 

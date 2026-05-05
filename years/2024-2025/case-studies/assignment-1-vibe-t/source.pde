@@ -174,7 +174,7 @@ void sprite(float x, float y, float radius1, float radius2, int npoints) {
   //The previous describes the sprite shape, begin shape and endshape inclose the instructions for the body, while the two circles describe the eyes
  
 }
-// this will ensure that the sidekick sprites can be handled seperately from the main character
+// this will ensure that the sidekick sprites can be handled separately from the main character
 void spriteClone(float x, float y, float radius1, float radius2, int npoints) {
   float angle = TWO_PI / npoints;
   float halfAngle = angle/2.0;
