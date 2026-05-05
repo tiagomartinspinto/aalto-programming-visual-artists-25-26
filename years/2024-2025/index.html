@@ -625,6 +625,409 @@
         html { scroll-behavior: auto; }
         .hero { animation: none; }
       }
+    
+/* ASCII_MONO_SKIN_START */
+:root {
+  color-scheme: light !important;
+  --bg: #ffffff !important;
+  --panel: #ffffff !important;
+  --panel-2: #f2f2f2 !important;
+  --ink: #000000 !important;
+  --muted: #000000 !important;
+  --line: #000000 !important;
+  --teal: #000000 !important;
+  --rose: #000000 !important;
+  --sky: #000000 !important;
+  --gold: #000000 !important;
+  --accent: #000000 !important;
+  --accent-2: #000000 !important;
+  --accent-3: #000000 !important;
+  --code: #ffffff !important;
+  --danger: #000000 !important;
+}
+
+* {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  letter-spacing: 0 !important;
+  text-shadow: none !important;
+}
+
+html,
+body {
+  background: #ffffff !important;
+  color: #000000 !important;
+  font-family: "Courier New", Consolas, "Liberation Mono", monospace !important;
+}
+
+body::before,
+body::after,
+.hero::before,
+.hero::after,
+section::before,
+.preview::after {
+  display: none !important;
+  content: none !important;
+}
+
+a,
+strong,
+b,
+code,
+pre,
+span,
+p,
+li,
+label,
+input,
+textarea,
+select,
+button {
+  color: #000000 !important;
+  font-family: "Courier New", Consolas, "Liberation Mono", monospace !important;
+}
+
+.topbar,
+header.topbar {
+  margin: 8px !important;
+  padding: 6px 8px !important;
+  border: 2px solid #000000 !important;
+  border-bottom-width: 4px !important;
+  background: #ffffff !important;
+  backdrop-filter: none !important;
+}
+
+.brand {
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+}
+
+.brand::before {
+  content: "C:\\PVA> " !important;
+}
+
+nav,
+.directory-nav {
+  color: #000000 !important;
+  gap: 2px !important;
+  text-transform: uppercase !important;
+}
+
+nav::before,
+.directory-nav::before {
+  color: #000000 !important;
+  content: "[DIR]" !important;
+  margin-right: 8px !important;
+}
+
+nav a,
+.directory-nav a,
+.directory-nav span {
+  min-height: 26px !important;
+  padding: 2px 6px !important;
+  border: 1px solid transparent !important;
+  background: #ffffff !important;
+  color: #000000 !important;
+}
+
+nav a::before,
+.directory-nav a::before,
+.directory-nav span::before {
+  color: #000000 !important;
+  content: "/" !important;
+}
+
+nav a:hover,
+nav a[aria-current="page"],
+nav a[aria-current="true"],
+.directory-nav a:hover,
+.directory-nav span[aria-current="page"] {
+  border-color: #000000 !important;
+  background: #eeeeee !important;
+  color: #000000 !important;
+}
+
+main {
+  background: #ffffff !important;
+}
+
+.hero,
+.course-header,
+.archive-panel,
+.current-session-card,
+.course-search,
+.status-cue,
+.feature-card,
+.session-card,
+.web-card,
+.note,
+.notice,
+.year-card,
+.route-list a,
+.slides-reader,
+.slide-controls,
+.slide-viewer,
+.slide-viewer-bar,
+.preview,
+.web-card-content,
+.search-result-link,
+.stage,
+.inspector,
+.editor,
+.panel,
+.card,
+.study-card,
+.viewer,
+.gallery-card,
+.mini-preview,
+.toolbar,
+aside,
+canvas,
+iframe,
+textarea,
+input,
+select {
+  border: 2px solid #000000 !important;
+  background: #ffffff !important;
+  color: #000000 !important;
+}
+
+.hero,
+.course-header {
+  min-height: auto !important;
+  padding: clamp(18px, 4vw, 36px) !important;
+  background: #ffffff !important;
+}
+
+.hero-copy,
+.hero-inner,
+.course-header,
+.archive-panel,
+.current-session-card,
+.course-search,
+.status-cue,
+.feature-card,
+.session-card,
+.web-card-content,
+.notice {
+  gap: 10px !important;
+}
+
+.eyebrow,
+.course-tool-label,
+.search-result-type,
+.session-kicker span,
+.tag,
+.stat,
+.status-cue span,
+.year-card span {
+  color: #000000 !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+}
+
+.eyebrow::before,
+.course-tool-label::before,
+.search-result-type::before,
+.session-kicker span::before,
+.status-cue span::before {
+  content: ":: " !important;
+}
+
+h1,
+h2,
+h3 {
+  color: #000000 !important;
+  font-family: "Courier New", Consolas, "Liberation Mono", monospace !important;
+  font-weight: 900 !important;
+  letter-spacing: 0 !important;
+  line-height: 1.05 !important;
+  text-transform: uppercase !important;
+}
+
+h1 {
+  font-size: clamp(34px, 7vw, 86px) !important;
+}
+
+h2 {
+  font-size: clamp(24px, 4vw, 42px) !important;
+}
+
+h3 {
+  font-size: clamp(18px, 2.2vw, 24px) !important;
+}
+
+h1::before { content: "/* " !important; }
+h1::after { content: " */" !important; }
+h2::before { content: "== " !important; }
+h2::after { content: " ==" !important; }
+h3::before { content: "> " !important; }
+
+.lede,
+.section-heading p,
+.intro,
+.current-session-card p,
+.course-search p,
+.session-card p,
+.web-card p,
+.feature-card p,
+.notice p,
+.archive-panel p,
+.year-card p,
+.details,
+.search-count,
+.search-empty,
+.runtime-note,
+.footer {
+  color: #000000 !important;
+}
+
+.button,
+.links a,
+.reader-button,
+.slide-picker,
+.search-filter,
+.sketch-links a,
+button {
+  min-height: 30px !important;
+  padding: 4px 8px !important;
+  border: 2px solid #000000 !important;
+  background: #ffffff !important;
+  color: #000000 !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+  transform: none !important;
+}
+
+.button::before,
+.links a::before,
+.reader-button::before,
+.slide-picker::before,
+.search-filter::before,
+.sketch-links a::before,
+button::before {
+  content: "[" !important;
+}
+
+.button::after,
+.links a::after,
+.reader-button::after,
+.slide-picker::after,
+.search-filter::after,
+.sketch-links a::after,
+button::after {
+  content: "]" !important;
+}
+
+.button:hover,
+.links a:hover,
+.reader-button:hover,
+.slide-picker:hover,
+.slide-picker[aria-pressed="true"],
+.search-filter:hover,
+.search-filter[aria-pressed="true"],
+.sketch-links a:hover,
+button:hover,
+button.primary:hover {
+  background: #eeeeee !important;
+  color: #000000 !important;
+  border-color: #000000 !important;
+  transform: none !important;
+}
+
+.meta b,
+.tags span,
+.tag,
+.stat,
+.search-filter[aria-pressed="true"] {
+  border: 1px solid #000000 !important;
+  background: #ffffff !important;
+  color: #000000 !important;
+}
+
+.route-list,
+.search-results,
+.links,
+.meta,
+.hero-actions,
+.actions,
+.byline,
+.tags,
+.stats,
+.footer {
+  gap: 6px !important;
+}
+
+.route-list a,
+.search-result-link,
+.year-card,
+.session-card,
+.web-card,
+.feature-card,
+.status-cue,
+.study-card,
+.gallery-card {
+  border-left-width: 10px !important;
+}
+
+.preview,
+#sketch,
+.stage,
+.slide-viewer,
+.viewer {
+  background:
+    linear-gradient(#000000 1px, transparent 1px),
+    linear-gradient(90deg, #000000 1px, transparent 1px),
+    #ffffff !important;
+  background-size: 18px 18px !important;
+}
+
+.preview iframe,
+.pdf-frame,
+.preview-frame,
+#study-frame,
+canvas {
+  background: #ffffff !important;
+  border: 2px solid #000000 !important;
+  filter: grayscale(1) contrast(1.15) !important;
+}
+
+textarea,
+input,
+select {
+  background: #ffffff !important;
+  color: #000000 !important;
+  caret-color: #000000 !important;
+}
+
+::selection {
+  background: #000000 !important;
+  color: #ffffff !important;
+}
+
+:focus-visible {
+  outline: 3px double #000000 !important;
+  outline-offset: 2px !important;
+}
+
+.footer {
+  border-top: 2px solid #000000 !important;
+  padding-top: 8px !important;
+  text-transform: uppercase !important;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .button,
+  .links a,
+  .year-card,
+  .session-card,
+  .web-card,
+  .feature-card,
+  .study-card {
+    transition: none !important;
+  }
+}
+/* ASCII_MONO_SKIN_END */
     </style>
   </head>
   <body>
