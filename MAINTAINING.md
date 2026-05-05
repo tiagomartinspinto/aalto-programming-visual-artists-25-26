@@ -13,7 +13,7 @@ This repository is a static course archive. Keep each academic year self-contain
 ## Adding a New Academic Year
 
 1. Create `years/YYYY-YYYY/`.
-2. Add a year `index.html`, `README.md`, `favicon.svg`, and `site-preview.svg`.
+2. Add a year `index.html` and `README.md`. Reuse the root `favicon.svg` and `site-preview.svg` unless the whole site identity changes.
 3. Keep original Processing/source material in `source/session-XX/`.
 4. Keep slide decks in `slides/` using names like `session-01.pdf`.
 5. Add `sessions/session-XX/` pages for student-facing weekly entry points.
