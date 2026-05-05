@@ -238,11 +238,26 @@
         border-color: rgba(84, 214, 199, 0.52);
       }
 
-      .route-list strong { color: var(--ink); }
+      .route-list strong {
+        min-width: 0;
+        color: var(--ink);
+        overflow-wrap: anywhere;
+      }
+
+      .route-list span {
+        flex-shrink: 0;
+      }
+
+      @media (max-width: 420px) {
+        .route-list a {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+      }
 
       .year-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr));
         gap: 16px;
         margin-top: clamp(42px, 6vw, 78px);
       }
