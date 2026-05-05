@@ -6,66 +6,7 @@
     <link rel="icon" href="../../../favicon.svg" type="image/svg+xml">
     <title>Student Studies Gallery - Programming for Visual Artists 2024-2025</title>
     <meta name="description" content="Previous-year student studies gallery for Programming for Visual Artists at Aalto University, with classroom mirrors and source links.">
-    <style>
-      :root { color-scheme: dark; --bg: #090b0f; --panel: #10141b; --panel-2: #151a23; --ink: #f5f0e8; --muted: #aab1bd; --line: #2a3140; --accent: #ff7aa8; --accent-2: #7dd3fc; --accent-3: #f3c969; }
-      * { box-sizing: border-box; }
-      html { scroll-behavior: smooth; }
-      body { margin: 0; background: linear-gradient(124deg, rgba(255, 122, 168, 0.14), transparent 36%), linear-gradient(236deg, rgba(125, 211, 252, 0.12), transparent 38%), #090b0f; color: var(--ink); font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
-      body::before { content: ""; position: fixed; inset: 0; z-index: -1; opacity: .1; pointer-events: none; background: repeating-linear-gradient(90deg, rgba(245,240,232,.08) 0 1px, transparent 1px 76px), repeating-linear-gradient(0deg, rgba(245,240,232,.05) 0 1px, transparent 1px 76px); }
-      a { color: inherit; }
-      .topbar { position: sticky; top: 0; z-index: 5; display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 14px clamp(18px, 4vw, 56px); border-bottom: 1px solid var(--line); background: rgba(9, 11, 15, 0.92); backdrop-filter: blur(14px); }
-      .brand { font-weight: 780; }
-      nav { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 0; color: var(--muted); font-size: 14px; font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
-      nav::before { content: "/pva/2024-2025"; margin-right: .25rem; color: var(--accent); font-weight: 760; }
-      nav a { display: inline-flex; align-items: center; min-height: 32px; padding: 0 .35rem; border-radius: 4px; text-decoration: none; }
-      nav a::before { content: "/"; margin-right: .35rem; color: var(--line); }
-      nav a[aria-current="page"], nav a:hover { color: var(--ink); background: rgba(255, 122, 168, .12); }
-      main { width: min(1180px, calc(100% - 36px)); margin: 0 auto; padding: 48px 0 72px; }
-      .hero { display: grid; gap: 18px; margin-bottom: 30px; }
-      .eyebrow { margin: 0; color: var(--accent); font-size: 13px; font-weight: 820; text-transform: uppercase; }
-      h1 { max-width: 920px; margin: 0; font-size: clamp(42px, 8vw, 84px); line-height: .95; letter-spacing: 0; }
-      .lede { max-width: 780px; margin: 0; color: #d5d8de; font-size: clamp(18px, 2vw, 24px); line-height: 1.45; }
-      .stats, .tag-row, .actions, .filters, .tool-row { display: flex; flex-wrap: wrap; gap: 8px; }
-      .stat, .tag { padding: 7px 9px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); background: rgba(16, 20, 27, .72); font-size: 13px; }
-      .viewer { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(280px, .65fr); gap: 18px; align-items: stretch; margin: 34px 0; }
-      .stage { position: relative; min-height: min(68vw, 650px); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: #07090d; }
-      .stage iframe { width: 100%; height: 100%; min-height: 520px; border: 0; display: block; background: #090b0f; }
-      .stage-placeholder { position: absolute; inset: 0; display: grid; place-items: center; padding: 22px; text-align: center; background: linear-gradient(135deg, rgba(255, 122, 168, .18), transparent 42%), #07090d; }
-      .stage-placeholder[hidden] { display: none; }
-      .stage-placeholder div { display: grid; gap: 12px; max-width: 430px; }
-      .stage-placeholder strong { font-size: clamp(24px, 4vw, 44px); line-height: 1; }
-      .stage-placeholder span, .viewer-info p, .gallery-card p { color: var(--muted); line-height: 1.45; }
-      .viewer-info, .gallery-card, .source-panel { border: 1px solid var(--line); border-radius: 8px; background: rgba(16, 20, 27, .86); }
-      .viewer-info { display: grid; align-content: start; gap: 14px; padding: 18px; }
-      .viewer-info h2 { margin: 0; font-size: clamp(26px, 4vw, 42px); line-height: 1; }
-      .viewer-info p { margin: 0; }
-      input, select { min-height: 40px; padding: 9px 11px; border: 1px solid var(--line); border-radius: 6px; background: var(--panel-2); color: var(--ink); font: inherit; font-size: 14px; }
-      input { min-width: min(100%, 280px); }
-      button, .button { min-height: 40px; padding: 9px 12px; border: 1px solid rgba(255, 122, 168, .58); border-radius: 6px; background: rgba(255, 122, 168, .14); color: var(--ink); font: inherit; font-size: 14px; font-weight: 760; text-decoration: none; cursor: pointer; transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, color 180ms ease; }
-      button:hover, .button:hover { transform: translateY(-2px); }
-      button[aria-pressed="true"] { background: var(--accent); color: #16070d; }
-      .button.secondary, button.secondary { border-color: var(--line); background: var(--panel-2); color: var(--muted); }
-      .gallery-header { display: flex; align-items: end; justify-content: space-between; gap: 18px; margin: 36px 0 16px; }
-      .gallery-header h2 { margin: 0; font-size: clamp(28px, 4vw, 48px); }
-      .gallery-tools { display: grid; gap: 10px; margin-bottom: 16px; }
-      .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(245px, 1fr)); gap: 14px; }
-      .gallery-card { display: grid; gap: 12px; padding: 14px; text-align: left; }
-      .gallery-card.is-active { border-color: rgba(255, 122, 168, .76); box-shadow: 0 0 0 1px rgba(255, 122, 168, .2); }
-      .gallery-card h3 { margin: 0; font-size: 22px; line-height: 1.05; }
-      .preview-token { min-height: 132px; border: 1px solid rgba(245, 240, 232, .12); border-radius: 6px; background: linear-gradient(135deg, rgba(255, 122, 168, .18), transparent 45%), linear-gradient(225deg, rgba(125, 211, 252, .18), transparent 44%), #0d1117; display: grid; align-content: end; padding: 10px; }
-      .preview-token span { width: fit-content; padding: 5px 7px; border-radius: 999px; background: rgba(9, 11, 15, .78); color: var(--muted); font-size: 12px; }
-      .source-panel { margin-top: 4px; overflow: hidden; }
-      .source-panel[hidden] { display: none; }
-      .source-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 14px; border-bottom: 1px solid var(--line); }
-      .source-header strong { font-size: 14px; }
-      pre { margin: 0; max-height: 460px; overflow: auto; padding: 16px; color: #dce3ec; background: #07090d; font-size: 13px; line-height: 1.55; white-space: pre-wrap; }
-      .empty-state { padding: 22px; border: 1px dashed var(--line); border-radius: 8px; color: var(--muted); }
-      .is-hidden { display: none; }
-      .footer { margin-top: 48px; padding-top: 22px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
-      :focus-visible { outline: 3px solid var(--accent-3); outline-offset: 3px; }
-      @media (max-width: 840px) { .topbar, .viewer, .gallery-header { grid-template-columns: 1fr; flex-direction: column; align-items: flex-start; } .stage iframe { min-height: 420px; } nav { justify-content: flex-start; } }
-      @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } button, .button { transition: none; } button:hover, .button:hover { transform: none; } }
-    </style>
+    <link rel="stylesheet" href="gallery.css">
     <link rel="stylesheet" href="../../../assets/ascii-skin.css">
   </head>
   <body>
