@@ -17,25 +17,6 @@
   --danger: #000000 !important;
 }
 
-:root {
-  color-scheme: light !important;
-  --bg: #ffffff !important;
-  --panel: #ffffff !important;
-  --panel-2: #f2f2f2 !important;
-  --ink: #000000 !important;
-  --muted: #000000 !important;
-  --line: #000000 !important;
-  --teal: #000000 !important;
-  --rose: #000000 !important;
-  --sky: #000000 !important;
-  --gold: #000000 !important;
-  --accent: #000000 !important;
-  --accent-2: #000000 !important;
-  --accent-3: #000000 !important;
-  --code: #ffffff !important;
-  --danger: #000000 !important;
-}
-
 * {
   border-radius: 0 !important;
   box-shadow: none !important;
@@ -415,4 +396,20 @@ select {
   .coursework-card {
     transition: none !important;
   }
+}
+.stage-placeholder,
+.stage-placeholder strong,
+.stage-placeholder span,
+.source-panel pre,
+.source-panel pre *,
+.mini-preview span,
+.preview-token span {
+  color: #ffffff !important;
+}
+
+.stage-placeholder,
+.source-panel pre,
+.mini-preview span,
+.preview-token span {
+  background: #000000 !important;
 }
