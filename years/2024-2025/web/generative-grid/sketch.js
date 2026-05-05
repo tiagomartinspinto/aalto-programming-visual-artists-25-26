@@ -1,7 +1,8 @@
 const gridSize = 10;
 
 function setup() {
-  createCanvas(560, 560);
+  const canvas = createCanvas(560, 560);
+  canvas.parent("sketch");
   noFill();
   strokeWeight(2);
   rectMode(CENTER);

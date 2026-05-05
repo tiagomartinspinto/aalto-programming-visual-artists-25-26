@@ -2,7 +2,8 @@ let houseColor;
 let skyColor;
 
 function setup() {
-  createCanvas(420, 420);
+  const canvas = createCanvas(420, 420);
+  canvas.parent("sketch");
   noStroke();
   houseColor = color(255, 122, 168);
   skyColor = color(18, 24, 36);

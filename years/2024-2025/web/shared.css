@@ -124,6 +124,33 @@ p {
   font-size: 13px;
 }
 
+
+@media (max-height: 360px) {
+  html,
+  body {
+    overflow: hidden;
+  }
+
+  main {
+    min-height: 100vh;
+    grid-template-columns: 1fr;
+  }
+
+  #sketch {
+    min-height: 100vh;
+    padding: 10px;
+  }
+
+  canvas,
+  video {
+    max-height: calc(100vh - 20px);
+  }
+
+  aside,
+  .runtime-note {
+    display: none !important;
+  }
+}
 @media (max-width: 760px) {
   main {
     grid-template-columns: 1fr;

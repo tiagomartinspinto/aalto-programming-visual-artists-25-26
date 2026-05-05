@@ -5,7 +5,8 @@ let ySpeed = 2.3;
 let ballColor;
 
 function setup() {
-  createCanvas(420, 420);
+  const canvas = createCanvas(420, 420);
+  canvas.parent("sketch");
   ballColor = color(125, 211, 252);
 }
 

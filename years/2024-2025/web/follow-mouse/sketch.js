@@ -2,7 +2,8 @@ let x = 200;
 let y = 200;
 
 function setup() {
-  createCanvas(420, 420);
+  const canvas = createCanvas(420, 420);
+  canvas.parent("sketch");
 }
 
 function draw() {

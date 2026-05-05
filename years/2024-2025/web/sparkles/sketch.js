@@ -1,7 +1,8 @@
 const systems = [];
 
 function setup() {
-  createCanvas(620, 420);
+  const canvas = createCanvas(620, 420);
+  canvas.parent("sketch");
   systems.push(new ParticleSystem(width * 0.25, height * 0.5, color(255, 122, 168)));
   systems.push(new ParticleSystem(width * 0.5, height * 0.5, color(245, 240, 232)));
   systems.push(new ParticleSystem(width * 0.75, height * 0.5, color(125, 211, 252)));

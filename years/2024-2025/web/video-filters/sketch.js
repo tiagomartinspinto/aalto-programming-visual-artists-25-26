@@ -5,7 +5,8 @@ let thresholdEffect = false;
 let blurEffect = false;
 
 function setup() {
-  createCanvas(640, 420);
+  const canvas = createCanvas(640, 420);
+  canvas.parent("sketch");
   pixelDensity(1);
   const videoPath = window.location.pathname.includes("/video-filters/") ? "test_small.mp4" : "video-filters/test_small.mp4";
   video = createVideo(videoPath, videoLoaded);

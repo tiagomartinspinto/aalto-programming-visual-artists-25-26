@@ -1,5 +1,6 @@
 function setup() {
-  createCanvas(640, 440);
+  const canvas = createCanvas(640, 440);
+  canvas.parent("sketch");
   rectMode(CENTER);
 }
 
