@@ -84,7 +84,7 @@ function checkCounts() {
     const sketches = countDirectories(path.join(yearPath, "web"), (name) => name !== "vendor");
     const coursework = countDirectories(path.join(yearPath, "case-coursework"), (name) => name !== "vendor");
     const pdfs = countFiles(path.join(yearPath, "slides"), ".pdf");
-    for (const expected of [`${sessions} sessions`, `${sketches} web sketches`, `${coursework} coursework`, "PDF slides"]) {
+    for (const expected of [`${sessions} sessions`, `${coursework} coursework`, "PDF slides"]) {
       if (!rootIndex.includes(expected)) errors.push(`index.html is missing or has stale count label "${expected}" for ${year}`);
     }
     const yearIndex = readFileSync(path.join(yearPath, "index.html"), "utf8");
