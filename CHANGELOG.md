@@ -14,3 +14,4 @@
 - Fixed contrast in coursework listing placeholder and source-code panels.
 - Added media and maintenance notes for future cleanup.
 - Added accessibility polish for skip links, coursework listing status announcements, source-panel state, and Lab controls.
+- Removed nested scrolling chrome from web sketch previews.
