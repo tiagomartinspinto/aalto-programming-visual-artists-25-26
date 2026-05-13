@@ -1,0 +1,33 @@
+name: Course content fix
+description: Report a broken link, missing source file, unclear text, or course-page issue.
+title: "Content fix: "
+labels:
+  - content
+body:
+  - type: input
+    id: page
+    attributes:
+      label: Page or file
+      description: Link to the page, year, session, sketch, slide, or source file.
+    validations:
+      required: true
+  - type: textarea
+    id: issue
+    attributes:
+      label: What should be fixed?
+      description: Describe what a course participant or teacher sees now and what should happen instead.
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Type
+      options:
+        - Broken link
+        - Missing source or slide
+        - Accessibility
+        - Text/content clarity
+        - Removed coursework attribution
+        - Other
+    validations:
+      required: true

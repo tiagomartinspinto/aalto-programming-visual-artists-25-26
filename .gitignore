@@ -1,2 +1,24 @@
 .removed-coursework-*.json
 .DS_Store
+.env
+.env.*
+!.env.example
+*.bak
+*.backup
+*.tmp
+*.temp
+*~
+Thumbs.db
+.vscode/
+.idea/
+.cache/
+.eslintcache
+.parcel-cache/
+dist/
+tmp/
+temp/
+exports/
+private/
+private-notes/
+grades/
+course participant-grades/

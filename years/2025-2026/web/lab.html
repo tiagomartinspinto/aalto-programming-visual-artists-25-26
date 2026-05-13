@@ -22,6 +22,7 @@
       <strong>For class, open the Lab from GitHub Pages or a local server.</strong>
       <span>You opened it as a local file, and your browser may block the course sketch code from loading with <code>fetch()</code>.</span>
     </div>
+    <div class="privacy-note" role="note"><strong>Privacy:</strong> Edits stay in your browser unless you manually save/share them.</div>
     <main id="main-content">
       <section class="stage" aria-label="Live sketch preview">
         <div class="toolbar">
@@ -47,7 +48,7 @@
       </section>
     </main>
     <script src="vendor/p5.min.js"></script>
-    <script src="sketches.js"></script>
+    <script src="../course-data.js"></script>
     <script>
       const select = document.querySelector("#sketch-select");
       const preview = document.querySelector("#preview");
@@ -63,12 +64,21 @@
       let currentSketch = null;
       let originalCode = "";
       let activeP5 = null;
+      const courseSketches = (window.COURSE_DATA?.sketches || []).map((sketch) => ({
+        id: sketch.id,
+        title: sketch.title,
+        session: sketch.session,
+        path: sketch.path || sketch.id + "/sketch.js",
+        page: sketch.page ? sketch.page.replace(/^web\//, "") : sketch.page,
+        source: sketch.source ? "../" + sketch.source : sketch.source,
+        notes: sketch.notes || sketch.try || sketch.description || "Try a small change, then run the sketch again."
+      }));
 
       if (isFileMode) {
         fileWarning.hidden = false;
       }
 
-      for (const sketch of window.COURSE_SKETCHES) {
+      for (const sketch of courseSketches) {
         const option = document.createElement("option");
         option.value = sketch.id;
         option.textContent = `${sketch.session} - ${sketch.title}`;
@@ -135,7 +145,7 @@
       }
 
       async function loadSketch(id) {
-        currentSketch = window.COURSE_SKETCHES.find((sketch) => sketch.id === id) || window.COURSE_SKETCHES[0];
+        currentSketch = courseSketches.find((sketch) => sketch.id === id) || courseSketches[0];
         select.value = currentSketch.id;
         title.textContent = currentSketch.title;
         meta.textContent = `${currentSketch.session}. ${currentSketch.notes}`;

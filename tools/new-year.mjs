@@ -1,0 +1,25 @@
+import { existsSync, mkdirSync, writeFileSync } from "node:fs";
+import path from "node:path";
+
+const year = process.argv[2];
+if (!/^\d{4}-\d{4}$/.test(year || "")) {
+  console.error("Usage: npm run new:year -- YYYY-YYYY");
+  process.exit(1);
+}
+
+const root = process.cwd();
+const target = path.join(root, "years", year);
+if (existsSync(target)) {
+  console.error(`years/${year} already exists.`);
+  process.exit(1);
+}
+
+for (const directory of ["sessions", "slides", "source", "web", "preview-assets", "case-coursework"]) {
+  mkdirSync(path.join(target, directory), { recursive: true });
+}
+
+writeFileSync(path.join(target, "README.md"), `# ${year}\n\nProgramming for Visual Artists course material for ${year}.\n\nRun \\`npm run build:index\\` after adding sessions, slides, sketches, or removed coursework.\n`);
+writeFileSync(path.join(target, "course-data.js"), `window.COURSE_DATA = {\n  year: \"${year}\",\n  currentSession: null,\n  sessions: [],\n  sketches: [],\n  slides: [],\n  searchExtras: [],\n};\n`);
+writeFileSync(path.join(target, "index.html"), `<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <link rel=\"icon\" href=\"../../favicon.svg\" type=\"image/svg+xml\">\n    <title>${year} - Programming for Visual Artists</title>\n    <meta name=\"description\" content=\"Programming for Visual Artists ${year} course materials at Aalto University.\">\n    <meta name=\"theme-color\" content=\"#090b0f\">\n    <link rel=\"stylesheet\" href=\"../2025-2026/year.css\">\n    <link rel=\"stylesheet\" href=\"../../assets/ascii-skin.css\">\n  </head>\n  <body>\n    <a class=\"skip-link\" href=\"#sessions\">Skip to course materials</a>\n    <header class=\"topbar\">\n      <div class=\"brand\">Programming for Visual Artists</div>\n      <nav aria-label=\"${year} directory\"><a href=\"../../index.html\">all-years</a><a href=\"./\" aria-current=\"page\">${year}</a><a href=\"#sessions\">sessions</a></nav>\n    </header>\n    <main>\n      <section class=\"course-header\" aria-labelledby=\"course-title\"><p class=\"eyebrow\">Aalto University, ${year}</p><h1 id=\"course-title\">${year} Course Materials</h1><p class=\"lede\">Add sessions, sketches, slides, and removed coursework as the course develops.</p></section>\n      <section id=\"current-session\" class=\"course-tools\" aria-labelledby=\"current-session-title\"><article class=\"current-session-card\"><span class=\"course-tool-label\">Session Shortcut</span><h2 id=\"current-session-title\">No current session yet</h2><p>Add one in course-data.js.</p></article><article class=\"course-search\" aria-labelledby=\"course-search-title\"><span class=\"course-tool-label\">Find Course Material</span><h2 id=\"course-search-title\">Course Search</h2><div class=\"search-controls\"><input id=\"course-search-input\" type=\"search\" aria-label=\"Search course materials\"><div class=\"search-filters\"><button class=\"search-filter\" type=\"button\" data-search-type=\"all\" aria-pressed=\"true\">All</button><button class=\"search-filter\" type=\"button\" data-search-type=\"session\" aria-pressed=\"false\">Sessions</button><button class=\"search-filter\" type=\"button\" data-search-type=\"sketch\" aria-pressed=\"false\">Sketches</button><button class=\"search-filter\" type=\"button\" data-search-type=\"slide\" aria-pressed=\"false\">Slides</button></div></div><p class=\"search-count\" id=\"course-search-count\" aria-live=\"polite\"></p><ul class=\"search-results\" id=\"course-search-results\"></ul><p class=\"search-empty\" id=\"course-search-empty\" hidden>No course materials match that search.</p></article></section>\n      <section id=\"web-sketches\"><div class=\"section-heading\"><h2>Web Sketches</h2></div><div class=\"web-grid\"></div></section>\n      <section id=\"slides\"><div class=\"section-heading\"><h2>Slides Reader</h2></div><div class=\"slides-reader\"><div class=\"slide-controls\"></div><div class=\"slide-viewer\"><div class=\"slide-viewer-bar\"><strong id=\"slide-title\">No slides yet</strong><div class=\"slide-actions\"><button class=\"reader-button\" id=\"prev-slide-deck\" type=\"button\">Previous deck</button><button class=\"reader-button\" id=\"next-slide-deck\" type=\"button\">Next deck</button><a id=\"slide-direct-link\" href=\"#\">Open PDF if reader fails</a></div></div><iframe id=\"slide-frame\" class=\"pdf-frame\" title=\"Slides reader\" src=\"about:blank\"></iframe></div></div></section>\n      <section id=\"sessions\"><div class=\"section-heading\"><h2>Sessions</h2></div><div class=\"sessions\"></div></section>\n      <footer class=\"footer\"><span>Programming for Visual Artists, Aalto University. Course material by Tiago Martins Pinto.</span></footer>\n    </main>\n    <script src=\"course-data.js\"></script>\n    <script src=\"../../assets/year.js\"></script>\n  </body>\n</html>\n`);
+
+console.log(`Created years/${year}. Add content to course-data.js, then run npm run build:index.`);

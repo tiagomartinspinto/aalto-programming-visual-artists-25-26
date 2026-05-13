@@ -102,6 +102,7 @@
       }
 
       .file-warning,
+      .privacy-note,
       .load-message {
         display: grid;
         gap: 6px;
@@ -113,6 +114,12 @@
       }
 
       .file-warning[hidden] { display: none; }
+
+      .privacy-note {
+        border-color: rgba(255, 122, 168, 0.42);
+        background: rgba(255, 122, 168, 0.08);
+        color: #ffe2ed;
+      }
 
       .file-warning strong,
       .load-message strong {

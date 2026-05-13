@@ -1,8 +1,13 @@
 # Programming for Visual Artists
 
+[![Check course site](https://github.com/tiagomartinspinto/aalto-programming-visual-artists/actions/workflows/quality.yml/badge.svg)](https://github.com/tiagomartinspinto/aalto-programming-visual-artists/actions/workflows/quality.yml)
+[![Deploy course site to GitHub Pages](https://github.com/tiagomartinspinto/aalto-programming-visual-artists/actions/workflows/pages.yml/badge.svg)](https://github.com/tiagomartinspinto/aalto-programming-visual-artists/actions/workflows/pages.yml)
+
 Aalto University course materials maintained by Tiago Martins Pinto.
 
 This repository is organized by school year so course participants can find sessions, sketches, slides, examples, and course participant work in one course home.
+
+**Public repository warning:** This repository is public. Do not commit grades, unpublished course participant work, personal data, or internal university material. GitHub Pages exposes all committed site content publicly.
 
 Live site: [tiagomartinspinto.github.io/aalto-programming-visual-artists](https://tiagomartinspinto.github.io/aalto-programming-visual-artists/)
 
@@ -11,6 +16,7 @@ Live site: [tiagomartinspinto.github.io/aalto-programming-visual-artists](https:
 - [2025-2026](years/2025-2026/)
 - [2024-2025](years/2024-2025/)
 - [Generated course index](COURSE_INDEX.md)
+- [Architecture overview](ARCHITECTURE.md)
 - [Preview manifest](PREVIEW_MANIFEST.md)
 - [Changelog](CHANGELOG.md)
 - [Media inventory](MEDIA_INVENTORY.md)
@@ -30,9 +36,14 @@ When adding a new school year, create a new folder inside `years/`, add a year l
 ## Maintenance
 
 - Read [MAINTAINING.md](MAINTAINING.md) before adding a new year, session, sketch, or removed coursework.
+- Start a new course folder with `npm run new:year -- YYYY-YYYY`.
 - Run `npm run build:index` after changing course material.
-- Run `npm run check:site` before pushing. It checks local links, anchors, accessibility labels, visible counts, update markers, and typo-prone paths.
+- Run `npm run check` before pushing. It checks generated indexes, local links, course data links, anchors, accessibility labels, visible counts, update markers, typo-prone paths, private-file patterns, and asset-size warnings.
 - Keep local scratch files, private exports, and operating-system metadata out of the repository.
+
+## Attribution And Licensing
+
+Removed coursework removed copyed from removed-source-host remain course participant work and should keep local source files plus original removed-source-host links for attribution. Reused examples and teaching libraries should stay attributed in the relevant page, source folder, or maintenance notes. Prefer local copies of teaching libraries when they are needed for a stable classroom experience.
 
 ## Publishing
 

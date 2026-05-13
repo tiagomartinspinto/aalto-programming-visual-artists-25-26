@@ -10,7 +10,6 @@
         --accent-2: #54d6c7;
         --accent-3: #f3c969;
         --code: #0d1117;
-        --hero-scroll: 0;
       }
 
       * { box-sizing: border-box; }
@@ -143,130 +142,6 @@
       .skip-link:focus {
         transform: translateY(0);
       }
-
-      .hero {
-        position: relative;
-        isolation: isolate;
-        overflow: clip;
-        min-height: 70vh;
-        display: grid;
-        align-items: end;
-        padding: clamp(52px, 8vw, 108px) clamp(18px, 4vw, 56px);
-        background:
-          linear-gradient(120deg, rgba(9, 11, 15, 0.18), rgba(9, 11, 15, 0.88) 68%),
-          radial-gradient(circle at 16% 18%, rgba(84, 214, 199, 0.26), transparent 32%),
-          radial-gradient(circle at 78% 22%, rgba(255, 91, 79, 0.22), transparent 28%),
-          repeating-linear-gradient(90deg, rgba(245, 240, 232, 0.08) 0 1px, transparent 1px 46px),
-          repeating-linear-gradient(0deg, rgba(245, 240, 232, 0.06) 0 1px, transparent 1px 46px),
-          #0a0d12;
-        background-position:
-          0 0,
-          0 0,
-          0 0,
-          0 0,
-          0 0,
-          0 0;
-        background-size:
-          auto,
-          auto,
-          auto,
-          46px 46px,
-          46px 46px,
-          auto;
-        animation: hero-field-drift 32s ease-in-out infinite alternate;
-      }
-
-      .hero::before,
-      .hero::after {
-        content: "";
-        position: absolute;
-        pointer-events: none;
-      }
-
-      .hero::before {
-        inset: -18% -8% auto auto;
-        width: min(54vw, 680px);
-        aspect-ratio: 1;
-        border: 1px solid rgba(84, 214, 199, 0.24);
-        opacity: 0.86;
-        transform: translate3d(0, calc(var(--hero-scroll) * 0.045px), 0);
-        translate: 0 -8px;
-        rotate: 18deg;
-        animation: hero-plate-drift 18s ease-in-out infinite alternate;
-        will-change: transform, translate, rotate, opacity;
-      }
-
-      .hero::after {
-        left: clamp(18px, 6vw, 92px);
-        bottom: -120px;
-        width: min(46vw, 560px);
-        aspect-ratio: 1;
-        border: 1px solid rgba(255, 91, 79, 0.2);
-        border-radius: 50%;
-        opacity: 0.82;
-        transform: translate3d(0, calc(var(--hero-scroll) * -0.035px), 0);
-        translate: 0 6px;
-        scale: 1;
-        animation: hero-orbit-breathe 22s ease-in-out infinite alternate;
-        will-change: transform, translate, scale, opacity;
-      }
-
-      @keyframes hero-plate-drift {
-        from {
-          opacity: 0.72;
-          translate: -8px -10px;
-          rotate: 16deg;
-        }
-
-        to {
-          opacity: 0.96;
-          translate: 10px 12px;
-          rotate: 21deg;
-        }
-      }
-
-      @keyframes hero-field-drift {
-        from {
-          background-position:
-            0 0,
-            0 0,
-            0 0,
-            0 0,
-            0 0,
-            0 0;
-        }
-
-        to {
-          background-position:
-            0 0,
-            -18px 10px,
-            16px -12px,
-            12px 0,
-            0 12px,
-            0 0;
-        }
-      }
-
-      @keyframes hero-orbit-breathe {
-        from {
-          opacity: 0.62;
-          translate: 8px 10px;
-          scale: 0.98;
-        }
-
-        to {
-          opacity: 0.9;
-          translate: -10px -4px;
-          scale: 1.04;
-        }
-      }
-
-      .hero-inner {
-        position: relative;
-        z-index: 1;
-        max-width: 980px;
-      }
-
       .eyebrow {
         margin: 0 0 12px;
         color: var(--accent-2);
@@ -835,8 +710,6 @@
           flex-direction: column;
         }
 
-        .hero { min-height: 74vh; }
-
         .slide-controls {
           width: 100%;
           border-right: 0;
@@ -875,16 +748,5 @@
       @media (prefers-reduced-motion: reduce) {
         html {
           scroll-behavior: auto;
-        }
-
-        .hero,
-        .hero::before,
-        .hero::after {
-          animation: none;
-          transform: none;
-          translate: none;
-          rotate: none;
-          scale: none;
-          will-change: auto;
         }
       }

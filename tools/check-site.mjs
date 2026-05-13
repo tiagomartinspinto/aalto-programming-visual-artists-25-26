@@ -1,9 +1,12 @@
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import path from "node:path";
+import vm from "node:vm";
 
 const root = process.cwd();
 const errors = [];
 const typoPattern = /isntru|animted|nexted|function_parame_ex|particlesperlinoise|seperate/i;
+const privateFilePattern = /(^|\/)(\.env|\.env\..+|.*\.bak|.*\.backup|.*\.tmp|.*~|private-notes?|grades?|course participant-grades?|\.DS_Store)$/i;
+const privateContentPattern = /(OPENAI_API_KEY|ANTHROPIC_API_KEY|GITHUB_TOKEN|ghp_[A-Za-z0-9_]{20,}|sk-[A-Za-z0-9_-]{20,}|\/Users\/ptiagomp\/Desktop|\/var\/folders\/)/;
 
 function walk(directory) {
   return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
@@ -92,9 +95,48 @@ function checkHtml(filePath) {
     }
   }
 
+  for (const match of html.matchAll(/<a\b([^>]*)>/gi)) {
+    const attributes = match[1];
+    if (/\btarget=["']_blank["']/i.test(attributes) && !/\brel=["'][^"']*\bnoopener\b[^"']*\bnoreferrer\b[^"']*["']/i.test(attributes)) {
+      errors.push(`${rel} opens a new tab without rel="noopener noreferrer"`);
+    }
+  }
+
   for (const match of html.matchAll(/<img\b([^>]*)>/gi)) {
     if (!/\balt=["'][^"']*["']/i.test(match[1])) errors.push(`${relative(filePath)} has an image without alt text`);
   }
+}
+
+function loadCourseData(filePath) {
+  const source = readFileSync(filePath, "utf8");
+  const context = { window: {} };
+  vm.createContext(context);
+  vm.runInContext(source, context, { filename: filePath });
+  return context.window.COURSE_DATA;
+}
+
+function checkCourseData(filePath) {
+  const data = loadCourseData(filePath);
+  const yearPath = path.dirname(filePath);
+  if (!data) {
+    errors.push(`${relative(filePath)} does not define window.COURSE_DATA`);
+    return;
+  }
+
+  for (const session of data.sessions || []) {
+    checkLocalTarget(filePath, session.href);
+    for (const link of session.links || []) checkLocalTarget(filePath, link.pdf || link.href);
+  }
+
+  for (const sketch of data.sketches || []) {
+    checkLocalTarget(filePath, sketch.page);
+    checkLocalTarget(filePath, sketch.source);
+    const sketchPath = path.join(yearPath, "web", sketch.id, "sketch.js");
+    if (!existsSync(sketchPath)) errors.push(`${relative(filePath)} lists missing sketch source: web/${sketch.id}/sketch.js`);
+  }
+
+  for (const slide of data.slides || []) checkLocalTarget(filePath, slide.pdf);
+  for (const item of data.searchExtras || []) checkLocalTarget(filePath, item.href);
 }
 
 function countDirectories(directory, predicate = () => true) {
@@ -130,10 +172,18 @@ function checkCounts() {
 
 for (const filePath of walk(root)) {
   const rel = relative(filePath);
+  if (privateFilePattern.test(rel)) {
+    errors.push(`${rel} looks like a private, temporary, or local-only file`);
+  }
   if (typoPattern.test(rel) && rel !== "years/2025-2026/FILENAME_NOTES.md") {
     errors.push(`${rel} still uses a typo-prone filename`);
   }
+  if (/\.(?:html|js|css|md|txt|pde|rb|json|yml|yaml)$/i.test(filePath)) {
+    const content = readFileSync(filePath, "utf8");
+    if (privateContentPattern.test(content)) errors.push(`${rel} contains a private token pattern or local machine path`);
+  }
   if (filePath.endsWith(".html")) checkHtml(filePath);
+  if (rel.endsWith("course-data.js")) checkCourseData(filePath);
 }
 checkCounts();
 

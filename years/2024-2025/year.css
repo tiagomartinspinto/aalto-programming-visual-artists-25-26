@@ -104,33 +104,6 @@
         outline: 3px solid var(--accent-3);
         outline-offset: 3px;
       }
-
-      .hero {
-        min-height: 64vh;
-        display: grid;
-        align-items: end;
-        padding: clamp(52px, 8vw, 108px) clamp(18px, 4vw, 56px);
-        border-bottom: 1px solid var(--line);
-        background:
-          linear-gradient(120deg, rgba(9, 11, 15, 0.06), rgba(9, 11, 15, 0.86) 70%),
-          repeating-linear-gradient(115deg, rgba(255, 122, 168, 0.12) 0 1px, transparent 1px 34px),
-          repeating-linear-gradient(25deg, rgba(125, 211, 252, 0.08) 0 1px, transparent 1px 46px),
-          #0a0d12;
-        background-size: auto, 56px 56px, 72px 72px, auto;
-        animation: hero-field 34s ease-in-out infinite alternate;
-      }
-
-      @keyframes hero-field {
-        from { background-position: 0 0, 0 0, 0 0, 0 0; }
-        to { background-position: 0 0, 42px -18px, -30px 22px, 0 0; }
-      }
-
-      .hero-inner {
-        display: grid;
-        gap: 22px;
-        width: min(1120px, 100%);
-      }
-
       .eyebrow {
         margin: 0;
         color: var(--accent);
@@ -606,12 +579,10 @@
         }
 
         nav { justify-content: flex-start; }
-        .hero { min-height: auto; }
         .slide-picker { display: none; }
         .pdf-frame { min-height: 430px; }
       }
 
       @media (prefers-reduced-motion: reduce) {
         html { scroll-behavior: auto; }
-        .hero { animation: none; }
       }

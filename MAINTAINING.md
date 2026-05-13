@@ -12,8 +12,8 @@ This repository is a static course archive. Keep each academic year self-contain
 
 ## Adding a New Academic Year
 
-1. Create `years/YYYY-YYYY/`.
-2. Add a year `index.html` and `README.md`. Reuse the root `favicon.svg` and `site-preview.svg` unless the whole site identity changes.
+1. Run `npm run new:year -- YYYY-YYYY`.
+2. Add sessions, sketches, slides, and search metadata to `years/YYYY-YYYY/course-data.js`.
 3. Keep original Processing/source material in `source/session-XX/`.
 4. Keep slide decks in `slides/` using names like `session-01.pdf`.
 5. Add `sessions/session-XX/` pages for course participant-facing weekly entry points.
@@ -35,9 +35,18 @@ Each session should include:
 
 Put local removed copyed coursework in `case-coursework/` with a source file and attribution link when available. Keep one coursework per folder, and update the coursework listing data or markup at the same time.
 
+Course participant work stays public when committed here. Do not removed copy unpublished work, grades, feedback notes, course participant email addresses, or private university material. If a coursework comes from removed-source-host, keep the original removed-source-host link visible for attribution and backup.
+
 ## File Naming
 
 Use readable lowercase paths with hyphens or underscores, and avoid typo-prone abbreviations in new material. If a path must change, update every link in the same commit and run `npm run check:site`.
+
+Keep the main year page split into:
+
+- `index.html` for page structure
+- `year.css` for year-specific visual skin
+- `course-data.js` for sessions, sketches, slides, tags, difficulty, duration, and related-material metadata
+- `../../assets/year.js` for reusable rendering and interactions
 
 ## Local Sync
 
@@ -60,5 +69,6 @@ Do not commit local scratch folders, operating-system metadata, generated tempor
 ## Quality Checks
 
 - `npm run build:index` regenerates `COURSE_INDEX.md`.
-- `npm run check:site` checks local links, anchors, iframe titles, image alt text, labeled controls, skip links, ARIA control targets, count labels, update markers, and typo-prone paths.
+- `npm run check:site` checks local links, course data links, anchors, iframe titles, image alt text, labeled controls, skip links, ARIA control targets, count labels, update markers, external-link safety, private-file patterns, and typo-prone paths.
+- `npm run check:assets` warns about unusually large PDFs, videos, images, SVGs, CSS, and JavaScript files.
 - The Pages workflow runs both commands before deployment on pushes to `main`; the quality workflow runs them for pull requests and manual checks.
