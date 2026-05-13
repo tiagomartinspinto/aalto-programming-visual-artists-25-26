@@ -194,7 +194,12 @@
   }
 
   function scrollToSection(selector) {
-    const target = document.querySelector(selector);
+    let target = null;
+    try {
+      target = document.querySelector(selector);
+    } catch {
+      return;
+    }
     if (!target) return;
     const topbarHeight = document.querySelector(".topbar")?.offsetHeight || 0;
     const top = target.getBoundingClientRect().top + window.scrollY - topbarHeight - 18;
