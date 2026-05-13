@@ -7,6 +7,7 @@ const errors = [];
 const typoPattern = /isntru|animted|nexted|function_parame_ex|particlesperlinoise|seperate/i;
 const privateFilePattern = /(^|\/)(\.env|\.env\..+|.*\.bak|.*\.backup|.*\.tmp|.*~|private-notes?|grades?|course participant-grades?|\.DS_Store)$/i;
 const privateContentPattern = /(OPENAI_API_KEY|ANTHROPIC_API_KEY|GITHUB_TOKEN|ghp_[A-Za-z0-9_]{20,}|sk-[A-Za-z0-9_-]{20,}|\/Users\/ptiagomp\/Desktop|\/var\/folders\/)/;
+const emailPattern = /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i;
 
 function walk(directory) {
   return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
@@ -90,8 +91,16 @@ function checkHtml(filePath) {
   }
 
   for (const match of html.matchAll(/<iframe\b([^>]*)>/gi)) {
-    if (!/\btitle=["'][^"']+["']/i.test(match[1]) && !match[1].includes("escapeHTML")) {
+    const attributes = match[1];
+    if (!/\btitle=["'][^"']+["']/i.test(attributes) && !attributes.includes("escapeHTML")) {
       errors.push(`${relative(filePath)} has an iframe without a title`);
+    }
+    if (!/\bloading=["']lazy["']/i.test(attributes) && !attributes.includes("escapeHTML")) {
+      errors.push(`${relative(filePath)} has an iframe without loading="lazy"`);
+    }
+    if ((/\bsrc=["'][^"']+\.pdf/i.test(attributes) || /\bclass=["'][^"']*\b(?:slides|pdf-frame)\b/i.test(attributes)) &&
+      !/\bsandbox=["'][^"']+["']/i.test(attributes)) {
+      errors.push(`${relative(filePath)} has a PDF iframe without a sandbox attribute`);
     }
   }
 
@@ -181,6 +190,9 @@ for (const filePath of walk(root)) {
   if (/\.(?:html|js|css|md|txt|pde|rb|json|yml|yaml)$/i.test(filePath)) {
     const content = readFileSync(filePath, "utf8");
     if (privateContentPattern.test(content)) errors.push(`${rel} contains a private token pattern or local machine path`);
+    if (rel.includes("/case-coursework/") && !rel.includes("/vendor/") && (content.includes("mailto:") || emailPattern.test(content))) {
+      errors.push(`${rel} contains an email address inside removed coursework material`);
+    }
   }
   if (filePath.endsWith(".html")) checkHtml(filePath);
   if (rel.endsWith("course-data.js")) checkCourseData(filePath);

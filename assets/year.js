@@ -51,7 +51,7 @@
     grid.innerHTML = data.sketches.map((sketch) => `
       <article class="web-card" data-sketch-id="${html(sketch.id)}">
         <div class="preview">
-          <iframe loading="lazy" scrolling="no" src="about:blank" data-src="${html(sketch.page)}" title="${html(sketch.title)} preview" sandbox="allow-scripts allow-same-origin" allowfullscreen></iframe>
+          <iframe loading="lazy" scrolling="no" src="about:blank" data-src="${html(sketch.page)}" title="${html(sketch.title)} preview" sandbox="allow-scripts" allowfullscreen></iframe>
         </div>
         <div class="web-card-content">
           <h3>${html(sketch.title)}</h3>

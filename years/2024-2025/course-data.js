@@ -1,3 +1,6 @@
+// Source of truth for the 2024-2025 year page. Update this file before editing
+// repeated session, sketch, slide, search, duration, difficulty, or related-link
+// markup by hand.
 window.COURSE_DATA = {
   year: "2024-2025",
   currentSession: {

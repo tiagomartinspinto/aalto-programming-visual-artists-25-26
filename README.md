@@ -17,6 +17,7 @@ Live site: [tiagomartinspinto.github.io/aalto-programming-visual-artists](https:
 - [2024-2025](years/2024-2025/)
 - [Generated course index](COURSE_INDEX.md)
 - [Architecture overview](ARCHITECTURE.md)
+- [Security and public-content guidance](SECURITY.md)
 - [Preview manifest](PREVIEW_MANIFEST.md)
 - [Changelog](CHANGELOG.md)
 - [Media inventory](MEDIA_INVENTORY.md)
@@ -39,6 +40,7 @@ When adding a new school year, create a new folder inside `years/`, add a year l
 - Start a new course folder with `npm run new:year -- YYYY-YYYY`.
 - Run `npm run build:index` after changing course material.
 - Run `npm run check` before pushing. It checks generated indexes, local links, course data links, anchors, accessibility labels, visible counts, update markers, typo-prone paths, private-file patterns, and asset-size warnings.
+- Run `npm run smoke:browser` for a browser smoke test after installing Playwright locally. Set `PVA_SITE_URL` to test GitHub Pages instead of a local server.
 - Keep local scratch files, private exports, and operating-system metadata out of the repository.
 
 ## Attribution And Licensing

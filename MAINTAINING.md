@@ -8,7 +8,8 @@ This repository is a static course archive. Keep each academic year self-contain
 2. Run `npm run build:index`.
 3. Run `npm run check:site`.
 4. Open the changed pages locally and scan the main course participant path.
-5. Commit the content and generated index together.
+5. When browser behavior changed, run `npm run smoke:browser` after installing Playwright, or manually test the same path on GitHub Pages.
+6. Commit the content and generated index together.
 
 ## Adding a New Academic Year
 

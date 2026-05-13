@@ -125,6 +125,10 @@
             <h3>Compare Later</h3>
             <p>The original Processing files remain linked from every sketch, so you can compare syntax when you are ready.</p>
           </article>
+          <article class="feature-card">
+            <h3>Privacy</h3>
+            <p>Code edits run locally in your browser and are not uploaded.</p>
+          </article>
         </div>
       </section>
 
@@ -170,7 +174,7 @@
                 <a id="slide-direct-link" href="slides/session-01.pdf" target="_blank" rel="noopener noreferrer">Open PDF if reader fails</a>
               </div>
             </div>
-            <iframe id="slide-frame" loading="lazy" class="pdf-frame" title="Session 01 slides" src="slides/session-01.pdf"></iframe>
+            <iframe id="slide-frame" loading="lazy" class="pdf-frame" title="Session 01 slides" src="slides/session-01.pdf" sandbox="allow-same-origin allow-downloads"></iframe>
           </div>
         </div>
       </section>
@@ -233,11 +237,12 @@
 
       <footer class="footer">
         <span>Programming for Visual Artists, Aalto University. Course material by Tiago Martins Pinto.</span>
-        <span>Last updated: 2026-05-04</span>
+        <span data-last-updated>Last updated: automatic</span>
       </footer>
     </main>
 
     <script src="course-data.js"></script>
     <script src="../../assets/year.js"></script>
+    <script src="../../assets/site-meta.js"></script>
   </body>
 </html>
