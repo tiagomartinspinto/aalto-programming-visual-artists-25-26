@@ -1,4 +1,6 @@
 {
+  "name": "aalto-programming-visual-artists",
+  "private": true,
   "scripts": {
     "build:index": "node tools/build-course-index.mjs",
     "new:year": "node tools/new-year.mjs",
@@ -7,5 +9,7 @@
     "smoke:browser": "node tools/smoke-test.mjs",
     "check": "npm run build:index && npm run check:site && npm run check:assets"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "playwright": "^1.60.0"
+  }
 }

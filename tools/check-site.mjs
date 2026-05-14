@@ -6,7 +6,7 @@ const root = process.cwd();
 const errors = [];
 const typoPattern = /isntru|animted|nexted|function_parame_ex|particlesperlinoise|seperate/i;
 const privateFilePattern = /(^|\/)(\.env|\.env\..+|.*\.bak|.*\.backup|.*\.tmp|.*~|private-notes?|grades?|course participant-grades?|\.DS_Store)$/i;
-const privateContentPattern = /(OPENAI_API_KEY|ANTHROPIC_API_KEY|GITHUB_TOKEN|ghp_[A-Za-z0-9_]{20,}|sk-[A-Za-z0-9_-]{20,}|\/Users\/ptiagomp\/Desktop|\/var\/folders\/)/;
+const privateContentPattern = /(\b[A-Z0-9_]*(?:API_KEY|AUTH_TOKEN|ACCESS_TOKEN|SECRET)\b|ghp_[A-Za-z0-9_]{20,}|sk-[A-Za-z0-9_-]{20,}|\/Users\/ptiagomp\/Desktop|\/var\/folders\/)/;
 const emailPattern = /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i;
 
 function walk(directory) {

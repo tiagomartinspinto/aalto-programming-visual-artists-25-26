@@ -14,6 +14,7 @@ Thumbs.db
 .cache/
 .eslintcache
 .parcel-cache/
+node_modules/
 dist/
 tmp/
 temp/
