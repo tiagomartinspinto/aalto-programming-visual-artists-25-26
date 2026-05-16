@@ -710,6 +710,11 @@
           flex-direction: column;
         }
 
+        nav {
+          justify-content: flex-start;
+          width: 100%;
+        }
+
         .slide-controls {
           width: 100%;
           border-right: 0;
@@ -742,6 +747,15 @@
 
         .slide-viewer {
           width: 100%;
+        }
+
+        .slide-viewer-bar {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .slide-actions {
+          justify-content: flex-start;
         }
       }
 

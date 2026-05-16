@@ -8,6 +8,9 @@ const typoPattern = /isntru|animted|nexted|function_parame_ex|particlesperlinois
 const privateFilePattern = /(^|\/)(\.env|\.env\..+|.*\.bak|.*\.backup|.*\.tmp|.*~|private-notes?|grades?|course participant-grades?|\.DS_Store)$/i;
 const privateContentPattern = /(\b[A-Z0-9_]*(?:API_KEY|AUTH_TOKEN|ACCESS_TOKEN|SECRET)\b|ghp_[A-Za-z0-9_]{20,}|sk-[A-Za-z0-9_-]{20,}|\/Users\/ptiagomp\/Desktop|\/var\/folders\/)/;
 const emailPattern = /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i;
+const cspPattern = /<meta\b[^>]*http-equiv=["']Content-Security-Policy["'][^>]*>/i;
+const privacyNote = "Code edits run locally in your browser and are not uploaded.";
+const publicRepoWarning = "This repository is public.";
 
 function walk(directory) {
   return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
@@ -98,9 +101,12 @@ function checkHtml(filePath) {
     if (!/\bloading=["']lazy["']/i.test(attributes) && !attributes.includes("escapeHTML")) {
       errors.push(`${relative(filePath)} has an iframe without loading="lazy"`);
     }
+    if (!/\bsandbox=["'][^"']+["']/i.test(attributes) && !attributes.includes("escapeHTML")) {
+      errors.push(`${relative(filePath)} has an iframe without a sandbox attribute`);
+    }
     if ((/\bsrc=["'][^"']+\.pdf/i.test(attributes) || /\bclass=["'][^"']*\b(?:slides|pdf-frame)\b/i.test(attributes)) &&
-      !/\bsandbox=["'][^"']+["']/i.test(attributes)) {
-      errors.push(`${relative(filePath)} has a PDF iframe without a sandbox attribute`);
+      !/\bsandbox=["'][^"']*allow-same-origin[^"']*allow-downloads[^"']*["']/i.test(attributes)) {
+      errors.push(`${relative(filePath)} has a PDF iframe without the expected PDF sandbox permissions`);
     }
   }
 
@@ -118,10 +124,25 @@ function checkHtml(filePath) {
 
 function loadCourseData(filePath) {
   const source = readFileSync(filePath, "utf8");
+  if (!source.includes("Source of truth")) {
+    errors.push(`${relative(filePath)} is missing the source-of-truth maintenance comment`);
+  }
   const context = { window: {} };
   vm.createContext(context);
   vm.runInContext(source, context, { filename: filePath });
   return context.window.COURSE_DATA;
+}
+
+function loadCourse participantCoursework(filePath) {
+  try {
+    const source = readFileSync(filePath, "utf8");
+    const context = { window: {} };
+    vm.createContext(context);
+    vm.runInContext(source, context, { filename: filePath });
+    return context.window.REMOVED_COURSEWORK || context.window.REMOVED_COURSEWORK_2024 || [];
+  } catch {
+    return [];
+  }
 }
 
 function checkCourseData(filePath) {
@@ -165,7 +186,9 @@ function checkCounts() {
     if (!isDirectory(yearPath)) continue;
     const sessions = countDirectories(path.join(yearPath, "sessions"), (name) => name.startsWith("session-"));
     const sketches = countDirectories(path.join(yearPath, "web"), (name) => name !== "vendor");
-    const coursework = countDirectories(path.join(yearPath, "case-coursework"), (name) => name !== "vendor");
+    const course participantDataPath = path.join(yearPath, "case-coursework", "coursework.js");
+    const course participantCoursework = existsSync(course participantDataPath) ? loadCourse participantCoursework(course participantDataPath) : [];
+    const coursework = course participantCoursework.length || countDirectories(path.join(yearPath, "case-coursework"), (name) => /^(coursework|assignment)-/i.test(name));
     const pdfs = countFiles(path.join(yearPath, "slides"), ".pdf");
     for (const expected of [`${sessions} sessions`, `${coursework} coursework`]) {
       if (!rootIndex.includes(expected)) errors.push(`index.html is missing or has stale count label "${expected}" for ${year}`);
@@ -173,9 +196,36 @@ function checkCounts() {
     const yearIndex = readFileSync(path.join(yearPath, "index.html"), "utf8");
     if (!yearIndex.includes("Last updated:")) errors.push(`years/${year}/index.html is missing a last-updated marker`);
     if (pdfs > 0 && !yearIndex.includes("PDF")) errors.push(`years/${year}/index.html does not mention PDF slide material`);
+    if (!cspPattern.test(yearIndex)) errors.push(`years/${year}/index.html is missing a Content-Security-Policy meta tag`);
+
+    const caseCourseworkIndex = path.join(yearPath, "case-coursework", "index.html");
+    if (existsSync(caseCourseworkIndex)) {
+      const caseHtml = readFileSync(caseCourseworkIndex, "utf8");
+      if (!cspPattern.test(caseHtml)) errors.push(`years/${year}/case-coursework/index.html is missing a Content-Security-Policy meta tag`);
+      if (coursework > 0 && !caseHtml.includes(`${coursework} course coursework`)) {
+        errors.push(`years/${year}/case-coursework/index.html has a stale removed-coursework count; expected "${coursework} course coursework"`);
+      }
+    }
+
+    const labPath = path.join(yearPath, "web", "lab.html");
+    if (existsSync(labPath)) {
+      if (!yearIndex.includes(privacyNote)) errors.push(`years/${year}/index.html is missing the Lab privacy note`);
+      const labHtml = readFileSync(labPath, "utf8");
+      if (!cspPattern.test(labHtml)) errors.push(`years/${year}/web/lab.html is missing a Content-Security-Policy meta tag`);
+      if (!labHtml.includes(privacyNote)) errors.push(`years/${year}/web/lab.html is missing the browser-local privacy note`);
+    }
   }
-  if (!readFileSync(path.join(root, "index.html"), "utf8").includes("Last updated:")) {
+  const homeHtml = readFileSync(path.join(root, "index.html"), "utf8");
+  if (!homeHtml.includes("Last updated:")) {
     errors.push("index.html is missing a last-updated marker");
+  }
+  if (!cspPattern.test(homeHtml)) errors.push("index.html is missing a Content-Security-Policy meta tag");
+  if (!readFileSync(path.join(root, "README.md"), "utf8").includes(publicRepoWarning)) {
+    errors.push("README.md is missing the public repository warning");
+  }
+  if (!existsSync(path.join(root, "SECURITY.md"))) errors.push("SECURITY.md is missing");
+  if (!readFileSync(path.join(root, "assets", "year.js"), "utf8").includes('sandbox="allow-scripts"')) {
+    errors.push("assets/year.js is missing sandboxed sketch preview iframes");
   }
 }
 

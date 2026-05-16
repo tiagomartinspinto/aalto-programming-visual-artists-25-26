@@ -1,13 +1,13 @@
 # Course Index
 
-Generated from the repository structure. Run `npm run build:index` after adding or renaming course material.
+Generated from the repository structure and year data files. Run `npm run build:index` after adding or renaming course material.
 
 ## Years
 
 | Year | Sessions | Web sketches | Slide decks | Removed coursework |
 | --- | ---: | ---: | ---: | ---: |
 | [2024-2025](years/2024-2025/) | 8 | 9 | 8 | 30 |
-| [2025-2026](years/2025-2026/) | 6 | 10 | 6 | 23 |
+| [2025-2026](years/2025-2026/) | 6 | 10 | 6 | 22 |
 
 ## 2024-2025
 

@@ -339,7 +339,10 @@
           align-items: flex-start;
         }
 
-        nav { justify-content: flex-start; }
+        nav {
+          justify-content: flex-start;
+          width: 100%;
+        }
       }
 
       @media (prefers-reduced-motion: reduce) {

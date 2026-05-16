@@ -1,5 +1,6 @@
 import { readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import path from "node:path";
+import vm from "node:vm";
 
 const root = process.cwd();
 const yearsRoot = path.join(root, "years");
@@ -39,9 +40,25 @@ function readTitle(filePath, fallback) {
   }
 }
 
+function readCourse participantCoursework(yearPath) {
+  const dataPath = path.join(yearPath, "case-coursework", "coursework.js");
+  try {
+    const context = { window: {} };
+    vm.createContext(context);
+    vm.runInContext(readFileSync(dataPath, "utf8"), context, { filename: dataPath });
+    return context.window.REMOVED_COURSEWORK || context.window.REMOVED_COURSEWORK_2024 || [];
+  } catch {
+    return [];
+  }
+}
+
 function countCaseCoursework(yearPath) {
   const courseworkPath = path.join(yearPath, "case-coursework");
-  return listDirectories(courseworkPath).filter((name) => name !== "vendor" && existsDirectory(path.join(courseworkPath, name))).length;
+  const listedCoursework = readCourse participantCoursework(yearPath);
+  if (listedCoursework.length) return listedCoursework.length;
+  return listDirectories(courseworkPath)
+    .filter((name) => /^(coursework|assignment)-/i.test(name) && existsDirectory(path.join(courseworkPath, name)))
+    .length;
 }
 
 function webSketches(yearPath) {
@@ -53,7 +70,7 @@ const years = listDirectories(yearsRoot);
 const lines = [
   "# Course Index",
   "",
-  "Generated from the repository structure. Run `npm run build:index` after adding or renaming course material.",
+  "Generated from the repository structure and year data files. Run `npm run build:index` after adding or renaming course material.",
   "",
   "## Years",
   "",

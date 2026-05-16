@@ -578,7 +578,20 @@
           align-items: flex-start;
         }
 
-        nav { justify-content: flex-start; }
+        nav {
+          justify-content: flex-start;
+          width: 100%;
+        }
+
+        .slide-viewer-bar {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .slide-actions {
+          justify-content: flex-start;
+        }
+
         .slide-picker { display: none; }
         .pdf-frame { min-height: 430px; }
       }

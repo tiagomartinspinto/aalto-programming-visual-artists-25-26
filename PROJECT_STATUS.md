@@ -2,109 +2,87 @@
 
 ## Just Completed
 
-- Published the embed/security pass to `main`.
-- Added sandboxing and lazy loading for sketch, removed-coursework, and PDF iframes.
-- Removed same-origin permission from runnable sketch/removed-coursework preview iframes; PDF iframes keep `allow-same-origin allow-downloads` so the browser PDF reader can work.
-- Added the visible Lab privacy note: "Code edits run locally in your browser and are not uploaded."
-- Added automatic `Last updated` text through `assets/site-meta.js`.
-- Fixed the 2025-2026 removed coursework count mismatch from 22 to 23.
-- Added `SECURITY.md` with public-repository handling guidance.
-- Added a browser smoke test script and installed the Playwright dev dependency so the script is runnable.
-- Generalized the repository private-token scan so it no longer names a vendor-specific key.
-- Added a guard for malformed anchor URLs so course-page scrolling fails quietly instead of throwing.
-
-## Latest Commit Hash
-
-- Latest implementation commit before this status note: `6225bbb6f6f861ae36171af4c3b9e4773e656ac2`.
-- The final status-note commit hash is shown in the handoff response. A commit cannot contain its own final hash without changing that hash.
+- Fixed the 2025-2026 removed-coursework count to 22 across the root page, 2025-2026 year page, generated course index, and coursework listing checks.
+- Updated the course index generator so it reads `case-coursework/coursework.js` when that coursework listing data exists, instead of counting support folders as removed coursework.
+- Strengthened `npm run check:site` with regression checks for CSP tags, iframe sandboxing, PDF iframe permissions, source-of-truth comments, Lab privacy notes, public-repository guidance, and removed-coursework counts.
+- Added CSP tags to the removed-coursework galleries and Sketch Lab pages.
+- Clarified the `course-data.js` maintenance comments for both years.
+- Improved the future-year generator so a new year gets its own `year.css`, a blank data source, required page/security scaffolding, and a clearer next-step message.
+- Documented the future-year workflow and count-source expectations in `README.md` and `MAINTAINING.md`.
+- Added small mobile polish for the directory-style navigation and PDF reader controls without changing the visual identity.
 
 ## Files Changed
 
-Current status/checking pass:
-
-- `.gitignore`
-- `package.json`
-- `package-lock.json`
-- `tools/check-site.mjs`
-- `PROJECT_STATUS.md`
-
-Recent embed/security implementation:
-
+- `COURSE_INDEX.md`
 - `MAINTAINING.md`
+- `PROJECT_STATUS.md`
 - `README.md`
-- `SECURITY.md`
-- `assets/site-meta.js`
-- `assets/year.js`
+- `assets/home.css`
 - `index.html`
-- `package.json`
+- `tools/build-course-index.mjs`
 - `tools/check-site.mjs`
 - `tools/new-year.mjs`
-- `tools/smoke-test.mjs`
 - `years/2024-2025/case-coursework/index.html`
 - `years/2024-2025/course-data.js`
-- `years/2024-2025/index.html`
-- `years/2024-2025/sessions/session-01/index.html`
-- `years/2024-2025/sessions/session-02/index.html`
-- `years/2024-2025/sessions/session-03/index.html`
-- `years/2024-2025/sessions/session-04/index.html`
-- `years/2024-2025/sessions/session-05/index.html`
-- `years/2024-2025/sessions/session-06/index.html`
-- `years/2024-2025/sessions/session-07/index.html`
-- `years/2024-2025/sessions/session-08/index.html`
 - `years/2024-2025/web/lab.html`
+- `years/2024-2025/year.css`
 - `years/2025-2026/case-coursework/index.html`
 - `years/2025-2026/course-data.js`
 - `years/2025-2026/index.html`
-- `years/2025-2026/sessions/session-01/index.html`
-- `years/2025-2026/sessions/session-02/index.html`
-- `years/2025-2026/sessions/session-03/index.html`
-- `years/2025-2026/sessions/session-04/index.html`
-- `years/2025-2026/sessions/session-05/index.html`
-- `years/2025-2026/sessions/session-06/index.html`
 - `years/2025-2026/web/lab.html`
+- `years/2025-2026/year.css`
 
 ## Checks Run
 
+- `npm run build:index` passed.
 - `npm run check` passed.
-- `npm run smoke:browser` passed after installing Chromium with `npx playwright install chromium`.
+- `npm run smoke:browser` passed.
+- `git diff --check` passed.
 - `npm audit` passed with 0 vulnerabilities.
+- Direct p5.js canvas sweep passed: 19 of 19 local sketch pages created a canvas.
 
-## Manual Live Tests Performed
+## Manual Browser Tests Performed
 
-Against GitHub Pages:
+Against the local server at `http://127.0.0.1:8123`:
 
-- Homepage loaded with one main heading.
-- 2025-2026 page loaded with 6 session cards, 10 sketch cards, `course-data.js`, `assets/year.js`, `assets/site-meta.js`, and a CSP meta tag.
-- p5 sketch previews loaded into 10 sandboxed, lazy iframes; the first two preview sources resolved to `web/face-exercise/index.html` and `web/mouse-shapes/index.html`.
-- Course search found sketch, session, slide, and removed-coursework results.
-- PDF slides opened in the embedded reader with `loading="lazy"` and `sandbox="allow-same-origin allow-downloads"`.
-- Sketch Lab opened from the bouncing-ball sketch, accepted edited code, and produced a running canvas after pressing Run.
-- Direct p5 sketch sweep passed: 19 of 19 sketch pages created a canvas.
+- Homepage loaded, used the dark theme color, and showed the corrected 22-coursework count.
+- 2025-2026 page loaded with CSP, `course-data.js`, `assets/year.js`, the Lab privacy note, 6 session cards, and 10 sketch cards.
+- Sketch preview iframes were lazy-loaded and sandboxed with `allow-scripts`.
+- Course search found sketches, sessions, slide entries, and removed-coursework entries.
+- PDF reader iframe existed with `loading="lazy"` and `sandbox="allow-same-origin allow-downloads"`.
+- Sketch Lab loaded with CSP, showed the privacy note, accepted edited code, and ran it in a canvas.
+- Course participant coursework listing loaded with the corrected 22-coursework count, CSP, a lazy sandboxed viewer iframe, and working search.
+- Mobile-width check kept the directory navigation and course search visible.
 
 ## Requested Tooling-Name Scan
 
-- Tracked source/docs were scanned for the requested assistant/editor product names and generic assistant-tooling phrases.
-- No direct public references to those products remain in tracked source/docs.
-- Remaining matches for the ambiguous pointer-related word are actual pointer/canvas usage in CSS, sketch code, course instructions, and vendored Processing/p5 code; these are not editor/tooling references.
+- Tracked files were scanned for the requested assistant/editor product names and related tooling phrases.
+- No direct product/tooling references were found.
+- The ambiguous mouse-pointer term appears only in ordinary CSS, sketch-code, and course-instruction contexts, not as an editor/tool reference.
 
 ## Remaining Tasks
 
-- Decide whether GitHub Actions should install Playwright browsers and run `npm run smoke:browser`, or keep that as a local/manual smoke test.
-- Add a future-year workflow that copies the current shared structure and updates `course-data.js` first.
-- Keep removed-coursework attribution and public-sharing permissions reviewed as more years are added.
-- Add more metadata to removed coursework if the coursework listing needs filtering by concept, technique, or difficulty.
-- Consider PDF compression if repository size becomes a problem.
+- After pushing, wait for GitHub Pages deployment and repeat the main course participant path on the live site.
+- For future years, add real sessions, slides, sketches, and removed-coursework data before linking the year publicly.
+- Keep reviewing removed copyed removed coursework for attribution, publishing permission, and absence of private data before each push.
+- Consider adding the browser smoke test to CI only if the workflow installs browser binaries reliably.
+- Consider PDF compression later if repository size becomes a problem.
 
 ## Known Issues
 
-- Sandboxed preview iframes intentionally do not grant same-origin access, so parent-page tests cannot inspect their internal canvases directly. The practical verification is the preview iframe source plus direct sketch-page canvas checks.
-- Playwright browser binaries are not committed. A fresh machine must run `npm install` and then `npx playwright install chromium` before `npm run smoke:browser`.
-- The status file records the latest implementation commit before the status commit; the final status commit hash must be read from Git or the handoff response.
+- This status file cannot contain the final commit's own hash; writing that hash would change the file and therefore change the hash. The exact final commit hash is shown in the handoff response.
+- PDF iframes intentionally keep `allow-same-origin allow-downloads` so browser PDF readers and downloads work. Sketch and removed-coursework iframes remain more restricted with `allow-scripts`.
+- Playwright browser binaries are not committed. A fresh machine may need `npm install` and `npx playwright install chromium` before `npm run smoke:browser`.
+- GitHub Pages may take a short time to show the pushed commit after deployment starts.
 
 ## Manual Tests To Do Next
 
-- Open the GitHub Pages site in a normal browser and check the visual appearance of the first viewport on desktop and mobile.
-- Click several top navigation anchors and confirm the animated scroll feels right.
-- Open the removed coursework coursework listing and try a few filters.
-- Open one PDF deck in the reader, then use Previous deck and Next deck.
-- Edit a sketch in the Lab, run it, then reload to confirm the edit was not uploaded or persisted unexpectedly.
+- Open the GitHub Pages homepage after deployment and check the first viewport on desktop and mobile.
+- Open the 2025-2026 page, run a sketch preview, use search, and open the PDF reader.
+- Open the Sketch Lab, edit a small line of code, and run it.
+- Open the course participant coursework listing, search for a course participant, run a coursework in the viewer, and open source.
+
+## Latest Commit Hash
+
+- Latest commit before this status update: `1a875b6448b8d90489b3f8a0b43c0b867fab2daa`.
+- Final pushed commit hash: shown in the handoff response.

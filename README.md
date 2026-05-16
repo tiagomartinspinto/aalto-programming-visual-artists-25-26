@@ -32,12 +32,12 @@ years/
   2024-2025/
 ```
 
-When adding a new school year, create a new folder inside `years/`, add a year landing page, and link it from the root `index.html`.
+When adding a new school year, use the generator to create the folder scaffold, then add only the real course content and link it from the root `index.html`.
 
 ## Maintenance
 
 - Read [MAINTAINING.md](MAINTAINING.md) before adding a new year, session, sketch, or removed coursework.
-- Start a new course folder with `npm run new:year -- YYYY-YYYY`.
+- Start a new course folder with `npm run new:year -- YYYY-YYYY`; it creates the year page, stylesheet, data file, and content folders without copying old session metadata.
 - Run `npm run build:index` after changing course material.
 - Run `npm run check` before pushing. It checks generated indexes, local links, course data links, anchors, accessibility labels, visible counts, update markers, typo-prone paths, private-file patterns, and asset-size warnings.
 - Run `npm run smoke:browser` for a browser smoke test after installing Playwright locally. Set `PVA_SITE_URL` to test GitHub Pages instead of a local server.

@@ -15,12 +15,15 @@ This repository is a static course archive. Keep each academic year self-contain
 
 1. Run `npm run new:year -- YYYY-YYYY`.
 2. Add sessions, sketches, slides, and search metadata to `years/YYYY-YYYY/course-data.js`.
-3. Keep original Processing/source material in `source/session-XX/`.
-4. Keep slide decks in `slides/` using names like `session-01.pdf`.
-5. Add `sessions/session-XX/` pages for course participant-facing weekly entry points.
-6. Add browser sketches under `web/` only when they are useful companions to the Processing source.
-7. Link the new year from the root `index.html` and `README.md`.
-8. Run the checks.
+3. Adjust `years/YYYY-YYYY/year.css` only for the new year's palette and local path label.
+4. Keep original Processing/source material in `source/session-XX/`.
+5. Keep slide decks in `slides/` using names like `session-01.pdf`.
+6. Add `sessions/session-XX/` pages for course participant-facing weekly entry points.
+7. Add browser sketches under `web/` only when they are useful companions to the Processing source.
+8. Link the new year from the root `index.html` and `README.md`.
+9. Run `npm run build:index` and `npm run check`.
+
+The generator creates a blank year landing page, `course-data.js`, `year.css`, and the expected content folders. It does not invent sessions, assignment text, removed-coursework data, or root-page links; add those deliberately when the year is ready to publish.
 
 ## Adding a Session
 
@@ -37,6 +40,8 @@ Each session should include:
 Put local removed copyed coursework in `case-coursework/` with a source file and attribution link when available. Keep one coursework per folder, and update the coursework listing data or markup at the same time.
 
 Course participant work stays public when committed here. Do not removed copy unpublished work, grades, feedback notes, course participant email addresses, or private university material. If a coursework comes from removed-source-host, keep the original removed-source-host link visible for attribution and backup.
+
+Use the coursework listing data file as the count source when it exists. `npm run build:index` and `npm run check:site` both read `case-coursework/coursework.js`, so support folders such as source-code archives do not inflate removed-coursework counts.
 
 ## File Naming
 
@@ -70,6 +75,6 @@ Do not commit local scratch folders, operating-system metadata, generated tempor
 ## Quality Checks
 
 - `npm run build:index` regenerates `COURSE_INDEX.md`.
-- `npm run check:site` checks local links, course data links, anchors, iframe titles, image alt text, labeled controls, skip links, ARIA control targets, count labels, update markers, external-link safety, private-file patterns, and typo-prone paths.
+- `npm run check:site` checks local links, course data links, anchors, iframe titles, iframe sandboxing, PDF iframe permissions, image alt text, labeled controls, skip links, ARIA control targets, count labels, update markers, CSP tags, required privacy/security notes, external-link safety, private-file patterns, and typo-prone paths.
 - `npm run check:assets` warns about unusually large PDFs, videos, images, SVGs, CSS, and JavaScript files.
 - The Pages workflow runs both commands before deployment on pushes to `main`; the quality workflow runs them for pull requests and manual checks.
