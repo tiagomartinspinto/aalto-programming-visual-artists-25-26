@@ -24,7 +24,7 @@ The course pages use live web sketches as previews. Use this manifest when expor
 | Face Exercise | [Open](years/2025-2026/web/face-exercise/) | `years/2025-2026/preview-assets/face-exercise.png` | A face drawn with shapes and reusable drawing code. |
 | Generative Grid | [Open](years/2025-2026/web/generative-grid/) | `years/2025-2026/preview-assets/generative-grid.png` | A grid-based generative composition using noise and rotation. |
 | Hover Grid | [Open](years/2025-2026/web/hover-grid/) | `years/2025-2026/preview-assets/hover-grid.gif` | A grid that responds to the pointer with conditional logic. |
-| Mouse Shapes | [Open](years/2025-2026/web/mouse-shapes/) | `years/2025-2026/preview-assets/mouse-shapes.gif` | Mouse-driven removed copyed shapes and mapped color. |
+| Mouse Shapes | [Open](years/2025-2026/web/mouse-shapes/) | `years/2025-2026/preview-assets/mouse-shapes.gif` | Mouse-driven opposite-position shapes and mapped color. |
 | Particles Follow | [Open](years/2025-2026/web/particles-follow/) | `years/2025-2026/preview-assets/particles-follow.gif` | Particles emitted near the pointer with fading behavior. |
 | Particles with Noise | [Open](years/2025-2026/web/particles-noise/) | `years/2025-2026/preview-assets/particles-noise.gif` | A particle system moving through a Perlin-noise field. |
 | Shapes Function | [Open](years/2025-2026/web/shapes-function/) | `years/2025-2026/preview-assets/shapes-function.png` | Reusable abstract shape functions with randomized parameters. |

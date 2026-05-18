@@ -49,13 +49,13 @@ function draw() {
   translate(width / 2, height / 2);
   scale(scaleAmt);
   
-  // Draw the slice in a circular pattern with a removed copying effect
+  // Draw the slice in a circular pattern with a reflected effect
   for (let k = 0; k <= totalSlices; k++) {
     push();
     // Rotate each slice; note that the angle is computed relative to half the number of slices
     rotate(k * radians(360 / (totalSlices / 2)));
     image(imgSlice, 0, 0);
-    scale(-1.0, 1.0); // Removed copy horizontally
+    scale(-1.0, 1.0); // Reflect horizontally
     image(imgSlice, 0, 0);
     pop();
   }

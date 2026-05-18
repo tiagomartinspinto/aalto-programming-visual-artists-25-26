@@ -122,8 +122,8 @@ window.COURSE_DATA = {
       session: "Session 02",
       page: "web/mouse-shapes/index.html",
       source: "source/session-02/mouseshapes/mouseshapes.pde",
-      description: "Move the pointer to control a circle, a removed copyed square, and the background color.",
-      try: "swap the removed copyed movement, change the color mappings, or alter shape sizes.",
+      description: "Move the pointer to control a circle, an opposite-position square, and the background color.",
+      try: "swap the opposite movement, change the color mappings, or alter shape sizes.",
       tags: ["mouseX", "map()", "interaction"],
       difficulty: "intro",
       related: ["hover-grid", "bouncing-ball"],
@@ -233,9 +233,5 @@ window.COURSE_DATA = {
     { kicker: "Session 05", title: "Session 05 - Functions, parameters, and reuse", pdf: "slides/session-05.pdf", tags: ["functions", "recursion"] },
     { kicker: "Session 06", title: "Session 06 - Arrays, objects, and particles", pdf: "slides/session-06.pdf", tags: ["arrays", "particles"] },
   ],
-  searchExtras: [
-    { type: "coursework", title: "Creative Coursework 1", href: "#assignments", description: "Interactive sketch using mouse position, color, and a custom function.", keywords: "coursework 1 interaction mouse color function project" },
-    { type: "coursework", title: "Creative Coursework 2", href: "#assignments", description: "Generative composition using loops, randomness or noise.", keywords: "coursework 2 generative loops random noise project" },
-    { type: "coursework", title: "Removed coursework Coursework listing", href: "case-coursework/", description: "Coursework 1 and Coursework 2 examples from course participants.", keywords: "removed coursework coursework listing peer reference removed-source-host" },
-  ],
+  searchExtras: [],
 };

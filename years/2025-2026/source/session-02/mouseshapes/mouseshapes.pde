@@ -1,4 +1,4 @@
-// Session 2 template: follow mouse + inverted shape + dynamic background
+// Session 2 template: follow mouse + opposite shape + dynamic background
 
 float circleX, circleY;
 float squareX, squareY;
@@ -22,7 +22,7 @@ void draw() {
   circleX = mouseX;
   circleY = mouseY;
 
-  // Inverted movement (removed copyed around center)
+  // Opposite movement around center
   squareX = width  - mouseX;
   squareY = height - mouseY;
 

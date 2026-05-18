@@ -5,7 +5,7 @@ import vm from "node:vm";
 const root = process.cwd();
 const errors = [];
 const typoPattern = /isntru|animted|nexted|function_parame_ex|particlesperlinoise|seperate/i;
-const privateFilePattern = /(^|\/)(\.env|\.env\..+|.*\.bak|.*\.backup|.*\.tmp|.*~|private-notes?|grades?|course participant-grades?|\.DS_Store)$/i;
+const privateFilePattern = /(^|\/)(\.env|\.env\..+|.*\.bak|.*\.backup|.*\.tmp|.*~|private-notes?|grades?|\.DS_Store)$/i;
 const privateContentPattern = /(\b[A-Z0-9_]*(?:API_KEY|AUTH_TOKEN|ACCESS_TOKEN|SECRET)\b|ghp_[A-Za-z0-9_]{20,}|sk-[A-Za-z0-9_-]{20,}|\/Users\/ptiagomp\/Desktop|\/var\/folders\/)/;
 const emailPattern = /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i;
 const cspPattern = /<meta\b[^>]*http-equiv=["']Content-Security-Policy["'][^>]*>/i;
@@ -64,7 +64,7 @@ function checkHtml(filePath) {
 
   const requiresSkipLink = rel === "index.html" ||
     rel === "404.html" ||
-    /^years\/\d{4}-\d{4}\/(?:index\.html|case-coursework\/index\.html|web\/lab\.html)$/.test(rel);
+    /^years\/\d{4}-\d{4}\/(?:index\.html|web\/lab\.html)$/.test(rel);
   if (requiresSkipLink) {
     const skipLink = [...html.matchAll(/<a\b([^>]*)>/gi)].find((match) => {
       const attributes = match[1];
@@ -133,18 +133,6 @@ function loadCourseData(filePath) {
   return context.window.COURSE_DATA;
 }
 
-function loadCourse participantCoursework(filePath) {
-  try {
-    const source = readFileSync(filePath, "utf8");
-    const context = { window: {} };
-    vm.createContext(context);
-    vm.runInContext(source, context, { filename: filePath });
-    return context.window.REMOVED_COURSEWORK || context.window.REMOVED_COURSEWORK_2024 || [];
-  } catch {
-    return [];
-  }
-}
-
 function checkCourseData(filePath) {
   const data = loadCourseData(filePath);
   const yearPath = path.dirname(filePath);
@@ -185,27 +173,14 @@ function checkCounts() {
     const yearPath = path.join(root, "years", year);
     if (!isDirectory(yearPath)) continue;
     const sessions = countDirectories(path.join(yearPath, "sessions"), (name) => name.startsWith("session-"));
-    const sketches = countDirectories(path.join(yearPath, "web"), (name) => name !== "vendor");
-    const course participantDataPath = path.join(yearPath, "case-coursework", "coursework.js");
-    const course participantCoursework = existsSync(course participantDataPath) ? loadCourse participantCoursework(course participantDataPath) : [];
-    const coursework = course participantCoursework.length || countDirectories(path.join(yearPath, "case-coursework"), (name) => /^(coursework|assignment)-/i.test(name));
     const pdfs = countFiles(path.join(yearPath, "slides"), ".pdf");
-    for (const expected of [`${sessions} sessions`, `${coursework} coursework`]) {
+    for (const expected of [`${sessions} sessions`]) {
       if (!rootIndex.includes(expected)) errors.push(`index.html is missing or has stale count label "${expected}" for ${year}`);
     }
     const yearIndex = readFileSync(path.join(yearPath, "index.html"), "utf8");
     if (!yearIndex.includes("Last updated:")) errors.push(`years/${year}/index.html is missing a last-updated marker`);
     if (pdfs > 0 && !yearIndex.includes("PDF")) errors.push(`years/${year}/index.html does not mention PDF slide material`);
     if (!cspPattern.test(yearIndex)) errors.push(`years/${year}/index.html is missing a Content-Security-Policy meta tag`);
-
-    const caseCourseworkIndex = path.join(yearPath, "case-coursework", "index.html");
-    if (existsSync(caseCourseworkIndex)) {
-      const caseHtml = readFileSync(caseCourseworkIndex, "utf8");
-      if (!cspPattern.test(caseHtml)) errors.push(`years/${year}/case-coursework/index.html is missing a Content-Security-Policy meta tag`);
-      if (coursework > 0 && !caseHtml.includes(`${coursework} course coursework`)) {
-        errors.push(`years/${year}/case-coursework/index.html has a stale removed-coursework count; expected "${coursework} course coursework"`);
-      }
-    }
 
     const labPath = path.join(yearPath, "web", "lab.html");
     if (existsSync(labPath)) {
@@ -240,9 +215,6 @@ for (const filePath of walk(root)) {
   if (/\.(?:html|js|css|md|txt|pde|rb|json|yml|yaml)$/i.test(filePath)) {
     const content = readFileSync(filePath, "utf8");
     if (privateContentPattern.test(content)) errors.push(`${rel} contains a private token pattern or local machine path`);
-    if (rel.includes("/case-coursework/") && !rel.includes("/vendor/") && (content.includes("mailto:") || emailPattern.test(content))) {
-      errors.push(`${rel} contains an email address inside removed coursework material`);
-    }
   }
   if (filePath.endsWith(".html")) checkHtml(filePath);
   if (rel.endsWith("course-data.js")) checkCourseData(filePath);

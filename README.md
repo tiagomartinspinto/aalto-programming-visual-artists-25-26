@@ -5,9 +5,9 @@
 
 Aalto University course materials maintained by Tiago Martins Pinto.
 
-This repository is organized by school year so course participants can find sessions, sketches, slides, examples, and course participant work in one course home.
+This repository is organized by school year so course readers can find sessions, sketches, slides, and examples in one course home.
 
-**Public repository warning:** This repository is public. Do not commit grades, unpublished course participant work, personal data, or internal university material. GitHub Pages exposes all committed site content publicly.
+**Public repository warning:** This repository is public. Do not commit grades, unpublished third-party work, personal data, or internal university material. GitHub Pages exposes all committed site content publicly.
 
 Live site: [tiagomartinspinto.github.io/aalto-programming-visual-artists](https://tiagomartinspinto.github.io/aalto-programming-visual-artists/)
 
@@ -36,7 +36,7 @@ When adding a new school year, use the generator to create the folder scaffold, 
 
 ## Maintenance
 
-- Read [MAINTAINING.md](MAINTAINING.md) before adding a new year, session, sketch, or removed coursework.
+- Read [MAINTAINING.md](MAINTAINING.md) before adding a new year, session, or sketch.
 - Start a new course folder with `npm run new:year -- YYYY-YYYY`; it creates the year page, stylesheet, data file, and content folders without copying old session metadata.
 - Run `npm run build:index` after changing course material.
 - Run `npm run check` before pushing. It checks generated indexes, local links, course data links, anchors, accessibility labels, visible counts, update markers, typo-prone paths, private-file patterns, and asset-size warnings.
@@ -45,7 +45,7 @@ When adding a new school year, use the generator to create the folder scaffold, 
 
 ## Attribution And Licensing
 
-Removed coursework removed copyed from removed-source-host remain course participant work and should keep local source files plus original removed-source-host links for attribution. Reused examples and teaching libraries should stay attributed in the relevant page, source folder, or maintenance notes. Prefer local copies of teaching libraries when they are needed for a stable classroom experience.
+Reused examples and teaching libraries should stay attributed in the relevant page, source folder, or maintenance notes. Prefer local copies of teaching libraries when they are needed for a stable classroom experience.
 
 ## Publishing
 

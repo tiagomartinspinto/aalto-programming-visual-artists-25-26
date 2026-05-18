@@ -14,7 +14,5 @@ Aalto University course materials for Programming for Visual Artists.
 - [Session 06](source/session-06/)
 - [Session 07](source/session-07/)
 - [Session 08](source/session-08/)
-- [Removed coursework coursework listing](case-coursework/)
-- [Original removed-source-host curation](https://removed-source-host.org/curation/removed)
 
 Teacher: Tiago Martins Pinto

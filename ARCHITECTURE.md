@@ -12,7 +12,6 @@ flowchart TD
   Data --> Slides["slides/session-XX.pdf"]
   Data --> Sketches["web/<sketch>/"]
   Data --> Source["source/session-XX/"]
-  Year --> Coursework listing["case-coursework/"]
   Checks["tools/check-site.mjs<br>tools/check-assets.mjs"] --> Data
   Checks --> Year
 ```

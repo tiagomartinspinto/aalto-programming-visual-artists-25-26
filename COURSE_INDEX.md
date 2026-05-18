@@ -4,15 +4,14 @@ Generated from the repository structure and year data files. Run `npm run build:
 
 ## Years
 
-| Year | Sessions | Web sketches | Slide decks | Removed coursework |
-| --- | ---: | ---: | ---: | ---: |
-| [2024-2025](years/2024-2025/) | 8 | 9 | 8 | 30 |
-| [2025-2026](years/2025-2026/) | 6 | 10 | 6 | 22 |
+| Year | Sessions | Web sketches | Slide decks |
+| --- | ---: | ---: | ---: |
+| [2024-2025](years/2024-2025/) | 8 | 9 | 8 |
+| [2025-2026](years/2025-2026/) | 6 | 10 | 6 |
 
 ## 2024-2025
 
 - [Year landing page](years/2024-2025/)
-- [Removed coursework coursework listing](years/2024-2025/case-coursework/)
 - [Sketch Lab](years/2024-2025/web/lab.html)
 
 ### Session Pages
@@ -52,7 +51,6 @@ Generated from the repository structure and year data files. Run `npm run build:
 ## 2025-2026
 
 - [Year landing page](years/2025-2026/)
-- [Removed coursework coursework listing](years/2025-2026/case-coursework/)
 - [Sketch Lab](years/2025-2026/web/lab.html)
 
 ### Session Pages

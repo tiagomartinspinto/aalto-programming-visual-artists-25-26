@@ -1,6 +1,5 @@
 import { readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import path from "node:path";
-import vm from "node:vm";
 
 const root = process.cwd();
 const yearsRoot = path.join(root, "years");
@@ -40,27 +39,6 @@ function readTitle(filePath, fallback) {
   }
 }
 
-function readCourse participantCoursework(yearPath) {
-  const dataPath = path.join(yearPath, "case-coursework", "coursework.js");
-  try {
-    const context = { window: {} };
-    vm.createContext(context);
-    vm.runInContext(readFileSync(dataPath, "utf8"), context, { filename: dataPath });
-    return context.window.REMOVED_COURSEWORK || context.window.REMOVED_COURSEWORK_2024 || [];
-  } catch {
-    return [];
-  }
-}
-
-function countCaseCoursework(yearPath) {
-  const courseworkPath = path.join(yearPath, "case-coursework");
-  const listedCoursework = readCourse participantCoursework(yearPath);
-  if (listedCoursework.length) return listedCoursework.length;
-  return listDirectories(courseworkPath)
-    .filter((name) => /^(coursework|assignment)-/i.test(name) && existsDirectory(path.join(courseworkPath, name)))
-    .length;
-}
-
 function webSketches(yearPath) {
   const webPath = path.join(yearPath, "web");
   return listDirectories(webPath).filter((name) => name !== "vendor" && existsDirectory(path.join(webPath, name)));
@@ -74,23 +52,20 @@ const lines = [
   "",
   "## Years",
   "",
-  "| Year | Sessions | Web sketches | Slide decks | Removed coursework |",
-  "| --- | ---: | ---: | ---: | ---: |",
+  "| Year | Sessions | Web sketches | Slide decks |",
+  "| --- | ---: | ---: | ---: |",
 ];
 
 for (const year of years) {
   const yearPath = path.join(yearsRoot, year);
   const sessions = listDirectories(path.join(yearPath, "sessions")).filter((name) => name.startsWith("session-"));
   const slideDecks = listFiles(path.join(yearPath, "slides"), ".pdf");
-  lines.push(`| [${year}](years/${year}/) | ${sessions.length} | ${webSketches(yearPath).length} | ${slideDecks.length} | ${countCaseCoursework(yearPath)} |`);
+  lines.push(`| [${year}](years/${year}/) | ${sessions.length} | ${webSketches(yearPath).length} | ${slideDecks.length} |`);
 }
 
 for (const year of years) {
   const yearPath = path.join(yearsRoot, year);
   lines.push("", `## ${year}`, "", `- [Year landing page](years/${year}/)`);
-  if (existsDirectory(path.join(yearPath, "case-coursework"))) {
-    lines.push(`- [Removed coursework coursework listing](years/${year}/case-coursework/)`);
-  }
   if (existsDirectory(path.join(yearPath, "web"))) {
     lines.push(`- [Sketch Lab](years/${year}/web/lab.html)`);
   }

@@ -7,7 +7,7 @@ This repository is a static course archive. Keep each academic year self-contain
 1. Add or edit the course material.
 2. Run `npm run build:index`.
 3. Run `npm run check:site`.
-4. Open the changed pages locally and scan the main course participant path.
+4. Open the changed pages locally and scan the main course path.
 5. When browser behavior changed, run `npm run smoke:browser` after installing Playwright, or manually test the same path on GitHub Pages.
 6. Commit the content and generated index together.
 
@@ -18,12 +18,12 @@ This repository is a static course archive. Keep each academic year self-contain
 3. Adjust `years/YYYY-YYYY/year.css` only for the new year's palette and local path label.
 4. Keep original Processing/source material in `source/session-XX/`.
 5. Keep slide decks in `slides/` using names like `session-01.pdf`.
-6. Add `sessions/session-XX/` pages for course participant-facing weekly entry points.
+6. Add `sessions/session-XX/` pages for weekly entry points.
 7. Add browser sketches under `web/` only when they are useful companions to the Processing source.
 8. Link the new year from the root `index.html` and `README.md`.
 9. Run `npm run build:index` and `npm run check`.
 
-The generator creates a blank year landing page, `course-data.js`, `year.css`, and the expected content folders. It does not invent sessions, assignment text, removed-coursework data, or root-page links; add those deliberately when the year is ready to publish.
+The generator creates a blank year landing page, `course-data.js`, `year.css`, and the expected content folders. It does not invent sessions, assignment text, or root-page links; add those deliberately when the year is ready to publish.
 
 ## Adding a Session
 
@@ -34,14 +34,6 @@ Each session should include:
 - a focused page in `sessions/session-XX/`
 - optional web sketch companions under `web/`
 - links from the year landing page and README
-
-## Adding Removed coursework
-
-Put local removed copyed coursework in `case-coursework/` with a source file and attribution link when available. Keep one coursework per folder, and update the coursework listing data or markup at the same time.
-
-Course participant work stays public when committed here. Do not removed copy unpublished work, grades, feedback notes, course participant email addresses, or private university material. If a coursework comes from removed-source-host, keep the original removed-source-host link visible for attribution and backup.
-
-Use the coursework listing data file as the count source when it exists. `npm run build:index` and `npm run check:site` both read `case-coursework/coursework.js`, so support folders such as source-code archives do not inflate removed-coursework counts.
 
 ## File Naming
 
@@ -66,11 +58,11 @@ If your local checkout is stale or dirty, do not force-reset it until you have s
 
 ## Media Policy
 
-Keep media files when they are needed for public course pages or for self-contained source examples. Duplicate media can be acceptable when course participants need to download a single exercise folder and run it without hunting for shared assets. See [MEDIA_INVENTORY.md](MEDIA_INVENTORY.md).
+Keep media files when they are needed for public course pages or for self-contained source examples. Duplicate media can be acceptable when a single exercise folder should run without hunting for shared assets. See [MEDIA_INVENTORY.md](MEDIA_INVENTORY.md).
 
 ## What Not To Commit
 
-Do not commit local scratch folders, operating-system metadata, generated temporary exports, or private course participant data. Keep large media only when it is needed for the public course site.
+Do not commit local scratch folders, operating-system metadata, generated temporary exports, private data, or unpublished third-party work. Keep large media only when it is needed for the public course site.
 
 ## Quality Checks
 

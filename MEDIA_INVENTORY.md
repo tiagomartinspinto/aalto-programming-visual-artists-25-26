@@ -29,3 +29,4 @@ These files have identical content but live beside different Processing or p5.js
 - Compress or replace large new media before adding it to the repository.
 - Do not remove a media file unless every HTML, JavaScript, Processing, and source-text reference has been checked.
 - Prefer short, descriptive filenames and avoid generic names such as `test.mp4` for new material.
+- Do not add unpublished third-party coursework media to this public repository.

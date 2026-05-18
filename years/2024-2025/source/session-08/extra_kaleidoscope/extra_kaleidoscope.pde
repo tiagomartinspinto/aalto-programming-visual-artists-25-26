@@ -43,13 +43,13 @@ void draw() {
   translate(width / 2, height / 2); // Move origin to the center of the canvas
   scale(scaleAmt); // Scale the entire pattern for a full canvas effect
   
-  // Apply the slice in a circular pattern with removed copying effect
+  // Apply the slice in a circular pattern with a reflected effect
   for (int k = 0; k <= totalSlices; k++) {
     pushMatrix(); // Save transformation state
     rotate(k * radians(360 / (totalSlices / 2))); // Rotate the slice around the center
     image(slice, 0, 0); // Draw the slice
-    scale(-1.0, 1.0); // Removed copy the slice horizontally
-    image(slice, 0, 0); // Draw the removed copyed slice
+    scale(-1.0, 1.0); // Reflect the slice horizontally
+    image(slice, 0, 0); // Draw the reflected slice
     popMatrix(); // Restore previous transformation state
   }
 }
