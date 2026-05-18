@@ -4,12 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
-    <title>Programming for Visual Artists - Aalto University</title>
+    <title>2025-2026 - Programming for Visual Artists</title>
     <meta name="description" content="Programming for Visual Artists course page for Aalto University: weekly sessions, runnable sketches, slides, and project prompts.">
     <meta name="theme-color" content="#090b0f">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; frame-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none';">
     <link rel="canonical" href="https://tiagomartinspinto.github.io/aalto-programming-visual-artists/years/2025-2026/">
-<meta property="og:title" content="Programming for Visual Artists - Aalto University">
+    <meta property="og:title" content="2025-2026 - Programming for Visual Artists">
     <meta property="og:description" content="Weekly course materials: run sketches, edit code in the Lab, read slides, and compare Processing source files.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://tiagomartinspinto.github.io/aalto-programming-visual-artists/years/2025-2026/">
@@ -41,30 +41,6 @@
         <div class="byline">
           <span>Teacher: <strong>Tiago Martins Pinto</strong></span>
           <span><a href="mailto:tiago.martinspinto@aalto.fi">tiago.martinspinto@aalto.fi</a></span>
-          <span><a href="https://tiagomartinspinto.com">tiagomartinspinto.com</a></span>
-        </div>
-        <div class="actions">
-          <a class="button" href="#sessions">Sessions</a>
-          <a class="button secondary" href="#web-sketches">Web sketches</a>
-          <a class="button secondary" href="web/lab.html">Lab</a>
-        </div>
-      </section>
-      <section class="status-cues" aria-label="Course material status">
-        <div class="status-cue">
-          <span>Sessions</span>
-          <strong>Session pages collect slides, web sketches, and source links.</strong>
-        </div>
-        <div class="status-cue">
-          <span>Browser</span>
-          <strong>Web sketches run in the page where possible.</strong>
-        </div>
-        <div class="status-cue">
-          <span>Lab</span>
-          <strong>The Lab edits p5.js companion sketches in the browser.</strong>
-        </div>
-        <div class="status-cue">
-          <span>Source</span>
-          <strong>Processing files remain linked with the course materials.</strong>
         </div>
       </section>
 
@@ -106,7 +82,7 @@
 
         <div class="notice">
           <strong>Web-first where possible</strong>
-          <p>PDFs and <code>.pde</code> files remain available. Sketches with a browser version are embedded here and also linked to the Lab.</p>
+          <p>Use the embedded sketches first. PDF decks and Processing files remain available when you need the original classroom material.</p>
         </div>
 
         <div class="web-grid">
@@ -127,11 +103,6 @@
           <article class="feature-card">
             <h3>Change One Thing at a Time</h3>
             <p>Use the lab for small experiments: color values, sizes, speeds, loop counts, and function parameters.</p>
-            <div class="links"><a href="web/lab.html?sketch=generative-grid">Edit generative grid</a><a href="web/lab.html?sketch=particles-noise">Edit particles</a></div>
-          </article>
-          <article class="feature-card">
-            <h3>Download Only When Needed</h3>
-            <p>The original <code>.pde</code> files are linked from session pages and sketch cards.</p>
           </article>
           <article class="feature-card">
             <h3>Privacy</h3>
@@ -143,24 +114,24 @@
       <section id="comparison">
         <div class="section-heading">
           <h2>Processing vs p5.js</h2>
-          <p>The web sketches are translations, not replacements. Use this quick map when you want to move between the browser versions and the classroom Processing files.</p>
+          <p>The web sketches are teaching companions, not replacements. Use this quick map when you move between browser examples and original Processing files.</p>
         </div>
         <div class="feature-grid">
           <article class="feature-card">
             <h3>Canvas Setup</h3>
-            <p>In Processing, you use <code>size(600, 400)</code> inside <code>setup()</code>. In p5.js, you use <code>createCanvas(600, 400)</code> inside <code>function setup()</code>.</p>
+            <p>Processing uses <code>size(600, 400)</code>. p5.js uses <code>createCanvas(600, 400)</code>.</p>
           </article>
           <article class="feature-card">
             <h3>Drawing Loop</h3>
-            <p>In Processing, you write <code>void draw()</code>. In p5.js, you write <code>function draw()</code>. Both redraw continuously unless you stop them.</p>
+            <p>Processing writes <code>void draw()</code>. p5.js writes <code>function draw()</code>.</p>
           </article>
           <article class="feature-card">
             <h3>Transforms</h3>
-            <p>In Processing, you use <code>pushMatrix()</code> and <code>popMatrix()</code>. In p5.js, you use the shorter <code>push()</code> and <code>pop()</code>.</p>
+            <p>Processing uses <code>pushMatrix()</code> and <code>popMatrix()</code>. p5.js uses <code>push()</code> and <code>pop()</code>.</p>
           </article>
           <article class="feature-card">
             <h3>Variables</h3>
-            <p>In Processing, you often declare types such as <code>float x</code>. In p5.js, you usually use <code>let x</code>, <code>const x</code>, or class fields in JavaScript.</p>
+            <p>Processing often declares types like <code>float x</code>. p5.js usually uses <code>let x</code> or <code>const x</code>.</p>
           </article>
         </div>
       </section>
@@ -196,17 +167,14 @@
           <article class="feature-card">
             <h3>Project Brief 1</h3>
             <p>Make a small interactive sketch using mouse position, color, and at least one custom function.</p>
-            <div class="links"><a href="web/lab.html?sketch=mouse-shapes">Start from mouse shapes</a></div>
           </article>
           <article class="feature-card">
             <h3>Project Brief 2</h3>
             <p>Make a generative composition using loops, randomness or noise, and one visual system you can clearly adjust.</p>
-            <div class="links"><a href="web/lab.html?sketch=generative-grid">Start from generative grid</a></div>
           </article>
           <article class="feature-card">
             <h3>Final Project</h3>
             <p>Develop an interactive or generative artwork that combines code structure with a personal visual direction.</p>
-            <div class="links"><a href="web/lab.html?sketch=particles-noise">Start from particles</a></div>
           </article>
         </div>
       </section>

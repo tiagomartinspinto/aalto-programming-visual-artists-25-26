@@ -64,8 +64,7 @@
           }).filter(Boolean).join(", ")}</div>` : ""}
           ${linksTemplate([
             { label: "Edit in the Lab", href: `web/lab.html?sketch=${sketch.id}`, primary: true },
-            { label: "Open sketch only", href: sketch.page },
-            { label: "Fullscreen", href: sketch.page, external: true },
+            { label: "Open sketch", href: sketch.page },
             { label: "Compare Processing code", href: sketch.source },
           ])}
         </div>

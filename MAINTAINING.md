@@ -15,15 +15,16 @@ This repository is a static course archive. Keep each academic year self-contain
 
 1. Run `npm run new:year -- YYYY-YYYY`.
 2. Add sessions, sketches, slides, and search metadata to `years/YYYY-YYYY/course-data.js`.
-3. Adjust `years/YYYY-YYYY/year.css` only for the new year's palette and local path label.
-4. Keep original Processing/source material in `source/session-XX/`.
-5. Keep slide decks in `slides/` using names like `session-01.pdf`.
-6. Add `sessions/session-XX/` pages for weekly entry points.
-7. Add browser sketches under `web/` only when they are useful companions to the Processing source.
-8. Link the new year from the root `index.html` and `README.md`.
-9. Run `npm run build:index` and `npm run check`.
+3. Add Lab files only after the year has browser sketches to edit; do not leave links to missing Lab pages.
+4. Adjust `years/YYYY-YYYY/year.css` only for the new year's palette and local path label.
+5. Keep original Processing/source material in `source/session-XX/`.
+6. Keep slide decks in `slides/` using names like `session-01.pdf`.
+7. Add `sessions/session-XX/` pages for weekly entry points.
+8. Add browser sketches under `web/` only when they are useful companions to the Processing source.
+9. Link the new year from the root `index.html` and `README.md`.
+10. Run `npm run build:index` and `npm run check`.
 
-The generator creates a blank year landing page, `course-data.js`, `year.css`, and the expected content folders. It does not invent sessions, assignment text, or root-page links; add those deliberately when the year is ready to publish.
+The generator creates a blank year landing page with the same section order as existing years, `course-data.js`, `year.css`, and the expected content folders. It does not invent sessions, project text, Lab files, or root-page links; add those deliberately when the year is ready to publish.
 
 ## Adding a Session
 

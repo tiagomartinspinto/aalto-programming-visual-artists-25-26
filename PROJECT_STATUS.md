@@ -1,70 +1,71 @@
 # Project Status
 
-## Copyright And Security Cleanup
+## Completed This Pass
 
-This repository has been cleaned for public portfolio use. The visible site, generated indexes, navigation, local Git history, and `main` branch on GitHub no longer reference the removed coursework pages or copied source paths. Student works have been removed from this public portfolio. Copyright remains with the students.
+- Synced local `main` with `origin/main` before editing.
+- Reduced repeated year-page entry points by removing duplicated header action buttons and explanatory status cards.
+- Standardized both year pages around the same section order: current session, web sketches, Lab, Processing/p5.js comparison, slides, projects, and sessions.
+- Kept year-specific palettes and course content different while aligning navigation logic, search/filter behavior, Lab/privacy wording, slide reader behavior, card behavior, footer/update markers, iframe sandboxing, and CSP coverage.
+- Removed duplicate sketch-card links by keeping one Lab link, one sketch page link, and one Processing source link.
+- Added CSP metadata to session pages, web sketch pages, and source example pages.
+- Added skip links to session-style pages and expanded `tools/check-site.mjs` so future edits check CSP coverage, external runtime requests, standard year section order, search filters, iframe sandboxing, and local links.
+- Updated `tools/smoke-test.mjs` to test both years, search, PDF sandboxing, animated p5 previews, the Lab run path, and mobile navigation.
+- Improved the `npm run new:year -- YYYY-YYYY` template so future years start with the same archive structure without copied session metadata or stale live links.
 
-## Current Tree Cleanup Completed
+## Files Changed
 
-- Removed public gallery routes, year-page sections, route-list links, search entries, and counts that pointed to third-party coursework.
-- Removed gallery/count handling from `tools/build-course-index.mjs`, `tools/check-site.mjs`, and `tools/new-year.mjs`.
-- Rebuilt `COURSE_INDEX.md` after removing the public coursework routes.
-- Updated `README.md`, `COURSE_INDEX.md`, `MEDIA_INVENTORY.md`, `PREVIEW_MANIFEST.md`, `PROJECT_STATUS.md`, `MAINTAINING.md`, `CHANGELOG.md`, `SECURITY.md`, `ARCHITECTURE.md`, and year-level pages/docs.
-- Deleted all tracked files under:
-  - `years/2024-2025/case-studies/`
-  - `years/2025-2026/case-studies/`
-- Deleted the copied assignment source files:
-  - `years/2024-2025/source/assignments/study1_interaction_example.pde`
-  - `years/2024-2025/source/assignments/study2_generative_grid_example.pde`
-
-## Homepage UX Cleanup
-
-- Removed the duplicate bottom homepage links labeled `Open 2025-2026` and `Open 2024-2025`.
-- Kept the top navigation and Course Directory links as the two remaining year-entry points.
-- Made the Course Directory year links the primary homepage action with descriptive `aria-label` values and visible `[OPEN]` affordances.
-- Added matching hover and focus-visible states for the directory links while keeping the monochrome terminal visual identity.
-- Verified the homepage locally in a browser at `http://127.0.0.1:8765/index.html`.
-- Checks run after the change:
-  - `node tools/check-site.mjs` - passed.
-  - `node tools/check-assets.mjs` - passed.
-  - `git diff --check` - no whitespace errors; Git reported expected CRLF normalization warnings.
-
-## History Rewrite Completed
-
-- Tool used: `git-filter-repo` 2.47.0.
-- Rewrote local history with path purges for:
-  - `case-studies/`
-  - `years/2024-2025/case-studies/`
-  - `years/2025-2026/case-studies/`
-  - `Assigments/study1_example/`
-  - `Assigments/study1_interaction_example.pde`
-  - `Assigments/study2_example/`
-  - `Assigments/study2_generative_grid_example.pde`
-  - `years/2024-2025/Assignments/study1_interaction_example.pde`
-  - `years/2024-2025/Assignments/study2_generative_grid_example.pde`
-  - `years/2024-2025/source/assignments/study1_interaction_example.pde`
-  - `years/2024-2025/source/assignments/study2_generative_grid_example.pde`
-- Rewrote remaining historical blobs to scrub old route names, `source.txt` links, OpenProcessing references, gallery wording, mirror wording, and known personal-name slugs connected to removed coursework.
-- Force-pushed rewritten `main` from old remote SHA `0efe7b6ed197b95fade88fd934a8c7c5a76a816e` to cleaned SHA `fc0d9a46f052c8220f136919e0c25cbb0c22faef`.
+- `ARCHITECTURE.md`
+- `MAINTAINING.md`
+- `PROJECT_STATUS.md`
+- `README.md`
+- `assets/ascii-skin.css`
+- `assets/home.css`
+- `assets/year.js`
+- `tools/check-site.mjs`
+- `tools/new-year.mjs`
+- `tools/smoke-test.mjs`
+- `years/2024-2025/index.html`
+- `years/2024-2025/year.css`
+- `years/2024-2025/sessions/session-01/index.html` through `session-08/index.html`
+- `years/2024-2025/source/session-07/testp5js.html`
+- `years/2024-2025/web/*/index.html`
+- `years/2025-2026/course-data.js`
+- `years/2025-2026/index.html`
+- `years/2025-2026/year.css`
+- `years/2025-2026/web/lab.html`
+- `years/2025-2026/sessions/session-01/index.html` through `session-06/index.html`
+- `years/2025-2026/source/session-03` through `session-06` slide-code example pages
+- `years/2025-2026/web/*/index.html`
 
 ## Checks Run
 
-- `node tools/build-course-index.mjs`
 - `node tools/check-site.mjs` - passed.
-- `node tools/check-assets.mjs` - passed.
-- `git diff --check` - no whitespace errors; Git reported expected CRLF normalization warnings.
-- Current-tree content scan for `student`, `students`, `study`, `studies`, `case-study`, `case-studies`, `OpenProcessing`, `source.txt`, `mirror`, and `gallery`.
-- Tracked-path scan with `git ls-files` for the same terms.
-- Rewritten-history filename scan with `git log --all --name-only`.
-- Rewritten-history content scan with `git grep` across every commit, excluding bundled p5 vendor files.
-- GitHub current-tree scan through `gh api repos/tiagomartinspinto/aalto-programming-visual-artists/git/trees/main?recursive=1`.
-- GitHub content API checks returned 404 for:
-  - `case-studies/`
-  - `years/2024-2025/case-studies/`
-  - `years/2025-2026/case-studies/`
+- `node tools/build-course-index.mjs` - completed.
+- `npm run check` - passed.
+- `git diff --check` - passed.
+- `npm run smoke:browser` - passed after expanding the smoke coverage.
+- Current-tree tooling-name scan - no public documentation matches; ordinary pointer-related CSS terms remain.
+- Current-tree removed-coursework-route scan, excluding bundled vendor runtime files - no matches.
 
-## Remaining Risks
+## Manual Tests Performed
 
-- GitHub still returned the old pre-rewrite commit SHA directly immediately after the force-push. That commit is no longer reachable from `main`, but GitHub can retain unreachable objects and cached views until server-side cleanup completes.
-- Forks, local clones, downloaded archives, browser caches, search-engine caches, and other copies outside this repository cannot be rewritten from this checkout.
-- For a strict legal/security purge, request GitHub Support to remove cached views and garbage-collect unreachable objects for the old SHAs.
+- Loaded the homepage locally through `http://127.0.0.1:8123/index.html`.
+- Loaded both year pages through the local server.
+- Verified both year pages render session cards and sketch cards from `course-data.js`.
+- Verified 2024-2025 search finds a sketch result for `video`.
+- Verified 2025-2026 search finds sketch results for `particles`.
+- Verified the embedded PDF reader iframe exists and keeps `sandbox="allow-same-origin allow-downloads"`.
+- Verified a 2025-2026 p5 preview animates when its card is in view.
+- Verified the 2025-2026 Lab loads `bouncing-ball`, accepts an edit, and reports the edited sketch as running.
+- Verified mobile-width navigation remains visible in the 2025-2026 year page.
+
+## Remaining Tasks
+
+- Test the live GitHub Pages URL after the final push and Pages deployment finish.
+- When adding 2026-2027, run `npm run new:year -- 2026-2027`, add only real course content, then run `npm run build:index`, `npm run check`, and `npm run smoke:browser`.
+- Keep checking live p5 previews after future CSP or sandbox changes, especially media examples that depend on browser permissions.
+
+## Known Issues
+
+- Browser console warnings from p5.js sensor-permission checks can appear inside sandboxed previews. They did not block the tested sketches.
+- The local status file cannot contain the hash of the commit that creates it. The latest synced commit before this update was `97ff22d689baaa6ecf63947d90ee59be4f0660ba`; the final commit hash is recorded in the handoff message after commit and push.

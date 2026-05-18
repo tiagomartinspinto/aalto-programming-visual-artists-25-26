@@ -11,6 +11,7 @@ const emailPattern = /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i;
 const cspPattern = /<meta\b[^>]*http-equiv=["']Content-Security-Policy["'][^>]*>/i;
 const privacyNote = "Code edits run locally in your browser and are not uploaded.";
 const publicRepoWarning = "This repository is public.";
+const yearSectionOrder = ["current-session", "web-sketches", "lab", "comparison", "slides", "assignments", "sessions"];
 
 function walk(directory) {
   return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
@@ -53,6 +54,22 @@ function checkLocalTarget(sourceFile, value) {
 function checkHtml(filePath) {
   const html = readFileSync(filePath, "utf8");
   const rel = relative(filePath);
+  if (!cspPattern.test(html)) errors.push(`${rel} is missing a Content-Security-Policy meta tag`);
+
+  for (const match of html.matchAll(/<(script|iframe)\b([^>]*)>/gi)) {
+    const tag = match[1].toLowerCase();
+    const src = match[2].match(/\bsrc=["']([^"']+)["']/i)?.[1];
+    if (src && /^https?:\/\//i.test(src)) errors.push(`${rel} loads an external ${tag}: ${src}`);
+  }
+
+  for (const match of html.matchAll(/<link\b([^>]*)>/gi)) {
+    const attributes = match[1];
+    const href = attributes.match(/\bhref=["']([^"']+)["']/i)?.[1];
+    if (href && /^https?:\/\//i.test(href) && /\brel=["'][^"']*\bstylesheet\b/i.test(attributes)) {
+      errors.push(`${rel} loads an external stylesheet: ${href}`);
+    }
+  }
+
   for (const match of html.matchAll(/\b(?:href|src|data-src|data-pdf)=["']([^"']+)["']/gi)) {
     checkLocalTarget(filePath, match[1]);
   }
@@ -64,7 +81,7 @@ function checkHtml(filePath) {
 
   const requiresSkipLink = rel === "index.html" ||
     rel === "404.html" ||
-    /^years\/\d{4}-\d{4}\/(?:index\.html|web\/lab\.html)$/.test(rel);
+    /^years\/\d{4}-\d{4}\/(?:index\.html|web\/lab\.html|sessions\/session-\d+\/index\.html)$/.test(rel);
   if (requiresSkipLink) {
     const skipLink = [...html.matchAll(/<a\b([^>]*)>/gi)].find((match) => {
       const attributes = match[1];
@@ -119,6 +136,22 @@ function checkHtml(filePath) {
 
   for (const match of html.matchAll(/<img\b([^>]*)>/gi)) {
     if (!/\balt=["'][^"']*["']/i.test(match[1])) errors.push(`${relative(filePath)} has an image without alt text`);
+  }
+
+  if (/^years\/\d{4}-\d{4}\/index\.html$/.test(rel)) {
+    let previous = -1;
+    for (const id of yearSectionOrder) {
+      const index = html.indexOf(`id="${id}"`);
+      if (index < 0) {
+        errors.push(`${rel} is missing the standard year section: #${id}`);
+      } else if (index < previous) {
+        errors.push(`${rel} has #${id} out of the standard year section order`);
+      }
+      previous = index;
+    }
+    for (const type of ["all", "session", "sketch", "slide"]) {
+      if (!html.includes(`data-search-type="${type}"`)) errors.push(`${rel} is missing the ${type} course search filter`);
+    }
   }
 }
 

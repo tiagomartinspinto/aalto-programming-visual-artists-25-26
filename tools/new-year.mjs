@@ -57,16 +57,28 @@ writeFileSync(path.join(target, "index.html"), `<!doctype html>
     <link rel="stylesheet" href="../../assets/ascii-skin.css">
   </head>
   <body>
-    <a class="skip-link" href="#sessions">Skip to course materials</a>
+    <a class="skip-link" href="#web-sketches">Skip to course materials</a>
     <header class="topbar">
       <div class="brand">Programming for Visual Artists</div>
-      <nav aria-label="${year} directory"><a href="../../index.html">all-years</a><a href="./" aria-current="page">${year}</a><a href="#sessions">sessions</a></nav>
+      <nav aria-label="${year} directory">
+        <a href="../../index.html">all-years</a>
+        <a href="./" aria-current="page">${year}</a>
+        <a href="#web-sketches">sketches</a>
+        <a href="#lab">lab</a>
+        <a href="#slides">slides</a>
+        <a href="#assignments">projects</a>
+        <a href="#sessions">sessions</a>
+      </nav>
     </header>
     <main>
       <section class="course-header" aria-labelledby="course-title">
         <p class="eyebrow">Aalto University, ${year}</p>
         <h1 id="course-title">${year} Course Materials</h1>
-        <p class="lede">Add sessions, sketches, and slides as the course develops.</p>
+        <p class="lede">Add sessions, web sketches, PDF slides, Processing source links, and project material as the course develops.</p>
+        <div class="byline">
+          <span>Teacher: <strong>Tiago Martins Pinto</strong></span>
+          <span><a href="mailto:tiago.martinspinto@aalto.fi">tiago.martinspinto@aalto.fi</a></span>
+        </div>
       </section>
       <section id="current-session" class="course-tools" aria-labelledby="current-session-title">
         <article class="current-session-card">
@@ -91,10 +103,55 @@ writeFileSync(path.join(target, "index.html"), `<!doctype html>
           <p class="search-empty" id="course-search-empty" hidden>No course materials match that search.</p>
         </article>
       </section>
-      <section id="web-sketches"><div class="section-heading"><h2>Web Sketches</h2></div><div class="web-grid"></div></section>
+      <section id="web-sketches">
+        <div class="section-heading">
+          <h2>Web Sketches</h2>
+          <p>Add p5.js companion sketches to course-data.js when they are ready to run in the page.</p>
+        </div>
+        <div class="notice">
+          <strong>Web-first where possible</strong>
+          <p>Use embedded sketches first. PDF decks and Processing files remain available when original classroom material is needed.</p>
+        </div>
+        <div class="web-grid"></div>
+      </section>
+      <section id="lab">
+        <div class="section-heading">
+          <h2>Sketch Lab</h2>
+          <p>Add Lab files after the year has browser sketches to edit.</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <h3>Run Code in Place</h3>
+            <p>Choose a sketch, change its JavaScript, and run the edited version in the same page.</p>
+          </article>
+          <article class="feature-card">
+            <h3>Change One Thing at a Time</h3>
+            <p>Use the Lab for small experiments with color, size, speed, loop counts, and function parameters.</p>
+          </article>
+          <article class="feature-card">
+            <h3>Privacy</h3>
+            <p>Code edits run locally in your browser and are not uploaded.</p>
+          </article>
+        </div>
+      </section>
+      <section id="comparison">
+        <div class="section-heading">
+          <h2>Processing vs p5.js</h2>
+          <p>The web sketches are teaching companions, not replacements. Use this quick map when you move between browser examples and original Processing files.</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card"><h3>Canvas Setup</h3><p>Processing uses <code>size(600, 400)</code>. p5.js uses <code>createCanvas(600, 400)</code>.</p></article>
+          <article class="feature-card"><h3>Drawing Loop</h3><p>Processing writes <code>void draw()</code>. p5.js writes <code>function draw()</code>.</p></article>
+          <article class="feature-card"><h3>Transforms</h3><p>Processing uses <code>pushMatrix()</code> and <code>popMatrix()</code>. p5.js uses <code>push()</code> and <code>pop()</code>.</p></article>
+          <article class="feature-card"><h3>Variables</h3><p>Processing often declares types like <code>float x</code>. p5.js usually uses <code>let x</code> or <code>const x</code>.</p></article>
+        </div>
+      </section>
       <section id="slides">
-        <div class="section-heading"><h2>Slides Reader</h2></div>
-        <div class="slides-reader">
+        <div class="section-heading">
+          <h2>Slides Reader</h2>
+          <p>Read PDF slides without leaving the course page once slide decks are added.</p>
+        </div>
+        <div class="slides-reader" aria-label="In-page PDF slides reader">
           <div class="slide-controls"></div>
           <div class="slide-viewer">
             <div class="slide-viewer-bar">
@@ -109,7 +166,20 @@ writeFileSync(path.join(target, "index.html"), `<!doctype html>
           </div>
         </div>
       </section>
-      <section id="sessions"><div class="section-heading"><h2>Sessions</h2></div><div class="sessions"></div></section>
+      <section id="assignments">
+        <div class="section-heading">
+          <h2>Projects</h2>
+          <p>Add project material only when it belongs on the public course site.</p>
+        </div>
+        <div class="feature-grid"></div>
+      </section>
+      <section id="sessions">
+        <div class="section-heading">
+          <h2>Sessions</h2>
+          <p>Use a session page when the week's slides, runnable sketches, and Processing material are ready together.</p>
+        </div>
+        <div class="sessions"></div>
+      </section>
       <footer class="footer"><span>Programming for Visual Artists, Aalto University. Course material by Tiago Martins Pinto.</span><span data-last-updated>Last updated: automatic</span></footer>
     </main>
     <script src="course-data.js"></script>

@@ -129,7 +129,6 @@
       }
 
       .byline,
-      .actions,
       .links,
       .tags,
       .slide-actions {
@@ -146,7 +145,6 @@
 
       .byline strong { color: var(--ink); }
 
-      .button,
       .links a,
       .reader-button,
       .slide-picker {
@@ -163,7 +161,6 @@
         cursor: pointer;
       }
 
-      .button.secondary,
       .links a:not(.primary),
       .reader-button {
         border-color: var(--line);
@@ -198,7 +195,6 @@
         font-size: clamp(17px, 1.8vw, 21px);
       }
 
-      .status-cues,
       .feature-grid,
       .sessions {
         display: grid;
@@ -206,7 +202,6 @@
         gap: 14px;
       }
 
-      .status-cue,
       .feature-card,
       .session-card,
       .notice,
@@ -217,13 +212,6 @@
         background: rgba(16, 20, 27, 0.86);
       }
 
-      .status-cue {
-        display: grid;
-        gap: 6px;
-        padding: 14px;
-      }
-
-      .status-cue span,
       .tag,
       .session-kicker span {
         color: var(--accent);
@@ -231,8 +219,6 @@
         font-size: 12px;
         font-weight: 760;
       }
-
-      .status-cue strong { font-size: 17px; }
 
       .course-tools {
         display: grid;

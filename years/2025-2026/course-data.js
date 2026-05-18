@@ -9,8 +9,8 @@ window.COURSE_DATA = {
     description: "Session 06 includes arrays, objects, particle systems, and motion fields.",
     links: [
       { label: "Open Session 06", href: "sessions/session-06/", primary: true },
+      { label: "Read Session 06 slides", href: "#slides", pdf: "slides/session-06.pdf", title: "Session 06 - Arrays, objects, and particles" },
       { label: "Run particles follow", href: "web/particles-follow/" },
-      { label: "Edit particles in the Lab", href: "web/lab.html?sketch=particles-noise" },
     ],
   },
   sessions: [

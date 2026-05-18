@@ -140,40 +140,6 @@
         line-height: 1.42;
       }
 
-      .links,
-      .meta {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-      }
-
-      .button,
-      .links a {
-        min-height: 40px;
-        padding: 9px 12px;
-        border: 1px solid rgba(84, 214, 199, 0.55);
-        border-radius: 6px;
-        background: rgba(84, 214, 199, 0.14);
-        color: var(--ink);
-        font: inherit;
-        font-size: 14px;
-        font-weight: 760;
-        text-decoration: none;
-        transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, color 180ms ease;
-      }
-
-      .button.secondary,
-      .links a:not(.primary) {
-        border-color: var(--line);
-        background: rgba(21, 26, 35, 0.86);
-        color: var(--muted);
-      }
-
-      .button:hover,
-      .links a:hover {
-        transform: translateY(-2px);
-      }
-
       .archive-panel {
         display: grid;
         gap: 12px;
@@ -367,14 +333,10 @@
 
       @media (prefers-reduced-motion: reduce) {
         html { scroll-behavior: auto; }
-        .button,
-        .links a,
         .year-card,
         .route-list a {
           transition: none;
         }
-        .button:hover,
-        .links a:hover,
         .year-card:hover,
         .route-list a:hover,
         .route-list a:focus-visible {

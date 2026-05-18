@@ -26,3 +26,5 @@ flowchart TD
 ## Maintenance Rule
 
 When adding a session, sketch, or slide, update `course-data.js` first. Then run `npm run check`; it validates links from the generated interface as well as links written directly in HTML.
+
+Year landing pages use the same section order: current session, web sketches, Lab, Processing/p5.js comparison, slides, projects, and sessions. Keep that structure stable so each academic year feels like the same archive with different course content.

@@ -129,7 +129,6 @@ main {
 .archive-panel,
 .current-session-card,
 .course-search,
-.status-cue,
 .feature-card,
 .session-card,
 .web-card,
@@ -176,7 +175,6 @@ select {
 .archive-panel,
 .current-session-card,
 .course-search,
-.status-cue,
 .feature-card,
 .session-card,
 .web-card-content,
@@ -190,7 +188,6 @@ select {
 .session-kicker span,
 .tag,
 .stat,
-.status-cue span,
 .year-card span {
   color: #000000 !important;
   font-weight: 900 !important;
@@ -200,8 +197,7 @@ select {
 .eyebrow::before,
 .course-tool-label::before,
 .search-result-type::before,
-.session-kicker span::before,
-.status-cue span::before {
+.session-kicker span::before {
   content: ":: " !important;
 }
 
@@ -253,7 +249,6 @@ h3::before { content: "> " !important; }
   color: #000000 !important;
 }
 
-.button,
 .links a,
 .reader-button,
 .slide-picker,
@@ -270,7 +265,6 @@ button {
   transform: none !important;
 }
 
-.button::before,
 .links a::before,
 .reader-button::before,
 .slide-picker::before,
@@ -280,7 +274,6 @@ button::before {
   content: "[" !important;
 }
 
-.button::after,
 .links a::after,
 .reader-button::after,
 .slide-picker::after,
@@ -290,7 +283,6 @@ button::after {
   content: "]" !important;
 }
 
-.button:hover,
 .links a:hover,
 .reader-button:hover,
 .slide-picker:hover,
@@ -340,8 +332,7 @@ button.primary:hover {
 .year-card,
 .session-card,
 .web-card,
-.feature-card,
-.status-cue {
+.feature-card {
   border-left-width: 10px !important;
 }
 
@@ -421,7 +412,6 @@ select {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .button,
   .links a,
   .year-card,
   .session-card,
