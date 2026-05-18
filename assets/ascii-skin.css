@@ -112,7 +112,9 @@ nav a:hover,
 nav a[aria-current="page"],
 nav a[aria-current="true"],
 .directory-nav a:hover,
-.directory-nav span[aria-current="page"] {
+.directory-nav span[aria-current="page"],
+.route-list a:hover,
+.route-list a:focus-visible {
   border-color: #000000 !important;
   background: #eeeeee !important;
   color: #000000 !important;
@@ -318,13 +320,19 @@ button.primary:hover {
 .search-results,
 .links,
 .meta,
-.hero-actions,
 .actions,
 .byline,
 .tags,
 .stats,
 .footer {
   gap: 6px !important;
+}
+
+.home-directory a::after {
+  content: "[OPEN]" !important;
+  color: #000000 !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
 }
 
 .route-list a,

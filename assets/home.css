@@ -140,7 +140,6 @@
         line-height: 1.42;
       }
 
-      .hero-actions,
       .links,
       .meta {
         display: flex;
@@ -208,17 +207,22 @@
 
       .route-list a {
         display: flex;
+        align-items: center;
         justify-content: space-between;
         gap: 12px;
         padding: 10px;
         border: 1px solid var(--line);
         border-radius: 6px;
         text-decoration: none;
+        transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, color 180ms ease;
       }
 
-      .route-list a:hover {
+      .route-list a:hover,
+      .route-list a:focus-visible {
         color: var(--ink);
         border-color: rgba(84, 214, 199, 0.52);
+        background: rgba(84, 214, 199, 0.1);
+        transform: translateY(-2px);
       }
 
       .route-list strong {
@@ -231,10 +235,26 @@
         flex-shrink: 0;
       }
 
+      .home-directory a::after {
+        content: "open";
+        flex-shrink: 0;
+        margin-left: auto;
+        padding-left: 10px;
+        color: var(--teal);
+        font-size: 12px;
+        font-weight: 760;
+        text-transform: uppercase;
+      }
+
       @media (max-width: 420px) {
         .route-list a {
           align-items: flex-start;
           flex-direction: column;
+        }
+
+        .home-directory a::after {
+          margin-left: 0;
+          padding-left: 0;
         }
       }
 
@@ -349,12 +369,15 @@
         html { scroll-behavior: auto; }
         .button,
         .links a,
-        .year-card {
+        .year-card,
+        .route-list a {
           transition: none;
         }
         .button:hover,
         .links a:hover,
-        .year-card:hover {
+        .year-card:hover,
+        .route-list a:hover,
+        .route-list a:focus-visible {
           transform: none;
         }
       }

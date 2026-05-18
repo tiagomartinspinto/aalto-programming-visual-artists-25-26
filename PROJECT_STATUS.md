@@ -17,6 +17,18 @@ This repository has been cleaned for public portfolio use. The visible site, gen
   - `years/2024-2025/source/assignments/study1_interaction_example.pde`
   - `years/2024-2025/source/assignments/study2_generative_grid_example.pde`
 
+## Homepage UX Cleanup
+
+- Removed the duplicate bottom homepage links labeled `Open 2025-2026` and `Open 2024-2025`.
+- Kept the top navigation and Course Directory links as the two remaining year-entry points.
+- Made the Course Directory year links the primary homepage action with descriptive `aria-label` values and visible `[OPEN]` affordances.
+- Added matching hover and focus-visible states for the directory links while keeping the monochrome terminal visual identity.
+- Verified the homepage locally in a browser at `http://127.0.0.1:8765/index.html`.
+- Checks run after the change:
+  - `node tools/check-site.mjs` - passed.
+  - `node tools/check-assets.mjs` - passed.
+  - `git diff --check` - no whitespace errors; Git reported expected CRLF normalization warnings.
+
 ## History Rewrite Completed
 
 - Tool used: `git-filter-repo` 2.47.0.
