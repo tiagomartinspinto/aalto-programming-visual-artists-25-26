@@ -2,42 +2,57 @@
 
 ## Copyright And Security Cleanup
 
-This repository is being cleaned for public portfolio use. The current tree removes unpublished third-party coursework from public pages, generated indexes, data files, and navigation. Copyright remains with the original creators.
+This repository has been cleaned for public portfolio use. The visible site, generated indexes, navigation, local Git history, and `main` branch on GitHub no longer reference the removed coursework pages or copied source paths. Student works have been removed from this public portfolio. Copyright remains with the students.
 
-## Current-Tree Cleanup Steps
+## Current Tree Cleanup Completed
 
-- Deleted the year-level coursework coursework listing directories:
-  - `years/2024-2025/case-coursework/`
-  - `years/2025-2026/case-coursework/`
-- Deleted related copied source files:
-  - `years/2024-2025/source/assignments/coursework1_interaction_example.pde`
-  - `years/2024-2025/source/assignments/coursework2_generative_grid_example.pde`
-- Removed public navigation, route-list links, search filters, counts, and year-page sections that pointed to those materials.
-- Removed coursework listing/count handling from `tools/build-course-index.mjs`, `tools/check-site.mjs`, and `tools/new-year.mjs`.
-- Rebuilt `COURSE_INDEX.md` after the deletion.
-- Updated repository docs and public-content warnings.
+- Removed public gallery routes, year-page sections, route-list links, search entries, and counts that pointed to third-party coursework.
+- Removed gallery/count handling from `tools/build-course-index.mjs`, `tools/check-site.mjs`, and `tools/new-year.mjs`.
+- Rebuilt `COURSE_INDEX.md` after removing the public coursework routes.
+- Updated `README.md`, `COURSE_INDEX.md`, `MEDIA_INVENTORY.md`, `PREVIEW_MANIFEST.md`, `PROJECT_STATUS.md`, `MAINTAINING.md`, `CHANGELOG.md`, `SECURITY.md`, `ARCHITECTURE.md`, and year-level pages/docs.
+- Deleted all tracked files under:
+  - `years/2024-2025/case-studies/`
+  - `years/2025-2026/case-studies/`
+- Deleted the copied assignment source files:
+  - `years/2024-2025/source/assignments/study1_interaction_example.pde`
+  - `years/2024-2025/source/assignments/study2_generative_grid_example.pde`
 
-## Checks To Run
+## History Rewrite Completed
 
-- `npm run build:index`
-- `npm run check`
-- `npm run smoke:browser` when Playwright browser binaries are available
-- tracked-file scans for the requested copyright/privacy terms
-- `git log --all --name-only` after history rewrite
+- Tool used: `git-filter-repo` 2.47.0.
+- Rewrote local history with path purges for:
+  - `case-studies/`
+  - `years/2024-2025/case-studies/`
+  - `years/2025-2026/case-studies/`
+  - `Assigments/study1_example/`
+  - `Assigments/study1_interaction_example.pde`
+  - `Assigments/study2_example/`
+  - `Assigments/study2_generative_grid_example.pde`
+  - `years/2024-2025/Assignments/study1_interaction_example.pde`
+  - `years/2024-2025/Assignments/study2_generative_grid_example.pde`
+  - `years/2024-2025/source/assignments/study1_interaction_example.pde`
+  - `years/2024-2025/source/assignments/study2_generative_grid_example.pde`
+- Rewrote remaining historical blobs to scrub old route names, `source.txt` links, OpenProcessing references, gallery wording, mirror wording, and known personal-name slugs connected to removed coursework.
+- Force-pushed rewritten `main` from old remote SHA `0efe7b6ed197b95fade88fd934a8c7c5a76a816e` to cleaned SHA `fc0d9a46f052c8220f136919e0c25cbb0c22faef`.
 
-## History Rewrite Plan
+## Checks Run
 
-The history rewrite must purge removed coursework paths from all commits before force-pushing `main`. Planned purge paths include:
-
-- `years/2024-2025/case-coursework/`
-- `years/2025-2026/case-coursework/`
-- `years/2024-2025/source/assignments/coursework1_interaction_example.pde`
-- `years/2024-2025/source/assignments/coursework2_generative_grid_example.pde`
-
-Generated files and docs that previously mentioned the removed material are being rewritten in the current tree and scanned after the purge.
+- `node tools/build-course-index.mjs`
+- `node tools/check-site.mjs` - passed.
+- `node tools/check-assets.mjs` - passed.
+- `git diff --check` - no whitespace errors; Git reported expected CRLF normalization warnings.
+- Current-tree content scan for `student`, `students`, `study`, `studies`, `case-study`, `case-studies`, `OpenProcessing`, `source.txt`, `mirror`, and `gallery`.
+- Tracked-path scan with `git ls-files` for the same terms.
+- Rewritten-history filename scan with `git log --all --name-only`.
+- Rewritten-history content scan with `git grep` across every commit, excluding bundled p5 vendor files.
+- GitHub current-tree scan through `gh api repos/tiagomartinspinto/aalto-programming-visual-artists/git/trees/main?recursive=1`.
+- GitHub content API checks returned 404 for:
+  - `case-studies/`
+  - `years/2024-2025/case-studies/`
+  - `years/2025-2026/case-studies/`
 
 ## Remaining Risks
 
-- GitHub Pages and browser caches may keep stale files briefly after force-push and redeploy.
-- Forks, local clones, search-engine caches, and downloaded copies outside this repository cannot be rewritten from here.
-- GitHub may retain unreachable objects for a short period after a force-push until server-side cleanup completes.
+- GitHub still returned the old pre-rewrite commit SHA directly immediately after the force-push. That commit is no longer reachable from `main`, but GitHub can retain unreachable objects and cached views until server-side cleanup completes.
+- Forks, local clones, downloaded archives, browser caches, search-engine caches, and other copies outside this repository cannot be rewritten from this checkout.
+- For a strict legal/security purge, request GitHub Support to remove cached views and garbage-collect unreachable objects for the old SHAs.
