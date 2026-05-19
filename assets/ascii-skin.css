@@ -349,7 +349,8 @@ button.primary:hover {
 }
 
 .preview iframe,
-.pdf-frame,
+.pdf-panel,
+.slides-panel,
 .preview-frame,
 canvas {
   background: #ffffff !important;

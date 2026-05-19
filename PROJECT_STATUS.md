@@ -3,56 +3,92 @@
 ## Completed This Pass
 
 - Synced local `main` with `origin/main` before editing.
-- Extracted the duplicated Lab runtime from both year Lab pages into `assets/lab.js`.
-- Kept year-specific Lab defaults in `years/2024-2025/course-data.js` and `years/2025-2026/course-data.js`.
-- Confirmed Lab pages load `vendor/p5.min.js`, then `../course-data.js`, then `../../../assets/lab.js`.
-- Centralized the repeated Processing/p5.js comparison cards in `assets/year.js`.
-- Updated both current year pages and `tools/new-year.mjs` to use the shared comparison renderer.
-- Reduced year landing-page link density by keeping one primary session action plus slide access in current/session cards. Sketch entry points remain in Web Sketches and the Lab.
-- Simplified the homepage Course Directory copy to `Choose an academic year.`
-- Documented in `MAINTAINING.md` that the "Before class / During class / After class" rhythm cards intentionally remain inline so session pages stay readable before JavaScript runs.
-- Added a current-tree guard in `tools/check-site.mjs` for removed coursework trace terms while preserving CSP, iframe sandbox, local-link, labeled-control, skip-link, standard year-section-order, and privacy-note checks.
+- Replaced the year-level embedded PDF iframe Slides Reader with a browser-compatible PDF panel on both academic year pages.
+- Kept the selected slide title visible and updated the direct `Open PDF` link as the slide deck changes.
+- Added a fallback message explaining that some browsers block embedded PDF readers.
+- Removed PDF iframe embeds from individual session pages and replaced them with direct PDF panels.
+- Kept direct PDF links working with `target="_blank" rel="noopener noreferrer"`.
+- Tidied the Slides Reader controls so 2024-2025 uses a compact selector-first layout for its 8 slide decks.
+- Kept 2025-2026 on the same selector-first Slides Reader architecture.
+- Updated the new-year template so future years inherit the safer PDF panel instead of the old embedded reader.
+- Added a homepage and README authorship / responsibility note: the site and materials are authored and maintained by Tiago Martins Pinto, used in teaching at Aalto University, and are not an official Aalto University publication.
+- Added regression checks for safe Slides Reader links, fallback messages, and avoiding year-level PDF iframes.
+- Expanded the browser smoke test to cover 2024-2025 slide controls, 2025-2026 slide controls, direct PDF links, fallback messages, and session PDF panels.
+- Confirmed no removed coursework traces were reintroduced by the project checks.
 
 ## Files Changed
 
-- `MAINTAINING.md`
+- `README.md`
 - `PROJECT_STATUS.md`
-- `assets/lab.js`
+- `assets/ascii-skin.css`
+- `assets/home.css`
 - `assets/year.js`
 - `index.html`
 - `tools/check-site.mjs`
 - `tools/new-year.mjs`
-- `years/2024-2025/course-data.js`
+- `tools/smoke-test.mjs`
 - `years/2024-2025/index.html`
-- `years/2024-2025/web/lab.html`
-- `years/2025-2026/course-data.js`
+- `years/2024-2025/sessions/session-01/index.html`
+- `years/2024-2025/sessions/session-02/index.html`
+- `years/2024-2025/sessions/session-03/index.html`
+- `years/2024-2025/sessions/session-04/index.html`
+- `years/2024-2025/sessions/session-05/index.html`
+- `years/2024-2025/sessions/session-06/index.html`
+- `years/2024-2025/sessions/session-07/index.html`
+- `years/2024-2025/sessions/session-08/index.html`
+- `years/2024-2025/sessions/session.css`
+- `years/2024-2025/year.css`
 - `years/2025-2026/index.html`
-- `years/2025-2026/web/lab.html`
+- `years/2025-2026/sessions/session-01/index.html`
+- `years/2025-2026/sessions/session-02/index.html`
+- `years/2025-2026/sessions/session-03/index.html`
+- `years/2025-2026/sessions/session-04/index.html`
+- `years/2025-2026/sessions/session-05/index.html`
+- `years/2025-2026/sessions/session-06/index.html`
+- `years/2025-2026/sessions/session.css`
+- `years/2025-2026/year.css`
 
 ## Checks Run
 
-- `npm install` - passed using npm 10.9.2 from a temporary user-local shim; dependencies were up to date, 3 packages were audited, and 0 vulnerabilities were reported.
 - `npm run check` - passed:
-  - `npm run build:index` completed.
-  - `npm run check:site` reported `Site checks passed.`
-  - `npm run check:assets` reported `Asset size check completed.`
-- `npx playwright install chromium` - passed; Playwright installed Chromium 148.0.7778.96, Chromium headless shell, FFmpeg, and Winldd in the local Playwright cache.
-- `npm run smoke:browser` - passed against `http://127.0.0.1:8123/` with the local static server running.
-- Tracked-file removed-coursework trace scan - no matches outside this audit file and bundled p5 vendor runtime files.
-- `git grep` removed-coursework trace scan - no matches outside this audit file and bundled p5 vendor runtime files.
+  - `npm run build:index`
+  - `npm run check:site`
+  - `npm run check:assets`
+- `npm run smoke:browser` - passed against `http://127.0.0.1:8123/`.
+- In-app browser verification against `http://127.0.0.1:8123/` - passed for homepage ownership note, 2024-2025 Slides Reader, 2025-2026 Slides Reader, and a 2025-2026 session PDF panel.
+- Removed coursework trace scan - no matches outside this status file and bundled p5 vendor runtime files.
 
 ## Manual Tests Performed
 
-- Started a local static server at `http://127.0.0.1:8123/` for the Playwright smoke run; the smoke test loaded the homepage, both year pages, sketch previews, the Lab, and the mobile year navigation.
-- Started a local static server at `http://127.0.0.1:8765/`.
-- Loaded the homepage and verified the Course Directory copy is concise, no `.button` year links remain, and the central directory links keep accessible labels.
-- Loaded `years/2025-2026/` and verified the shared Processing/p5.js comparison renders four cards from `assets/year.js`.
-- Verified the 2025-2026 current-session shortcut renders two links: `Open Session 06` and `Read Session 06 slides`.
-- Verified rendered session cards now max out at two links per card.
-- Loaded `years/2025-2026/web/lab.html?sketch=bouncing-ball` and verified the shared Lab runtime selects `bouncing-ball`, loads code, creates one canvas, keeps the file-mode warning hidden on HTTP, and reports the sketch running.
-- Loaded `years/2024-2025/web/lab.html` and verified the shared Lab runtime defaults to `smile-face`, loads code, creates one canvas, keeps the file-mode warning hidden on HTTP, and reports the sketch running.
+1. Loaded the homepage locally and confirmed the authorship / responsibility note is present.
+2. Loaded `years/2024-2025/`, selected Session 08 from the slide dropdown, and confirmed:
+   - 8 slide options are present.
+   - Compact slide controls are active.
+   - No PDF iframe is present.
+   - The direct PDF link updates to `slides/session-08.pdf`.
+   - The link opens in a new tab with `noopener noreferrer`.
+   - The fallback message explains blocked embedded PDF readers.
+3. Loaded `years/2025-2026/` and confirmed:
+   - 6 slide options are present.
+   - No PDF iframe is present.
+   - The direct PDF link opens in a new tab with `noopener noreferrer`.
+   - The fallback message is visible.
+4. Loaded `years/2025-2026/sessions/session-06/` and confirmed:
+   - The session uses a PDF panel instead of an embedded PDF iframe.
+   - The direct PDF link points to `../../slides/session-06.pdf`.
+   - The link opens in a new tab with `noopener noreferrer`.
+5. Ran the browser smoke test, which also confirmed sketch preview animation, the Sketch Lab edited-code run path, and mobile navigation.
+
+## Remaining Tasks
+
+- After pushing, check the live GitHub Pages site in Vivaldi specifically. The embedded PDF iframe path has been removed, but the exact Vivaldi message can only be ruled out in Vivaldi itself.
+- Re-check the GitHub Pages deployment after Actions finishes.
 
 ## Known Issues
 
-- A system `npm` command is still not available on PATH, and the Autodesk npm shim found on disk is incomplete. This verification used a temporary npm 10.9.2 shim in the user temp folder with the bundled Node runtime.
-- The local status file cannot contain the hash of the commit that creates it. The final commit hash is recorded in the handoff message after commit and push.
+- The Slides Reader now deliberately opens PDFs in the browser PDF reader instead of trying to render them inline. This is the intended compatibility tradeoff for Vivaldi and other stricter browsers.
+- `PROJECT_STATUS.md` cannot contain the hash of the commit that creates it. The final pushed commit hash is recorded in the handoff response after commit and push.
+
+## Latest Commit Hash
+
+- Pending final commit. The final response records the exact pushed hash.

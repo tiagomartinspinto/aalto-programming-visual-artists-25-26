@@ -455,8 +455,7 @@
 
       .slides-reader {
         display: grid;
-        grid-template-columns: minmax(220px, 300px) minmax(0, 1fr);
-        min-height: min(82vh, 820px);
+        grid-template-columns: minmax(240px, 300px) minmax(0, 1fr);
         overflow: hidden;
       }
 
@@ -475,8 +474,33 @@
         font-size: 14px;
       }
 
-      .slide-select-label,
+      .slide-select-label {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+      }
+
       .slide-select {
+        width: 100%;
+        min-height: 42px;
+        padding: 8px 10px;
+        border: 1px solid rgba(84, 214, 199, 0.62);
+        border-radius: 6px;
+        background: var(--panel-2);
+        color: var(--ink);
+        font: inherit;
+        font-weight: 720;
+      }
+
+      .slide-buttons {
+        display: grid;
+        gap: 8px;
+        margin-top: 4px;
+      }
+
+      .slide-controls.is-compact .slide-buttons {
         display: none;
       }
 
@@ -501,7 +525,7 @@
 
       .slide-viewer {
         display: grid;
-        grid-template-rows: auto minmax(520px, 1fr);
+        grid-template-rows: auto minmax(280px, 1fr);
         min-width: 0;
       }
 
@@ -523,7 +547,8 @@
         gap: 8px;
       }
 
-      .reader-button {
+      .reader-button,
+      .slide-open-link {
         min-height: 34px;
         padding: 7px 9px;
         border: 1px solid var(--line);
@@ -533,6 +558,7 @@
         font: inherit;
         font-size: 14px;
         font-weight: 720;
+        text-decoration: none;
         cursor: pointer;
       }
 
@@ -546,12 +572,32 @@
         font-weight: 720;
       }
 
-      .pdf-frame {
-        width: 100%;
-        min-height: 520px;
-        height: 100%;
-        border: 0;
-        background: #111;
+      .pdf-panel {
+        display: grid;
+        align-content: center;
+        gap: 12px;
+        min-height: clamp(280px, 42vh, 430px);
+        padding: clamp(18px, 4vw, 34px);
+        background:
+          linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+          var(--code);
+        background-size: 26px 26px;
+      }
+
+      .pdf-kicker {
+        color: var(--accent-2);
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+        font-size: 13px;
+        font-weight: 760;
+        text-transform: uppercase;
+      }
+
+      .pdf-panel p {
+        max-width: 620px;
+        margin: 0;
+        color: var(--muted);
+        font-size: clamp(16px, 1.8vw, 20px);
       }
 
       .web-grid {
@@ -665,27 +711,8 @@
         }
 
         .slide-list-label,
-        .slide-picker {
+        .slide-buttons {
           display: none;
-        }
-
-        .slide-select-label {
-          display: block;
-          color: var(--muted);
-          font-size: 14px;
-        }
-
-        .slide-select {
-          display: block;
-          width: 100%;
-          min-height: 42px;
-          padding: 8px 10px;
-          border: 1px solid rgba(84, 214, 199, 0.62);
-          border-radius: 6px;
-          background: var(--panel-2);
-          color: var(--ink);
-          font: inherit;
-          font-weight: 720;
         }
 
         .slide-viewer {

@@ -85,21 +85,24 @@
   function renderSlides() {
     const controls = document.querySelector(".slide-controls");
     const title = byId("slide-title");
-    const frame = byId("slide-frame");
     const direct = byId("slide-direct-link");
-    if (!controls || !title || !frame || !direct) return;
+    const message = byId("slide-panel-message");
+    if (!controls || !title || !direct) return;
     if (!data.slides?.length) {
       controls.innerHTML = '<p class="slide-list-label">No slide decks have been added yet.</p>';
-      frame.src = "about:blank";
+      title.textContent = "No slides yet";
       direct.removeAttribute("href");
+      if (message) message.textContent = "Slide decks will appear here when they are ready.";
       return;
     }
 
+    const isCompact = data.slides.length > 6;
+    controls.classList.toggle("is-compact", isCompact);
     controls.innerHTML = [
       '<p class="slide-list-label">Choose a slide deck</p>',
       '<label class="slide-select-label" for="slide-select">Choose a slide deck</label>',
       `<select class="slide-select" id="slide-select" aria-label="Choose a slide deck">${data.slides.map((slide, index) => `<option value="${index}">${html(slide.title)}</option>`).join("")}</select>`,
-      ...data.slides.map((slide, index) => `<button class="slide-picker" type="button" aria-pressed="${index === 0 ? "true" : "false"}" data-index="${index}">${html(slide.kicker)}</button>`),
+      `<div class="slide-buttons" aria-label="Slide deck shortcuts">${data.slides.map((slide, index) => `<button class="slide-picker" type="button" aria-pressed="${index === 0 ? "true" : "false"}" data-index="${index}">${html(slide.kicker)}</button>`).join("")}</div>`,
     ].join("");
 
     function setSlide(index) {
@@ -107,10 +110,12 @@
       const slide = data.slides[safeIndex];
       activeSlideIndex = safeIndex;
       title.textContent = slide.title;
-      frame.src = slide.pdf;
-      frame.title = `${slide.title} slides`;
       direct.href = slide.pdf;
+      direct.textContent = slide.kicker ? `Open ${slide.kicker} PDF` : "Open PDF";
       byId("slide-select").value = String(safeIndex);
+      if (message) {
+        message.textContent = `Selected deck: ${slide.title}. Some browsers block embedded PDF readers, so this course site uses a direct PDF link for reliable reading.`;
+      }
       document.querySelectorAll(".slide-picker").forEach((button, buttonIndex) => {
         button.setAttribute("aria-pressed", String(buttonIndex === safeIndex));
       });
@@ -299,7 +304,14 @@
         event.preventDefault();
         const index = data.slides.findIndex((slide) => slide.pdf === pdfTrigger.dataset.pdf);
         if (index >= 0) {
-          document.querySelectorAll(".slide-picker")[index]?.click();
+          const button = document.querySelectorAll(".slide-picker")[index];
+          const select = byId("slide-select");
+          if (button) {
+            button.click();
+          } else if (select) {
+            select.value = String(index);
+            select.dispatchEvent(new Event("change", { bubbles: true }));
+          }
         }
         history.pushState(null, "", "#slides");
         activeNavHoldId = "slides";

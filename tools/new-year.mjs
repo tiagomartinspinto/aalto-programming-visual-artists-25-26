@@ -144,9 +144,9 @@ writeFileSync(path.join(target, "index.html"), `<!doctype html>
       <section id="slides">
         <div class="section-heading">
           <h2>Slides Reader</h2>
-          <p>Read PDF slides without leaving the course page once slide decks are added.</p>
+          <p>Choose a deck, then open the PDF in your browser's reader. This avoids blocked embedded PDF views in stricter browsers.</p>
         </div>
-        <div class="slides-reader" aria-label="In-page PDF slides reader">
+        <div class="slides-reader" aria-label="PDF slides selector">
           <div class="slide-controls"></div>
           <div class="slide-viewer">
             <div class="slide-viewer-bar">
@@ -154,10 +154,13 @@ writeFileSync(path.join(target, "index.html"), `<!doctype html>
               <div class="slide-actions">
                 <button class="reader-button" id="prev-slide-deck" type="button">Previous deck</button>
                 <button class="reader-button" id="next-slide-deck" type="button">Next deck</button>
-                <a id="slide-direct-link" href="#">Open PDF if reader fails</a>
+                <a id="slide-direct-link" class="slide-open-link" href="#" target="_blank" rel="noopener noreferrer">Open PDF</a>
               </div>
             </div>
-            <iframe id="slide-frame" loading="lazy" class="pdf-frame" title="Slides reader" src="about:blank" sandbox="allow-same-origin allow-downloads"></iframe>
+            <div class="pdf-panel" id="slide-panel" role="region" aria-labelledby="slide-title">
+              <span class="pdf-kicker">PDF slides</span>
+              <p id="slide-panel-message">Some browsers block embedded PDF readers. Use the Open PDF button to read the selected deck in a regular browser tab.</p>
+            </div>
           </div>
         </div>
       </section>

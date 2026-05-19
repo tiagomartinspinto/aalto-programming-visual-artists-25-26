@@ -147,6 +147,7 @@
 
       .links a,
       .reader-button,
+      .slide-open-link,
       .slide-picker {
         min-height: 40px;
         padding: 9px 12px;
@@ -469,14 +470,14 @@
 
       .slides-reader {
         display: grid;
-        grid-template-columns: minmax(220px, 0.28fr) minmax(0, 0.72fr);
+        grid-template-columns: minmax(240px, 0.34fr) minmax(0, 0.66fr);
         gap: 14px;
       }
 
       .slide-controls {
         display: grid;
         align-content: start;
-        gap: 8px;
+        gap: 10px;
         padding: 12px;
       }
 
@@ -497,6 +498,7 @@
       }
 
       .slide-select {
+        width: 100%;
         min-height: 42px;
         padding: 8px 10px;
         border: 1px solid var(--line);
@@ -504,6 +506,16 @@
         background: var(--panel-2);
         color: var(--ink);
         font: inherit;
+      }
+
+      .slide-buttons {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(76px, 1fr));
+        gap: 8px;
+      }
+
+      .slide-controls.is-compact .slide-buttons {
+        display: none;
       }
 
       .slide-picker[aria-pressed="true"] {
@@ -531,13 +543,32 @@
         font-weight: 760;
       }
 
-      .pdf-frame {
-        width: 100%;
-        height: min(76vh, 760px);
-        min-height: 520px;
-        border: 0;
-        display: block;
-        background: #05070a;
+      .pdf-panel {
+        display: grid;
+        align-content: center;
+        gap: 12px;
+        min-height: clamp(280px, 42vh, 430px);
+        padding: clamp(18px, 4vw, 34px);
+        background:
+          linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+          #05070a;
+        background-size: 26px 26px;
+      }
+
+      .pdf-kicker {
+        color: var(--accent);
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+        font-size: 13px;
+        font-weight: 760;
+        text-transform: uppercase;
+      }
+
+      .pdf-panel p {
+        max-width: 620px;
+        margin: 0;
+        color: var(--muted);
+        font-size: clamp(16px, 1.8vw, 20px);
       }
 
       .footer {
@@ -578,8 +609,8 @@
           justify-content: flex-start;
         }
 
-        .slide-picker { display: none; }
-        .pdf-frame { min-height: 430px; }
+        .slide-list-label,
+        .slide-buttons { display: none; }
       }
 
       @media (prefers-reduced-motion: reduce) {

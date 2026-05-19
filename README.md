@@ -7,6 +7,8 @@ Aalto University course materials maintained by Tiago Martins Pinto.
 
 This repository is organized by school year so course readers can find sessions, sketches, slides, and examples in one course home.
 
+**Authorship and responsibility:** This site and its course materials are authored and maintained by Tiago Martins Pinto. The materials may be used in teaching at Aalto University, but this is a personal teaching portfolio and course archive, not an official Aalto University publication. Responsibility for the content rests with the author.
+
 **Public repository warning:** This repository is public. Do not commit grades, unpublished third-party work, personal data, or internal university material. GitHub Pages exposes all committed site content publicly.
 
 Live site: [tiagomartinspinto.github.io/aalto-programming-visual-artists](https://tiagomartinspinto.github.io/aalto-programming-visual-artists/)

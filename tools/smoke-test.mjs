@@ -32,6 +32,53 @@ async function expectCanvasChanges(locator, label) {
   if (!changed) throw new Error(`${label} did not visibly animate`);
 }
 
+async function expectSlideReader(page, year, expectedDecks) {
+  await expectCount(page, "#slide-select option", expectedDecks, `${year} slide deck options`);
+  await expectCount(page, "#slide-direct-link", 1, `${year} direct PDF link`);
+  await expectCount(page, "#slide-panel-message", 1, `${year} PDF fallback message`);
+  await expectCount(page, ".pdf-panel", 1, `${year} PDF panel`);
+  if ((await page.locator("#slide-frame").count()) !== 0) {
+    throw new Error(`${year} still uses a year-level PDF iframe`);
+  }
+
+  const direct = page.locator("#slide-direct-link");
+  if ((await direct.getAttribute("target")) !== "_blank") {
+    throw new Error(`${year} direct PDF link does not open in a new tab`);
+  }
+  const rel = await direct.getAttribute("rel");
+  if (!rel?.includes("noopener") || !rel.includes("noreferrer")) {
+    throw new Error(`${year} direct PDF link is missing rel safety attributes`);
+  }
+  const fallback = await page.locator("#slide-panel-message").textContent();
+  if (!fallback?.includes("browsers block embedded PDF readers")) {
+    throw new Error(`${year} fallback message does not explain blocked embedded PDF readers`);
+  }
+
+  await page.locator("#slide-select").selectOption(String(expectedDecks - 1));
+  const finalHref = await direct.getAttribute("href");
+  const finalPath = new URL(finalHref, page.url()).pathname;
+  const expectedPdf = `session-${String(expectedDecks).padStart(2, "0")}.pdf`;
+  if (!finalPath.endsWith(`/slides/${expectedPdf}`)) {
+    throw new Error(`${year} direct PDF link did not update to ${expectedPdf}`);
+  }
+}
+
+async function expectSessionPdfPanel(page, path, label) {
+  await page.goto(site(path), { waitUntil: "domcontentloaded" });
+  await expectCount(page, ".slides-panel", 1, `${label} PDF panel`);
+  if ((await page.locator("iframe[src$='.pdf']").count()) !== 0) {
+    throw new Error(`${label} still embeds a PDF iframe`);
+  }
+  const link = page.locator(".slides-panel a");
+  if ((await link.getAttribute("target")) !== "_blank") {
+    throw new Error(`${label} PDF link does not open in a new tab`);
+  }
+  const rel = await link.getAttribute("rel");
+  if (!rel?.includes("noopener") || !rel.includes("noreferrer")) {
+    throw new Error(`${label} PDF link is missing rel safety attributes`);
+  }
+}
+
 const { chromium } = await loadPlaywright();
 const browser = await chromium.launch();
 const page = await browser.newPage();
@@ -46,8 +93,9 @@ try {
   await page.locator("#course-search-input").fill("video");
   await page.locator('[data-search-type="sketch"]').click();
   await expectCount(page, ".search-result-link", 1, "2024 sketch search result");
-  if ((await page.locator("#slide-frame").getAttribute("sandbox")) !== "allow-same-origin allow-downloads") {
-    throw new Error("2024 PDF iframe sandbox changed");
+  await expectSlideReader(page, "2024-2025", 8);
+  if (!(await page.locator(".slide-controls").evaluate((element) => element.classList.contains("is-compact")))) {
+    throw new Error("2024 slide controls should use compact layout");
   }
 
   await page.goto(site("/years/2025-2026/"), { waitUntil: "domcontentloaded" });
@@ -58,11 +106,11 @@ try {
   await page.locator('[data-search-type="sketch"]').click();
   await expectCount(page, ".search-result-link", 1, "sketch search result");
 
-  await expectCount(page, "#slide-frame", 1, "PDF slide iframe");
-  if ((await page.locator("#slide-frame").getAttribute("sandbox")) !== "allow-same-origin allow-downloads") {
-    throw new Error("2025 PDF iframe sandbox changed");
-  }
+  await expectSlideReader(page, "2025-2026", 6);
+  await expectSessionPdfPanel(page, "/years/2024-2025/sessions/session-08/", "2024 session slides");
+  await expectSessionPdfPanel(page, "/years/2025-2026/sessions/session-06/", "2025 session slides");
 
+  await page.goto(site("/years/2025-2026/"), { waitUntil: "domcontentloaded" });
   await page.locator('nav a[href="#web-sketches"]').click();
   await page.locator('[data-sketch-id="bouncing-ball"]').scrollIntoViewIfNeeded();
   await page.waitForTimeout(1200);

@@ -25,6 +25,7 @@ const emailPattern = /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i;
 const cspPattern = /<meta\b[^>]*http-equiv=["']Content-Security-Policy["'][^>]*>/i;
 const privacyNote = "Code edits run locally in your browser and are not uploaded.";
 const publicRepoWarning = "This repository is public.";
+const ownershipNote = "authored and maintained by Tiago Martins Pinto";
 const yearSectionOrder = ["current-session", "web-sketches", "lab", "comparison", "slides", "assignments", "sessions"];
 
 function walk(directory) {
@@ -166,6 +167,27 @@ function checkHtml(filePath) {
     for (const type of ["all", "session", "sketch", "slide"]) {
       if (!html.includes(`data-search-type="${type}"`)) errors.push(`${rel} is missing the ${type} course search filter`);
     }
+    if (html.includes('id="slide-frame"')) {
+      errors.push(`${rel} uses an embedded year-level PDF iframe instead of the browser-compatible PDF panel`);
+    }
+    if (!html.includes('id="slide-panel-message"')) {
+      errors.push(`${rel} is missing the PDF fallback message`);
+    }
+    if (!/<a\b(?=[^>]*\bid=["']slide-direct-link["'])(?=[^>]*\btarget=["']_blank["'])(?=[^>]*\brel=["'][^"']*\bnoopener\b[^"']*\bnoreferrer\b[^"']*["'])[^>]*>/i.test(html)) {
+      errors.push(`${rel} is missing a safe direct PDF link for the Slides Reader`);
+    }
+  }
+
+  if (/^years\/\d{4}-\d{4}\/sessions\/session-\d+\/index\.html$/.test(rel)) {
+    if (/<iframe\b[^>]*\.pdf/i.test(html)) {
+      errors.push(`${rel} embeds a PDF iframe instead of the browser-compatible PDF panel`);
+    }
+    if (!html.includes('class="slides-panel"')) {
+      errors.push(`${rel} is missing the session PDF panel`);
+    }
+    if (!/<a\b(?=[^>]*\bhref=["'][^"']+\.pdf["'])(?=[^>]*\btarget=["']_blank["'])(?=[^>]*\brel=["'][^"']*\bnoopener\b[^"']*\bnoreferrer\b[^"']*["'])[^>]*>/i.test(html)) {
+      errors.push(`${rel} is missing a safe direct PDF link for session slides`);
+    }
   }
 }
 
@@ -251,6 +273,12 @@ function checkCounts() {
   if (!cspPattern.test(homeHtml)) errors.push("index.html is missing a Content-Security-Policy meta tag");
   if (!readFileSync(path.join(root, "README.md"), "utf8").includes(publicRepoWarning)) {
     errors.push("README.md is missing the public repository warning");
+  }
+  if (!homeHtml.includes(ownershipNote)) {
+    errors.push("index.html is missing the authorship and responsibility note");
+  }
+  if (!readFileSync(path.join(root, "README.md"), "utf8").includes(ownershipNote)) {
+    errors.push("README.md is missing the authorship and responsibility note");
   }
   if (!existsSync(path.join(root, "SECURITY.md"))) errors.push("SECURITY.md is missing");
   if (!readFileSync(path.join(root, "assets", "year.js"), "utf8").includes('sandbox="allow-scripts"')) {
