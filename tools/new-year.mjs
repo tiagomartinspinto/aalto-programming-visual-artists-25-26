@@ -147,7 +147,9 @@ writeFileSync(path.join(target, "index.html"), `<!doctype html>
           <p>Choose a deck, then open the PDF in your browser's reader. This avoids blocked embedded PDF views in stricter browsers.</p>
         </div>
         <div class="slides-reader" aria-label="PDF slides selector">
-          <div class="slide-controls"></div>
+          <div class="slide-controls">
+            <p class="slide-list-label">No slide decks have been added yet.</p>
+          </div>
           <div class="slide-viewer">
             <div class="slide-viewer-bar">
               <strong id="slide-title">No slides yet</strong>

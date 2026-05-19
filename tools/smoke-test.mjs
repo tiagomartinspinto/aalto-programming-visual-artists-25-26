@@ -37,6 +37,9 @@ async function expectSlideReader(page, year, expectedDecks) {
   await expectCount(page, "#slide-direct-link", 1, `${year} direct PDF link`);
   await expectCount(page, "#slide-panel-message", 1, `${year} PDF fallback message`);
   await expectCount(page, ".pdf-panel", 1, `${year} PDF panel`);
+  if (!(await page.locator("#slide-select").isVisible())) {
+    throw new Error(`${year} enhanced slide select is not visible`);
+  }
   if ((await page.locator("#slide-frame").count()) !== 0) {
     throw new Error(`${year} still uses a year-level PDF iframe`);
   }
@@ -60,6 +63,55 @@ async function expectSlideReader(page, year, expectedDecks) {
   const expectedPdf = `session-${String(expectedDecks).padStart(2, "0")}.pdf`;
   if (!finalPath.endsWith(`/slides/${expectedPdf}`)) {
     throw new Error(`${year} direct PDF link did not update to ${expectedPdf}`);
+  }
+}
+
+async function expectFallbackSlideList(browser, path, year, expectedDecks) {
+  const context = await browser.newContext({ javaScriptEnabled: false });
+  const fallbackPage = await context.newPage();
+  try {
+    await fallbackPage.goto(site(path), { waitUntil: "domcontentloaded" });
+    await expectCount(fallbackPage, ".slide-controls a[href$='.pdf']", expectedDecks, `${year} fallback slide links`);
+    if (!(await fallbackPage.locator(".slide-controls").isVisible())) {
+      throw new Error(`${year} fallback slide controls are not visible without JavaScript`);
+    }
+    if (!(await fallbackPage.locator(".slide-controls a[href$='.pdf']").first().isVisible())) {
+      throw new Error(`${year} first fallback slide link is not visible without JavaScript`);
+    }
+    if ((await fallbackPage.locator("#slide-select").count()) !== 0) {
+      throw new Error(`${year} enhanced slide select should not exist before JavaScript runs`);
+    }
+    for (let index = 1; index <= expectedDecks; index += 1) {
+      const href = `slides/session-${String(index).padStart(2, "0")}.pdf`;
+      const link = fallbackPage.locator(`.slide-controls a[href="${href}"]`);
+      if ((await link.count()) !== 1) {
+        throw new Error(`${year} fallback slide list is missing ${href}`);
+      }
+      if ((await link.getAttribute("target")) !== "_blank") {
+        throw new Error(`${year} fallback ${href} does not open in a new tab`);
+      }
+      const rel = await link.getAttribute("rel");
+      if (!rel?.includes("noopener") || !rel.includes("noreferrer")) {
+        throw new Error(`${year} fallback ${href} is missing rel safety attributes`);
+      }
+    }
+  } finally {
+    await context.close();
+  }
+}
+
+async function expectMobileSlideControls(page, path, year) {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto(site(path), { waitUntil: "domcontentloaded" });
+  if (!(await page.locator("#slide-select").isVisible())) {
+    throw new Error(`${year} mobile slide select is not visible`);
+  }
+  const fits = await page.locator(".slides-reader").evaluate((reader) => {
+    const controls = reader.querySelector(".slide-controls");
+    return reader.scrollWidth <= reader.clientWidth + 1 && (!controls || controls.scrollWidth <= controls.clientWidth + 1);
+  });
+  if (!fits) {
+    throw new Error(`${year} mobile slide controls overflow their panel`);
   }
 }
 
@@ -87,6 +139,9 @@ try {
   await page.goto(site("/"), { waitUntil: "domcontentloaded" });
   await expectCount(page, "h1", 1, "homepage h1");
 
+  await expectFallbackSlideList(browser, "/years/2024-2025/", "2024-2025", 8);
+  await expectFallbackSlideList(browser, "/years/2025-2026/", "2025-2026", 6);
+
   await page.goto(site("/years/2024-2025/"), { waitUntil: "domcontentloaded" });
   await expectCount(page, ".web-card", 9, "2024 sketch cards");
   await expectCount(page, ".session-card", 8, "2024 session cards");
@@ -109,7 +164,10 @@ try {
   await expectSlideReader(page, "2025-2026", 6);
   await expectSessionPdfPanel(page, "/years/2024-2025/sessions/session-08/", "2024 session slides");
   await expectSessionPdfPanel(page, "/years/2025-2026/sessions/session-06/", "2025 session slides");
+  await expectMobileSlideControls(page, "/years/2024-2025/", "2024-2025");
+  await expectMobileSlideControls(page, "/years/2025-2026/", "2025-2026");
 
+  await page.setViewportSize({ width: 1280, height: 720 });
   await page.goto(site("/years/2025-2026/"), { waitUntil: "domcontentloaded" });
   await page.locator('nav a[href="#web-sketches"]').click();
   await page.locator('[data-sketch-id="bouncing-ball"]').scrollIntoViewIfNeeded();

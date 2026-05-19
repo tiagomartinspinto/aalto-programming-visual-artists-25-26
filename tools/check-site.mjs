@@ -176,6 +176,29 @@ function checkHtml(filePath) {
     if (!/<a\b(?=[^>]*\bid=["']slide-direct-link["'])(?=[^>]*\btarget=["']_blank["'])(?=[^>]*\brel=["'][^"']*\bnoopener\b[^"']*\bnoreferrer\b[^"']*["'])[^>]*>/i.test(html)) {
       errors.push(`${rel} is missing a safe direct PDF link for the Slides Reader`);
     }
+    const slideControls = html.match(/<div\b[^>]*\bclass=["']slide-controls["'][^>]*>([\s\S]*?)<\/div>\s*<div\b[^>]*\bclass=["']slide-viewer["']/i)?.[1] || "";
+    if (!slideControls.trim()) {
+      errors.push(`${rel} has empty source HTML inside .slide-controls`);
+    }
+    const expectedSlideCount = countFiles(path.join(path.dirname(filePath), "slides"), ".pdf");
+    const fallbackSlideLinks = [...slideControls.matchAll(/<a\b([^>]*)>/gi)].filter((match) => {
+      const attributes = match[1];
+      return /\bhref=["']slides\/[^"']+\.pdf["']/i.test(attributes);
+    });
+    if (expectedSlideCount > 0 && fallbackSlideLinks.length !== expectedSlideCount) {
+      errors.push(`${rel} has ${fallbackSlideLinks.length} fallback slide links; expected ${expectedSlideCount}`);
+    }
+    for (let index = 1; index <= expectedSlideCount; index += 1) {
+      const expectedHref = `slides/session-${String(index).padStart(2, "0")}.pdf`;
+      const link = fallbackSlideLinks.find((match) => match[1].includes(`href="${expectedHref}"`) || match[1].includes(`href='${expectedHref}'`));
+      if (!link) {
+        errors.push(`${rel} is missing fallback link for ${expectedHref}`);
+        continue;
+      }
+      if (!/\btarget=["']_blank["']/i.test(link[1]) || !/\brel=["'][^"']*\bnoopener\b[^"']*\bnoreferrer\b[^"']*["']/i.test(link[1])) {
+        errors.push(`${rel} fallback link for ${expectedHref} is missing safe new-tab attributes`);
+      }
+    }
   }
 
   if (/^years\/\d{4}-\d{4}\/sessions\/session-\d+\/index\.html$/.test(rel)) {

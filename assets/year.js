@@ -97,7 +97,9 @@
     }
 
     const isCompact = data.slides.length > 6;
+    document.querySelector(".slides-reader")?.classList.add("is-enhanced");
     controls.classList.toggle("is-compact", isCompact);
+    controls.setAttribute("aria-label", "Slide deck controls");
     controls.innerHTML = [
       '<p class="slide-list-label">Choose a slide deck</p>',
       '<label class="slide-select-label" for="slide-select">Choose a slide deck</label>',

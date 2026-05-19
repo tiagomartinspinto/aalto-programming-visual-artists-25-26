@@ -149,6 +149,8 @@
       .reader-button,
       .slide-open-link,
       .slide-picker {
+        display: inline-flex;
+        align-items: center;
         min-height: 40px;
         padding: 9px 12px;
         border: 1px solid rgba(255, 122, 168, 0.55);
@@ -160,6 +162,14 @@
         font-weight: 760;
         text-decoration: none;
         cursor: pointer;
+      }
+
+      .reader-button {
+        display: none;
+      }
+
+      .slides-reader.is-enhanced .reader-button {
+        display: inline-flex;
       }
 
       .links a:not(.primary),
@@ -205,9 +215,7 @@
 
       .feature-card,
       .session-card,
-      .notice,
-      .slide-viewer,
-      .slide-controls {
+      .notice {
         border: 1px solid var(--line);
         border-radius: 8px;
         background: rgba(16, 20, 27, 0.86);
@@ -470,15 +478,20 @@
 
       .slides-reader {
         display: grid;
-        grid-template-columns: minmax(240px, 0.34fr) minmax(0, 0.66fr);
-        gap: 14px;
+        grid-template-columns: minmax(240px, 300px) minmax(0, 1fr);
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(16, 20, 27, 0.86);
       }
 
       .slide-controls {
         display: grid;
         align-content: start;
         gap: 10px;
-        padding: 12px;
+        padding: 16px;
+        border-right: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.025);
       }
 
       .slide-list-label {
@@ -508,6 +521,30 @@
         font: inherit;
       }
 
+      .slide-fallback-list {
+        display: grid;
+        gap: 8px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .slide-fallback-list a {
+        display: block;
+        padding: 11px 12px;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        background: var(--panel-2);
+        color: var(--ink);
+        font-weight: 720;
+        text-decoration: none;
+      }
+
+      .slide-fallback-list a:hover {
+        border-color: rgba(255, 122, 168, 0.72);
+        color: var(--accent);
+      }
+
       .slide-buttons {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(76px, 1fr));
@@ -524,6 +561,8 @@
       }
 
       .slide-viewer {
+        display: grid;
+        grid-template-rows: auto minmax(280px, 1fr);
         min-width: 0;
         overflow: hidden;
       }
@@ -536,6 +575,7 @@
         gap: 12px;
         padding: 12px 14px;
         border-bottom: 1px solid var(--line);
+        background: var(--panel-2);
       }
 
       .slide-actions a {
@@ -607,6 +647,16 @@
 
         .slide-actions {
           justify-content: flex-start;
+        }
+
+        .slide-controls {
+          width: 100%;
+          border-right: 0;
+          border-bottom: 1px solid var(--line);
+        }
+
+        .slide-viewer {
+          width: 100%;
         }
 
         .slide-list-label,
