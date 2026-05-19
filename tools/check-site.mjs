@@ -7,6 +7,20 @@ const errors = [];
 const typoPattern = /isntru|animted|nexted|function_parame_ex|particlesperlinoise|seperate/i;
 const privateFilePattern = /(^|\/)(\.env|\.env\..+|.*\.bak|.*\.backup|.*\.tmp|.*~|private-notes?|grades?|\.DS_Store)$/i;
 const privateContentPattern = /(\b[A-Z0-9_]*(?:API_KEY|AUTH_TOKEN|ACCESS_TOKEN|SECRET)\b|ghp_[A-Za-z0-9_]{20,}|sk-[A-Za-z0-9_-]{20,}|\/Users\/ptiagomp\/Desktop|\/var\/folders\/)/;
+const removedWorkTracePattern = new RegExp(`\\b(${
+  [
+    "stu" + "dent",
+    "stu" + "dents",
+    "stu" + "dy",
+    "stu" + "dies",
+    "case-" + "stu" + "dy",
+    "case-" + "stu" + "dies",
+    "Open" + "Processing",
+    "source\\." + "txt",
+    "mir" + "ror",
+    "gal" + "lery",
+  ].join("|")
+})\\b`, "i");
 const emailPattern = /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i;
 const cspPattern = /<meta\b[^>]*http-equiv=["']Content-Security-Policy["'][^>]*>/i;
 const privacyNote = "Code edits run locally in your browser and are not uploaded.";
@@ -221,6 +235,13 @@ function checkCounts() {
       const labHtml = readFileSync(labPath, "utf8");
       if (!cspPattern.test(labHtml)) errors.push(`years/${year}/web/lab.html is missing a Content-Security-Policy meta tag`);
       if (!labHtml.includes(privacyNote)) errors.push(`years/${year}/web/lab.html is missing the browser-local privacy note`);
+      const courseDataScript = labHtml.indexOf('src="../course-data.js"');
+      const sharedLabScript = labHtml.indexOf('src="../../../assets/lab.js"');
+      if (courseDataScript < 0 || sharedLabScript < 0) {
+        errors.push(`years/${year}/web/lab.html must load course-data.js and the shared Lab runtime`);
+      } else if (sharedLabScript < courseDataScript) {
+        errors.push(`years/${year}/web/lab.html must load course-data.js before assets/lab.js`);
+      }
     }
   }
   const homeHtml = readFileSync(path.join(root, "index.html"), "utf8");
@@ -248,6 +269,10 @@ for (const filePath of walk(root)) {
   if (/\.(?:html|js|css|md|txt|pde|rb|json|yml|yaml)$/i.test(filePath)) {
     const content = readFileSync(filePath, "utf8");
     if (privateContentPattern.test(content)) errors.push(`${rel} contains a private token pattern or local machine path`);
+    const traceScanExempt = rel === "PROJECT_STATUS.md" || /(?:^|\/)vendor\/p5\.min\.js$/.test(rel);
+    if (!traceScanExempt && removedWorkTracePattern.test(content)) {
+      errors.push(`${rel} contains a removed coursework trace term`);
+    }
   }
   if (filePath.endsWith(".html")) checkHtml(filePath);
   if (rel.endsWith("course-data.js")) checkCourseData(filePath);

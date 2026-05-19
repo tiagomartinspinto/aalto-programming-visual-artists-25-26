@@ -3,69 +3,56 @@
 ## Completed This Pass
 
 - Synced local `main` with `origin/main` before editing.
-- Reduced repeated year-page entry points by removing duplicated header action buttons and explanatory status cards.
-- Standardized both year pages around the same section order: current session, web sketches, Lab, Processing/p5.js comparison, slides, projects, and sessions.
-- Kept year-specific palettes and course content different while aligning navigation logic, search/filter behavior, Lab/privacy wording, slide reader behavior, card behavior, footer/update markers, iframe sandboxing, and CSP coverage.
-- Removed duplicate sketch-card links by keeping one Lab link, one sketch page link, and one Processing source link.
-- Added CSP metadata to session pages, web sketch pages, and source example pages.
-- Added skip links to session-style pages and expanded `tools/check-site.mjs` so future edits check CSP coverage, external runtime requests, standard year section order, search filters, iframe sandboxing, and local links.
-- Updated `tools/smoke-test.mjs` to test both years, search, PDF sandboxing, animated p5 previews, the Lab run path, and mobile navigation.
-- Improved the `npm run new:year -- YYYY-YYYY` template so future years start with the same archive structure without copied session metadata or stale live links.
+- Extracted the duplicated Lab runtime from both year Lab pages into `assets/lab.js`.
+- Kept year-specific Lab defaults in `years/2024-2025/course-data.js` and `years/2025-2026/course-data.js`.
+- Confirmed Lab pages load `vendor/p5.min.js`, then `../course-data.js`, then `../../../assets/lab.js`.
+- Centralized the repeated Processing/p5.js comparison cards in `assets/year.js`.
+- Updated both current year pages and `tools/new-year.mjs` to use the shared comparison renderer.
+- Reduced year landing-page link density by keeping one primary session action plus slide access in current/session cards. Sketch entry points remain in Web Sketches and the Lab.
+- Simplified the homepage Course Directory copy to `Choose an academic year.`
+- Documented in `MAINTAINING.md` that the "Before class / During class / After class" rhythm cards intentionally remain inline so session pages stay readable before JavaScript runs.
+- Added a current-tree guard in `tools/check-site.mjs` for removed coursework trace terms while preserving CSP, iframe sandbox, local-link, labeled-control, skip-link, standard year-section-order, and privacy-note checks.
 
 ## Files Changed
 
-- `ARCHITECTURE.md`
 - `MAINTAINING.md`
 - `PROJECT_STATUS.md`
-- `README.md`
-- `assets/ascii-skin.css`
-- `assets/home.css`
+- `assets/lab.js`
 - `assets/year.js`
+- `index.html`
 - `tools/check-site.mjs`
 - `tools/new-year.mjs`
-- `tools/smoke-test.mjs`
+- `years/2024-2025/course-data.js`
 - `years/2024-2025/index.html`
-- `years/2024-2025/year.css`
-- `years/2024-2025/sessions/session-01/index.html` through `session-08/index.html`
-- `years/2024-2025/source/session-07/testp5js.html`
-- `years/2024-2025/web/*/index.html`
+- `years/2024-2025/web/lab.html`
 - `years/2025-2026/course-data.js`
 - `years/2025-2026/index.html`
-- `years/2025-2026/year.css`
 - `years/2025-2026/web/lab.html`
-- `years/2025-2026/sessions/session-01/index.html` through `session-06/index.html`
-- `years/2025-2026/source/session-03` through `session-06` slide-code example pages
-- `years/2025-2026/web/*/index.html`
 
 ## Checks Run
 
-- `node tools/check-site.mjs` - passed.
-- `node tools/build-course-index.mjs` - completed.
-- `npm run check` - passed.
-- `git diff --check` - passed.
-- `npm run smoke:browser` - passed after expanding the smoke coverage.
-- Current-tree tooling-name scan - no public documentation matches; ordinary pointer-related CSS terms remain.
-- Current-tree removed-coursework-route scan, excluding bundled vendor runtime files - no matches.
+- `npm run check` - attempted, but `npm` is not available in this local PATH.
+- Bundled Node equivalent of `npm run check`:
+  - `node tools/build-course-index.mjs` - completed.
+  - `node tools/check-site.mjs` - passed.
+  - `node tools/check-assets.mjs` - completed.
+- `git diff --check` - passed; Git reported expected CRLF normalization warnings.
+- `node tools/smoke-test.mjs` - attempted directly, but Playwright is not installed in this checkout.
+- Current-tree tooling-name scan - no matches outside this audit file.
+- Current-tree removed-coursework trace scan - no matches outside this audit file and bundled p5 vendor runtime files.
 
 ## Manual Tests Performed
 
-- Loaded the homepage locally through `http://127.0.0.1:8123/index.html`.
-- Loaded both year pages through the local server.
-- Verified both year pages render session cards and sketch cards from `course-data.js`.
-- Verified 2024-2025 search finds a sketch result for `video`.
-- Verified 2025-2026 search finds sketch results for `particles`.
-- Verified the embedded PDF reader iframe exists and keeps `sandbox="allow-same-origin allow-downloads"`.
-- Verified a 2025-2026 p5 preview animates when its card is in view.
-- Verified the 2025-2026 Lab loads `bouncing-ball`, accepts an edit, and reports the edited sketch as running.
-- Verified mobile-width navigation remains visible in the 2025-2026 year page.
-
-## Remaining Tasks
-
-- Test the live GitHub Pages URL after the final push and Pages deployment finish.
-- When adding 2026-2027, run `npm run new:year -- 2026-2027`, add only real course content, then run `npm run build:index`, `npm run check`, and `npm run smoke:browser`.
-- Keep checking live p5 previews after future CSP or sandbox changes, especially media examples that depend on browser permissions.
+- Started a local static server at `http://127.0.0.1:8765/`.
+- Loaded the homepage and verified the Course Directory copy is concise, no `.button` year links remain, and the central directory links keep accessible labels.
+- Loaded `years/2025-2026/` and verified the shared Processing/p5.js comparison renders four cards from `assets/year.js`.
+- Verified the 2025-2026 current-session shortcut renders two links: `Open Session 06` and `Read Session 06 slides`.
+- Verified rendered session cards now max out at two links per card.
+- Loaded `years/2025-2026/web/lab.html?sketch=bouncing-ball` and verified the shared Lab runtime selects `bouncing-ball`, loads code, creates one canvas, keeps the file-mode warning hidden on HTTP, and reports the sketch running.
+- Loaded `years/2024-2025/web/lab.html` and verified the shared Lab runtime defaults to `smile-face`, loads code, creates one canvas, keeps the file-mode warning hidden on HTTP, and reports the sketch running.
 
 ## Known Issues
 
-- Browser console warnings from p5.js sensor-permission checks can appear inside sandboxed previews. They did not block the tested sketches.
-- The local status file cannot contain the hash of the commit that creates it. The latest synced commit before this update was `97ff22d689baaa6ecf63947d90ee59be4f0660ba`; the final commit hash is recorded in the handoff message after commit and push.
+- `npm` is not installed or not available in this local PATH, so exact `npm run ...` commands could not run in this environment.
+- The browser smoke script exists, but this checkout does not have Playwright installed locally.
+- The local status file cannot contain the hash of the commit that creates it. The final commit hash is recorded in the handoff message after commit and push.

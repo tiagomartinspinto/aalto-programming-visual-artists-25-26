@@ -4,13 +4,15 @@
 // run npm run build:index and npm run check.
 window.COURSE_DATA = {
   year: "2025-2026",
+  lab: {
+    defaultSketch: "face-exercise",
+  },
   currentSession: {
     id: "session-06",
     description: "Session 06 includes arrays, objects, particle systems, and motion fields.",
     links: [
       { label: "Open Session 06", href: "sessions/session-06/", primary: true },
       { label: "Read Session 06 slides", href: "#slides", pdf: "slides/session-06.pdf", title: "Session 06 - Arrays, objects, and particles" },
-      { label: "Run particles follow", href: "web/particles-follow/" },
     ],
   },
   sessions: [
@@ -24,7 +26,6 @@ window.COURSE_DATA = {
       href: "sessions/session-01/",
       links: [
         { label: "Open session page", href: "sessions/session-01/", primary: true },
-        { label: "Open web sketch", href: "web/face-exercise/" },
         { label: "Read slides here", href: "#slides", pdf: "slides/session-01.pdf", title: "Session 01 - Drawing, coordinates, and first functions" },
       ],
     },
@@ -38,7 +39,6 @@ window.COURSE_DATA = {
       href: "sessions/session-02/",
       links: [
         { label: "Open session page", href: "sessions/session-02/", primary: true },
-        { label: "Open web sketch", href: "web/mouse-shapes/" },
         { label: "Read slides here", href: "#slides", pdf: "slides/session-02.pdf", title: "Session 02 - Mouse input and changing color" },
       ],
     },
@@ -52,8 +52,6 @@ window.COURSE_DATA = {
       href: "sessions/session-03/",
       links: [
         { label: "Open session page", href: "sessions/session-03/", primary: true },
-        { label: "Open hover sketch", href: "web/hover-grid/" },
-        { label: "Open ball sketch", href: "web/bouncing-ball/" },
         { label: "Read slides here", href: "#slides", pdf: "slides/session-03.pdf", title: "Session 03 - Conditionals, loops, and movement" },
       ],
     },
@@ -67,8 +65,6 @@ window.COURSE_DATA = {
       href: "sessions/session-04/",
       links: [
         { label: "Open session page", href: "sessions/session-04/", primary: true },
-        { label: "Open waves sketch", href: "web/simple-waves/" },
-        { label: "Open grid sketch", href: "web/generative-grid/" },
         { label: "Read slides here", href: "#slides", pdf: "slides/session-04.pdf", title: "Session 04 - Waves, grids, noise, and recursion" },
       ],
     },
@@ -82,8 +78,6 @@ window.COURSE_DATA = {
       href: "sessions/session-05/",
       links: [
         { label: "Open session page", href: "sessions/session-05/", primary: true },
-        { label: "Open shapes sketch", href: "web/shapes-function/" },
-        { label: "Open spiral sketch", href: "web/spiral-spins/" },
         { label: "Read slides here", href: "#slides", pdf: "slides/session-05.pdf", title: "Session 05 - Functions, parameters, and reuse" },
       ],
     },
@@ -97,8 +91,6 @@ window.COURSE_DATA = {
       href: "sessions/session-06/",
       links: [
         { label: "Open session page", href: "sessions/session-06/", primary: true },
-        { label: "Open follow sketch", href: "web/particles-follow/" },
-        { label: "Open noise sketch", href: "web/particles-noise/" },
         { label: "Read slides here", href: "#slides", pdf: "slides/session-06.pdf", title: "Session 06 - Arrays, objects, and particles" },
       ],
     },

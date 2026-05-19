@@ -47,6 +47,13 @@ Keep the main year page split into:
 - `course-data.js` for sessions, sketches, slides, tags, difficulty, duration, and related-material metadata
 - `../../assets/year.js` for reusable rendering and interactions
 
+Shared runtime code lives in root assets:
+
+- `assets/year.js` renders repeated year-page UI, including session cards, sketch cards, slide controls, search, and the Processing/p5.js comparison block.
+- `assets/lab.js` runs the shared Lab editor; year-specific Lab defaults stay in each year's `course-data.js`.
+
+The "Before class / During class / After class" rhythm cards intentionally remain inline on session pages. Those pages are standalone weekly handouts, and keeping the rhythm block present in the HTML preserves readable content before JavaScript runs.
+
 ## Local Sync
 
 If your local checkout is stale or dirty, do not force-reset it until you have saved any local work you care about.

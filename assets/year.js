@@ -16,6 +16,16 @@
   let previewTicking = false;
   let activeNavHoldId = "";
   let activeNavHoldUntil = 0;
+  const comparisonContent = {
+    title: "Processing vs p5.js",
+    intro: "The web sketches are teaching companions, not replacements. Use this quick map when you move between browser examples and original Processing files.",
+    items: [
+      { title: "Canvas Setup", body: "Processing uses <code>size(600, 400)</code>. p5.js uses <code>createCanvas(600, 400)</code>." },
+      { title: "Drawing Loop", body: "Processing writes <code>void draw()</code>. p5.js writes <code>function draw()</code>." },
+      { title: "Transforms", body: "Processing uses <code>pushMatrix()</code> and <code>popMatrix()</code>. p5.js uses <code>push()</code> and <code>pop()</code>." },
+      { title: "Variables", body: "Processing often declares types like <code>float x</code>. p5.js usually uses <code>let x</code> or <code>const x</code>." },
+    ],
+  };
 
   function linksTemplate(links) {
     return `<div class="links">${(links || []).map((link) => {
@@ -113,6 +123,22 @@
     byId("prev-slide-deck")?.addEventListener("click", () => setSlide(activeSlideIndex - 1));
     byId("next-slide-deck")?.addEventListener("click", () => setSlide(activeSlideIndex + 1));
     setSlide(0);
+  }
+
+  function renderComparison() {
+    const section = byId("comparison");
+    const heading = section?.querySelector(".section-heading");
+    const grid = section?.querySelector(".feature-grid");
+    if (!section || !heading || !grid) return;
+
+    heading.querySelector("h2").textContent = comparisonContent.title;
+    heading.querySelector("p").textContent = comparisonContent.intro;
+    grid.innerHTML = comparisonContent.items.map((item) => `
+      <article class="feature-card">
+        <h3>${html(item.title)}</h3>
+        <p>${item.body}</p>
+      </article>
+    `).join("");
   }
 
   function renderSessions() {
@@ -300,6 +326,7 @@
   function init() {
     renderCurrentSession();
     renderSketches();
+    renderComparison();
     renderSlides();
     renderSessions();
     setupSearch();

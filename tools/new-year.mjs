@@ -136,15 +136,10 @@ writeFileSync(path.join(target, "index.html"), `<!doctype html>
       </section>
       <section id="comparison">
         <div class="section-heading">
-          <h2>Processing vs p5.js</h2>
-          <p>The web sketches are teaching companions, not replacements. Use this quick map when you move between browser examples and original Processing files.</p>
+          <h2></h2>
+          <p></p>
         </div>
-        <div class="feature-grid">
-          <article class="feature-card"><h3>Canvas Setup</h3><p>Processing uses <code>size(600, 400)</code>. p5.js uses <code>createCanvas(600, 400)</code>.</p></article>
-          <article class="feature-card"><h3>Drawing Loop</h3><p>Processing writes <code>void draw()</code>. p5.js writes <code>function draw()</code>.</p></article>
-          <article class="feature-card"><h3>Transforms</h3><p>Processing uses <code>pushMatrix()</code> and <code>popMatrix()</code>. p5.js uses <code>push()</code> and <code>pop()</code>.</p></article>
-          <article class="feature-card"><h3>Variables</h3><p>Processing often declares types like <code>float x</code>. p5.js usually uses <code>let x</code> or <code>const x</code>.</p></article>
-        </div>
+        <div class="feature-grid"></div>
       </section>
       <section id="slides">
         <div class="section-heading">
