@@ -31,18 +31,19 @@
 
 ## Checks Run
 
-- `npm run check` - attempted, but `npm` is not available in this local PATH.
-- Bundled Node equivalent of `npm run check`:
-  - `node tools/build-course-index.mjs` - completed.
-  - `node tools/check-site.mjs` - passed.
-  - `node tools/check-assets.mjs` - completed.
-- `git diff --check` - passed; Git reported expected CRLF normalization warnings.
-- `node tools/smoke-test.mjs` - attempted directly, but Playwright is not installed in this checkout.
-- Current-tree tooling-name scan - no matches outside this audit file.
-- Current-tree removed-coursework trace scan - no matches outside this audit file and bundled p5 vendor runtime files.
+- `npm install` - passed using npm 10.9.2 from a temporary user-local shim; dependencies were up to date, 3 packages were audited, and 0 vulnerabilities were reported.
+- `npm run check` - passed:
+  - `npm run build:index` completed.
+  - `npm run check:site` reported `Site checks passed.`
+  - `npm run check:assets` reported `Asset size check completed.`
+- `npx playwright install chromium` - passed; Playwright installed Chromium 148.0.7778.96, Chromium headless shell, FFmpeg, and Winldd in the local Playwright cache.
+- `npm run smoke:browser` - passed against `http://127.0.0.1:8123/` with the local static server running.
+- Tracked-file removed-coursework trace scan - no matches outside this audit file and bundled p5 vendor runtime files.
+- `git grep` removed-coursework trace scan - no matches outside this audit file and bundled p5 vendor runtime files.
 
 ## Manual Tests Performed
 
+- Started a local static server at `http://127.0.0.1:8123/` for the Playwright smoke run; the smoke test loaded the homepage, both year pages, sketch previews, the Lab, and the mobile year navigation.
 - Started a local static server at `http://127.0.0.1:8765/`.
 - Loaded the homepage and verified the Course Directory copy is concise, no `.button` year links remain, and the central directory links keep accessible labels.
 - Loaded `years/2025-2026/` and verified the shared Processing/p5.js comparison renders four cards from `assets/year.js`.
@@ -53,6 +54,5 @@
 
 ## Known Issues
 
-- `npm` is not installed or not available in this local PATH, so exact `npm run ...` commands could not run in this environment.
-- The browser smoke script exists, but this checkout does not have Playwright installed locally.
+- A system `npm` command is still not available on PATH, and the Autodesk npm shim found on disk is incomplete. This verification used a temporary npm 10.9.2 shim in the user temp folder with the bundled Node runtime.
 - The local status file cannot contain the hash of the commit that creates it. The final commit hash is recorded in the handoff message after commit and push.
