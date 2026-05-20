@@ -96,15 +96,12 @@
       return;
     }
 
-    const isCompact = data.slides.length > 6;
     document.querySelector(".slides-reader")?.classList.add("is-enhanced");
-    controls.classList.toggle("is-compact", isCompact);
     controls.setAttribute("aria-label", "Slide deck controls");
     controls.innerHTML = [
       '<p class="slide-list-label">Choose a slide deck</p>',
       '<label class="slide-select-label" for="slide-select">Choose a slide deck</label>',
       `<select class="slide-select" id="slide-select" aria-label="Choose a slide deck">${data.slides.map((slide, index) => `<option value="${index}">${html(slide.title)}</option>`).join("")}</select>`,
-      `<div class="slide-buttons" aria-label="Slide deck shortcuts">${data.slides.map((slide, index) => `<button class="slide-picker" type="button" aria-pressed="${index === 0 ? "true" : "false"}" data-index="${index}">${html(slide.kicker)}</button>`).join("")}</div>`,
     ].join("");
 
     function setSlide(index) {
@@ -118,14 +115,8 @@
       if (message) {
         message.textContent = `Selected deck: ${slide.title}. Some browsers block embedded PDF readers, so this course site uses a direct PDF link for reliable reading.`;
       }
-      document.querySelectorAll(".slide-picker").forEach((button, buttonIndex) => {
-        button.setAttribute("aria-pressed", String(buttonIndex === safeIndex));
-      });
     }
 
-    document.querySelectorAll(".slide-picker").forEach((button) => {
-      button.addEventListener("click", () => setSlide(Number(button.dataset.index)));
-    });
     byId("slide-select").addEventListener("change", (event) => setSlide(Number(event.target.value)));
     byId("prev-slide-deck")?.addEventListener("click", () => setSlide(activeSlideIndex - 1));
     byId("next-slide-deck")?.addEventListener("click", () => setSlide(activeSlideIndex + 1));
@@ -306,11 +297,8 @@
         event.preventDefault();
         const index = data.slides.findIndex((slide) => slide.pdf === pdfTrigger.dataset.pdf);
         if (index >= 0) {
-          const button = document.querySelectorAll(".slide-picker")[index];
           const select = byId("slide-select");
-          if (button) {
-            button.click();
-          } else if (select) {
+          if (select) {
             select.value = String(index);
             select.dispatchEvent(new Event("change", { bubbles: true }));
           }

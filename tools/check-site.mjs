@@ -393,8 +393,12 @@ function checkCounts() {
     errors.push("README.md is missing the authorship and responsibility note");
   }
   if (!existsSync(path.join(root, "SECURITY.md"))) errors.push("SECURITY.md is missing");
-  if (!readFileSync(path.join(root, "assets", "year.js"), "utf8").includes('sandbox="allow-scripts"')) {
+  const yearJs = readFileSync(path.join(root, "assets", "year.js"), "utf8");
+  if (!yearJs.includes('sandbox="allow-scripts"')) {
     errors.push("assets/year.js is missing sandboxed sketch preview iframes");
+  }
+  if (/slide-buttons|slide-picker|is-compact/.test(yearJs)) {
+    errors.push("assets/year.js must not render count-based slide shortcut controls");
   }
 }
 

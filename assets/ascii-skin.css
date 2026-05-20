@@ -253,7 +253,6 @@ h3::before { content: "> " !important; }
 
 .links a,
 .reader-button,
-.slide-picker,
 .search-filter,
 .sketch-links a,
 button {
@@ -269,7 +268,6 @@ button {
 
 .links a::before,
 .reader-button::before,
-.slide-picker::before,
 .search-filter::before,
 .sketch-links a::before,
 button::before {
@@ -278,7 +276,6 @@ button::before {
 
 .links a::after,
 .reader-button::after,
-.slide-picker::after,
 .search-filter::after,
 .sketch-links a::after,
 button::after {
@@ -287,8 +284,6 @@ button::after {
 
 .links a:hover,
 .reader-button:hover,
-.slide-picker:hover,
-.slide-picker[aria-pressed="true"],
 .search-filter:hover,
 .search-filter[aria-pressed="true"],
 .sketch-links a:hover,

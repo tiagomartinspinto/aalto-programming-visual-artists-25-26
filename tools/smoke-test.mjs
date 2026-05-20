@@ -46,7 +46,7 @@ async function expectCanvasChanges(locator, label) {
 async function yearStructure(page, path) {
   await page.goto(site(path), { waitUntil: "domcontentloaded" });
   return page.evaluate(() => {
-    const className = (element) => [...element.classList].filter((name) => name !== "is-compact").sort().join(".");
+    const className = (element) => [...element.classList].sort().join(".");
     const childSignature = (selector) => {
       const element = document.querySelector(selector);
       return element ? [...element.children].map((child) => `${child.tagName.toLowerCase()}#${child.id || ""}.${className(child)}`) : [];
@@ -72,7 +72,10 @@ async function yearStructure(page, path) {
         rel: link.getAttribute("rel"),
       })),
       enhancedOptions: [...document.querySelectorAll("#slide-select option")].map((option) => option.value),
-      compact: document.querySelector(".slide-controls")?.classList.contains("is-compact") || false,
+      shortcutButtons: [...document.querySelectorAll(".slide-buttons, .slide-picker")].map((element) => ({
+        tag: element.tagName.toLowerCase(),
+        visible: Boolean(element.offsetParent),
+      })),
     };
   });
 }
@@ -86,7 +89,6 @@ function withoutCounts(structure) {
       rel: link.rel,
     })).slice(0, 1),
     enhancedOptions: structure.enhancedOptions.length ? ["0..n"] : [],
-    compact: "deck-count-dependent",
   };
 }
 
@@ -108,6 +110,9 @@ async function expectSlideReader(page, year, expectedDecks) {
   }
   if ((await page.locator("#slide-frame").count()) !== 0) {
     throw new Error(`${year} still uses a year-level PDF iframe`);
+  }
+  if ((await page.locator(".slide-buttons, .slide-picker").count()) !== 0) {
+    throw new Error(`${year} still renders shortcut slide buttons after JavaScript enhancement`);
   }
 
   const direct = page.locator("#slide-direct-link");
@@ -248,8 +253,8 @@ try {
   const enhanced2024 = await yearStructure(page, "/years/2024-2025/");
   const enhanced2025 = await yearStructure(page, "/years/2025-2026/");
   expectSameStructure(enhanced2024, enhanced2025, "Enhanced year page");
-  if (!enhanced2024.compact || enhanced2025.compact) {
-    throw new Error("Slide compact mode should be deck-count dependent: 2024 compact, 2025 shortcut buttons visible");
+  if (enhanced2024.shortcutButtons.length || enhanced2025.shortcutButtons.length) {
+    throw new Error("Enhanced Slides Reader must not render per-session shortcut buttons in either year");
   }
 
   await page.goto(site("/years/2024-2025/"), { waitUntil: "domcontentloaded" });
@@ -259,9 +264,6 @@ try {
   await page.locator('[data-search-type="sketch"]').click();
   await expectCount(page, ".search-result-link", 1, "2024 sketch search result");
   await expectSlideReader(page, "2024-2025", 8);
-  if (!(await page.locator(".slide-controls").evaluate((element) => element.classList.contains("is-compact")))) {
-    throw new Error("2024 slide controls should use compact layout");
-  }
 
   await page.goto(site("/years/2025-2026/"), { waitUntil: "domcontentloaded" });
   await expectCount(page, ".web-card", 10, "2025 sketch cards");
