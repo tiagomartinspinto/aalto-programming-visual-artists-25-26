@@ -178,7 +178,8 @@ select {
 .feature-card,
 .session-card,
 .web-card-content,
-.notice {
+.notice,
+.site-note {
   gap: 10px !important;
 }
 
@@ -241,6 +242,7 @@ h3::before { content: "> " !important; }
 .notice p,
 .archive-panel p,
 .year-card p,
+.site-note p,
 .details,
 .search-count,
 .search-empty,
@@ -318,6 +320,14 @@ button.primary:hover {
 .stats,
 .footer {
   gap: 6px !important;
+}
+
+.site-note {
+  max-width: 820px !important;
+  padding: 12px 0 0 !important;
+  border: 0 !important;
+  border-top: 1px solid #000000 !important;
+  background: #ffffff !important;
 }
 
 .home-directory a::after {

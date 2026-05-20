@@ -19,6 +19,17 @@ async function expectCount(page, selector, minimum, label) {
   return count;
 }
 
+async function expectNoHorizontalOverflow(page, label) {
+  const overflow = await page.evaluate(() => ({
+    viewport: window.innerWidth,
+    documentWidth: document.documentElement.scrollWidth,
+    bodyWidth: document.body.scrollWidth,
+  }));
+  if (overflow.documentWidth > overflow.viewport + 1 || overflow.bodyWidth > overflow.viewport + 1) {
+    throw new Error(`${label} has horizontal overflow: viewport ${overflow.viewport}, document ${overflow.documentWidth}, body ${overflow.bodyWidth}`);
+  }
+}
+
 async function expectCanvasChanges(locator, label) {
   const handle = await locator.elementHandle({ timeout: 10000 });
   const changed = await handle.evaluate(async (canvas) => {
@@ -30,6 +41,61 @@ async function expectCanvasChanges(locator, label) {
     return before !== sample();
   });
   if (!changed) throw new Error(`${label} did not visibly animate`);
+}
+
+async function yearStructure(page, path) {
+  await page.goto(site(path), { waitUntil: "domcontentloaded" });
+  return page.evaluate(() => {
+    const className = (element) => [...element.classList].filter((name) => name !== "is-compact").sort().join(".");
+    const childSignature = (selector) => {
+      const element = document.querySelector(selector);
+      return element ? [...element.children].map((child) => `${child.tagName.toLowerCase()}#${child.id || ""}.${className(child)}`) : [];
+    };
+    return {
+      sections: [...document.querySelectorAll("main > section")].map((section) => section.id),
+      navHrefs: [...document.querySelectorAll(".topbar nav a")].map((link) => link.getAttribute("href")),
+      searchFilters: [...document.querySelectorAll("[data-search-type]")].map((button) => button.dataset.searchType),
+      currentSessionChildren: childSignature(".current-session-card"),
+      courseSearchChildren: childSignature(".course-search"),
+      slideReaderChildren: childSignature(".slides-reader"),
+      slideControlsChildren: childSignature(".slide-controls"),
+      slideViewerChildren: childSignature(".slide-viewer"),
+      slideViewerBarChildren: childSignature(".slide-viewer-bar"),
+      slideActionsChildren: childSignature(".slide-actions"),
+      pdfPanelChildren: childSignature(".pdf-panel"),
+      assignmentGridTag: document.querySelector("#assignments .feature-grid")?.tagName.toLowerCase() || "",
+      sessionsGridTag: document.querySelector("#sessions .sessions")?.tagName.toLowerCase() || "",
+      footerChildren: childSignature("footer.footer"),
+      fallbackLinks: [...document.querySelectorAll(".slide-fallback-list a")].map((link) => ({
+        href: link.getAttribute("href"),
+        target: link.getAttribute("target"),
+        rel: link.getAttribute("rel"),
+      })),
+      enhancedOptions: [...document.querySelectorAll("#slide-select option")].map((option) => option.value),
+      compact: document.querySelector(".slide-controls")?.classList.contains("is-compact") || false,
+    };
+  });
+}
+
+function withoutCounts(structure) {
+  return {
+    ...structure,
+    fallbackLinks: structure.fallbackLinks.map((link) => ({
+      href: link.href.replace(/session-\d+\.pdf$/, "session-NN.pdf"),
+      target: link.target,
+      rel: link.rel,
+    })).slice(0, 1),
+    enhancedOptions: structure.enhancedOptions.length ? ["0..n"] : [],
+    compact: "deck-count-dependent",
+  };
+}
+
+function expectSameStructure(left, right, label) {
+  const normalizedLeft = JSON.stringify(withoutCounts(left));
+  const normalizedRight = JSON.stringify(withoutCounts(right));
+  if (normalizedLeft !== normalizedRight) {
+    throw new Error(`${label} structures drifted:\n${normalizedLeft}\n${normalizedRight}`);
+  }
 }
 
 async function expectSlideReader(page, year, expectedDecks) {
@@ -64,10 +130,27 @@ async function expectSlideReader(page, year, expectedDecks) {
   if (!finalPath.endsWith(`/slides/${expectedPdf}`)) {
     throw new Error(`${year} direct PDF link did not update to ${expectedPdf}`);
   }
+
+  await page.locator("#slide-select").selectOption("0");
+  await page.locator("#next-slide-deck").click();
+  const nextPath = new URL(await direct.getAttribute("href"), page.url()).pathname;
+  if (!nextPath.endsWith("/slides/session-02.pdf")) {
+    throw new Error(`${year} next deck button did not advance to session-02.pdf`);
+  }
+  await page.locator("#prev-slide-deck").click();
+  const previousPath = new URL(await direct.getAttribute("href"), page.url()).pathname;
+  if (!previousPath.endsWith("/slides/session-01.pdf")) {
+    throw new Error(`${year} previous deck button did not return to session-01.pdf`);
+  }
+  await page.locator("#prev-slide-deck").click();
+  const wrappedPath = new URL(await direct.getAttribute("href"), page.url()).pathname;
+  if (!wrappedPath.endsWith(`/slides/${expectedPdf}`)) {
+    throw new Error(`${year} previous deck button did not wrap to ${expectedPdf}`);
+  }
 }
 
-async function expectFallbackSlideList(browser, path, year, expectedDecks) {
-  const context = await browser.newContext({ javaScriptEnabled: false });
+async function expectFallbackSlideList(browser, path, year, expectedDecks, viewport = { width: 1280, height: 800 }) {
+  const context = await browser.newContext({ javaScriptEnabled: false, viewport });
   const fallbackPage = await context.newPage();
   try {
     await fallbackPage.goto(site(path), { waitUntil: "domcontentloaded" });
@@ -95,24 +178,26 @@ async function expectFallbackSlideList(browser, path, year, expectedDecks) {
         throw new Error(`${year} fallback ${href} is missing rel safety attributes`);
       }
     }
+    await expectNoHorizontalOverflow(fallbackPage, `${year} no-JS ${viewport.width}px`);
   } finally {
     await context.close();
   }
 }
 
-async function expectMobileSlideControls(page, path, year) {
-  await page.setViewportSize({ width: 390, height: 844 });
+async function expectResponsiveSlideControls(page, path, year, viewport) {
+  await page.setViewportSize(viewport);
   await page.goto(site(path), { waitUntil: "domcontentloaded" });
   if (!(await page.locator("#slide-select").isVisible())) {
-    throw new Error(`${year} mobile slide select is not visible`);
+    throw new Error(`${year} ${viewport.width}px slide select is not visible`);
   }
   const fits = await page.locator(".slides-reader").evaluate((reader) => {
     const controls = reader.querySelector(".slide-controls");
     return reader.scrollWidth <= reader.clientWidth + 1 && (!controls || controls.scrollWidth <= controls.clientWidth + 1);
   });
   if (!fits) {
-    throw new Error(`${year} mobile slide controls overflow their panel`);
+    throw new Error(`${year} ${viewport.width}px slide controls overflow their panel`);
   }
+  await expectNoHorizontalOverflow(page, `${year} JS ${viewport.width}px`);
 }
 
 async function expectSessionPdfPanel(page, path, label) {
@@ -139,8 +224,33 @@ try {
   await page.goto(site("/"), { waitUntil: "domcontentloaded" });
   await expectCount(page, "h1", 1, "homepage h1");
 
-  await expectFallbackSlideList(browser, "/years/2024-2025/", "2024-2025", 8);
-  await expectFallbackSlideList(browser, "/years/2025-2026/", "2025-2026", 6);
+  for (const viewport of [{ width: 1280, height: 800 }, { width: 820, height: 900 }, { width: 390, height: 844 }]) {
+    await expectFallbackSlideList(browser, "/years/2024-2025/", "2024-2025", 8, viewport);
+    await expectFallbackSlideList(browser, "/years/2025-2026/", "2025-2026", 6, viewport);
+  }
+
+  const noJs2024 = await (async () => {
+    const context = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 1280, height: 800 } });
+    const fallbackPage = await context.newPage();
+    const structure = await yearStructure(fallbackPage, "/years/2024-2025/");
+    await context.close();
+    return structure;
+  })();
+  const noJs2025 = await (async () => {
+    const context = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 1280, height: 800 } });
+    const fallbackPage = await context.newPage();
+    const structure = await yearStructure(fallbackPage, "/years/2025-2026/");
+    await context.close();
+    return structure;
+  })();
+  expectSameStructure(noJs2024, noJs2025, "No-JavaScript year page");
+
+  const enhanced2024 = await yearStructure(page, "/years/2024-2025/");
+  const enhanced2025 = await yearStructure(page, "/years/2025-2026/");
+  expectSameStructure(enhanced2024, enhanced2025, "Enhanced year page");
+  if (!enhanced2024.compact || enhanced2025.compact) {
+    throw new Error("Slide compact mode should be deck-count dependent: 2024 compact, 2025 shortcut buttons visible");
+  }
 
   await page.goto(site("/years/2024-2025/"), { waitUntil: "domcontentloaded" });
   await expectCount(page, ".web-card", 9, "2024 sketch cards");
@@ -164,8 +274,10 @@ try {
   await expectSlideReader(page, "2025-2026", 6);
   await expectSessionPdfPanel(page, "/years/2024-2025/sessions/session-08/", "2024 session slides");
   await expectSessionPdfPanel(page, "/years/2025-2026/sessions/session-06/", "2025 session slides");
-  await expectMobileSlideControls(page, "/years/2024-2025/", "2024-2025");
-  await expectMobileSlideControls(page, "/years/2025-2026/", "2025-2026");
+  for (const viewport of [{ width: 1280, height: 800 }, { width: 820, height: 900 }, { width: 390, height: 844 }]) {
+    await expectResponsiveSlideControls(page, "/years/2024-2025/", "2024-2025", viewport);
+    await expectResponsiveSlideControls(page, "/years/2025-2026/", "2025-2026", viewport);
+  }
 
   await page.setViewportSize({ width: 1280, height: 720 });
   await page.goto(site("/years/2025-2026/"), { waitUntil: "domcontentloaded" });

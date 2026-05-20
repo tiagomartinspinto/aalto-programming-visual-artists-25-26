@@ -27,6 +27,56 @@ const privacyNote = "Code edits run locally in your browser and are not uploaded
 const publicRepoWarning = "This repository is public.";
 const ownershipNote = "authored and maintained by Tiago Martins Pinto";
 const yearSectionOrder = ["current-session", "web-sketches", "lab", "comparison", "slides", "assignments", "sessions"];
+const yearSharedStylesheet = '<link rel="stylesheet" href="../../assets/year-common.css">';
+const yearLocalStylesheet = '<link rel="stylesheet" href="year.css">';
+const yearInterfaceSelectors = [
+  "header.topbar",
+  ".topbar .brand",
+  ".topbar nav",
+  ".course-header .eyebrow",
+  ".course-header h1#course-title",
+  ".course-header .lede",
+  ".course-header .byline",
+  "#current-session.course-tools",
+  ".current-session-card .course-tool-label",
+  ".course-search .search-controls",
+  ".search-filters [data-search-type=\"all\"]",
+  ".search-filters [data-search-type=\"session\"]",
+  ".search-filters [data-search-type=\"sketch\"]",
+  ".search-filters [data-search-type=\"slide\"]",
+  "#web-sketches .section-heading + .notice + .web-grid",
+  "#lab .section-heading + .feature-grid",
+  "#comparison .section-heading + .feature-grid",
+  "#slides .section-heading + .slides-reader",
+  ".slides-reader .slide-controls + .slide-viewer",
+  ".slide-controls .slide-list-label + .slide-fallback-list",
+  ".slide-viewer .slide-viewer-bar + .pdf-panel",
+  ".slide-actions #prev-slide-deck + #next-slide-deck",
+  ".slide-actions #slide-direct-link",
+  ".pdf-panel#slide-panel #slide-panel-message",
+  "#assignments .section-heading + .feature-grid",
+  "#sessions .section-heading + .sessions",
+  "footer.footer [data-last-updated]",
+];
+const forbiddenLocalYearCssSelectors = [
+  ".topbar",
+  "nav",
+  ".course-header",
+  ".course-tools",
+  ".current-session-card",
+  ".course-search",
+  ".section-heading",
+  ".feature-grid",
+  ".sessions",
+  ".notice",
+  ".web-grid",
+  ".web-card",
+  ".slides-reader",
+  ".slide-controls",
+  ".slide-viewer",
+  ".pdf-panel",
+  ".footer",
+];
 
 function walk(directory) {
   return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
@@ -154,6 +204,16 @@ function checkHtml(filePath) {
   }
 
   if (/^years\/\d{4}-\d{4}\/index\.html$/.test(rel)) {
+    const sharedIndex = html.indexOf(yearSharedStylesheet);
+    const localIndex = html.indexOf(yearLocalStylesheet);
+    if (sharedIndex < 0) errors.push(`${rel} is missing the shared year interface stylesheet`);
+    if (localIndex < 0) errors.push(`${rel} is missing its local year palette stylesheet`);
+    if (sharedIndex >= 0 && localIndex >= 0 && sharedIndex > localIndex) {
+      errors.push(`${rel} loads local year.css before the shared year interface stylesheet`);
+    }
+    for (const selector of yearInterfaceSelectors) {
+      if (!matchesStaticSelector(html, selector)) errors.push(`${rel} is missing standard year interface structure: ${selector}`);
+    }
     let previous = -1;
     for (const id of yearSectionOrder) {
       const index = html.indexOf(`id="${id}"`);
@@ -212,6 +272,35 @@ function checkHtml(filePath) {
       errors.push(`${rel} is missing a safe direct PDF link for session slides`);
     }
   }
+}
+
+function matchesStaticSelector(html, selector) {
+  const parts = selector.split(/\s*\+\s*|\s+/).filter(Boolean);
+  return parts.every((part) => {
+    const tag = part.match(/^[a-z0-9-]+/i)?.[0] || "[a-z0-9-]+";
+    const id = part.match(/#([A-Za-z0-9_-]+)/)?.[1];
+    const classes = [...part.matchAll(/\.([A-Za-z0-9_-]+)/g)].map((match) => match[1]);
+    const attrs = [...part.matchAll(/\[([^=\]]+)(?:=["']?([^"'\]]+)["']?)?\]/g)].map((match) => ({
+      name: match[1],
+      value: match[2] || null,
+    }));
+    const tagPattern = tag === "[a-z0-9-]+" ? "[a-z0-9-]+" : tag;
+    const pattern = new RegExp(`<${tagPattern}\\b([^>]*)>`, "gi");
+    for (const match of html.matchAll(pattern)) {
+      const attributes = match[1];
+      if (id && !new RegExp(`\\bid=["']${id}["']`, "i").test(attributes)) continue;
+      const classValue = attributes.match(/\bclass=["']([^"']+)["']/i)?.[1] || "";
+      const classSet = new Set(classValue.split(/\s+/).filter(Boolean));
+      if (classes.some((className) => !classSet.has(className))) continue;
+      const hasAttrs = attrs.every(({ name, value }) => {
+        if (value === null) return new RegExp(`\\b${name}(?:\\s|$|=)`, "i").test(attributes);
+        const attrMatch = attributes.match(new RegExp(`\\b${name}=["']?([^"'\\s>]+)["']?`, "i"));
+        return attrMatch && attrMatch[1] === value;
+      });
+      if (hasAttrs) return true;
+    }
+    return false;
+  });
 }
 
 function loadCourseData(filePath) {
@@ -326,9 +415,27 @@ for (const filePath of walk(root)) {
     }
   }
   if (filePath.endsWith(".html")) checkHtml(filePath);
+  if (/years[\\/]\d{4}-\d{4}[\\/]year\.css$/.test(filePath)) {
+    const content = readFileSync(filePath, "utf8");
+    for (const selector of forbiddenLocalYearCssSelectors) {
+      if (content.includes(selector)) {
+        errors.push(`${relative(filePath)} contains shared layout selector ${selector}; use assets/year-common.css instead`);
+      }
+    }
+    if (!content.includes("--year-route")) {
+      errors.push(`${relative(filePath)} is missing the local --year-route palette token`);
+    }
+  }
   if (rel.endsWith("course-data.js")) checkCourseData(filePath);
 }
 checkCounts();
+
+if (!existsSync(path.join(root, "assets", "year-common.css"))) {
+  errors.push("assets/year-common.css is missing");
+}
+if (!readFileSync(path.join(root, "tools", "new-year.mjs"), "utf8").includes("../../assets/year-common.css")) {
+  errors.push("tools/new-year.mjs does not scaffold the shared year stylesheet");
+}
 
 if (errors.length) {
   console.error(errors.map((error) => `- ${error}`).join("\n"));

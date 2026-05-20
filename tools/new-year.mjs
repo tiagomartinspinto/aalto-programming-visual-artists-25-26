@@ -1,4 +1,4 @@
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
 const year = process.argv[2];
@@ -39,9 +39,16 @@ window.COURSE_DATA = {
 };
 `);
 
-const baseYearCss = readFileSync(path.join(root, "years", "2025-2026", "year.css"), "utf8")
-  .replaceAll("/pva/2025-2026", `/pva/${year}`);
-writeFileSync(path.join(target, "year.css"), baseYearCss);
+writeFileSync(path.join(target, "year.css"), `:root {
+  --year-route: "/pva/${year}";
+  --accent: #54d6c7;
+  --accent-2: #ff5b4f;
+  --accent-3: #f3c969;
+  --accent-rgb: 84, 214, 199;
+  --accent-2-rgb: 255, 91, 79;
+  --accent-ink: #06100f;
+}
+`);
 
 writeFileSync(path.join(target, "index.html"), `<!doctype html>
 <html lang="en">
@@ -53,6 +60,7 @@ writeFileSync(path.join(target, "index.html"), `<!doctype html>
     <meta name="description" content="Programming for Visual Artists ${year} course materials at Aalto University.">
     <meta name="theme-color" content="#090b0f">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; frame-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none';">
+    <link rel="stylesheet" href="../../assets/year-common.css">
     <link rel="stylesheet" href="year.css">
     <link rel="stylesheet" href="../../assets/ascii-skin.css">
   </head>
